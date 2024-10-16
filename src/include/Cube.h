@@ -38,6 +38,7 @@
 // amount of color cells on whole cube
 #define COLOR_CELLS 54
 #define COLOR_CELLS_PER_SIDE 9
+#define SHUFFLE_SEED 40
 
 // can be static_cast'ed to the offset of the first element
 enum class CubeSide : uint8_t {
@@ -73,8 +74,13 @@ public:
     // 0 1 2
     // 3 4 5
     // 6 7 8
-    // Note: dynamically allocates memory!
-    uint8_t *get_side(CubeSide side);
+    // NOTE: dynamically allocates memory!
+    uint8_t *get_side_data(CubeSide side);
+    // uint8_t *get_adjacent_data(CubeSide side);
+    
+    // returns array of all values on cube
+    // NOTE: dynamically allocates memory!
+    uint8_t *get_cube_data();
 private:
     // rotate one side (doesn't affect adjacent side)
     void _rotate_side(CubeSide side);

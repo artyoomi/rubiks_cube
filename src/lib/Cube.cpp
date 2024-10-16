@@ -2,6 +2,7 @@
 
 #include <cstdlib>
 #include <ctime>
+#include <cstring>
 
 Cube::Cube()
 {
@@ -9,6 +10,11 @@ Cube::Cube()
     std::srand(std::time(nullptr));
     
     // fill cube with some colors (fully assembled)
+    /* 
+     * TODO:
+     * maybe should change this nums to CubeSide constants in future
+     * also maybe change [0;5] nums to defines or enum
+     */
     for (std::size_t i = 0;  i < 9;  ++i) { _cube_data[i] = 0; }
     for (std::size_t i = 9;  i < 18; ++i) { _cube_data[i] = 1; }
     for (std::size_t i = 18; i < 27; ++i) { _cube_data[i] = 2; }
@@ -19,13 +25,18 @@ Cube::Cube()
 
 void Cube::shuffle()
 {
-    // select random side
-    CubeSide side = static_cast<CubeSide>((std::rand() % 6) * 9);
-    // select random rotation
-    Rotation rot = static_cast<Rotation>((std::rand() % 3) + 1);
+    CubeSide side;
+    Rotation rot;
+    
+    for (std::size_t i = 0; i < SHUFFLE_SEED; ++i) {
+        // select random side
+        side = static_cast<CubeSide>((std::rand() % 6) * 9);
+        // select random rotation
+        rot = static_cast<Rotation>((std::rand() % 3) + 1);
 
-    // take action
-    rotate(side, rot);
+        // take action
+        rotate(side, rot);
+    }
 }
 
 void Cube::rotate(CubeSide side, Rotation rot)
@@ -39,17 +50,44 @@ void Cube::rotate(CubeSide side, Rotation rot)
     }
 }
 
-uint8_t *Cube::get_side(CubeSide side)
+uint8_t *Cube::get_side_data(CubeSide side)
 {
     std::size_t first_i = static_cast<std::size_t>(side);
 
     uint8_t *result = new uint8_t[COLOR_CELLS_PER_SIDE];
-    for (std::size_t i = 0; i < COLOR_CELLS_PER_SIDE; ++i) {
+    for (std::size_t i = 0; i < COLOR_CELLS_PER_SIDE; ++i)
         result[i] = _cube_data[first_i + i];
-    }
 
     return result;
 }
+
+uint8_t *Cube::get_cube_data()
+{
+    // make and return deep copy of _cube_data
+    uint8_t *cube_data_copy = new uint8_t[COLOR_CELLS];
+    
+    for (std::size_t i = 0; i < COLOR_CELLS; ++i)
+        cube_data_copy[i] = _cube_data[i];
+    
+    return cube_data_copy;
+}
+
+/*
+ * if side looks like this
+ *
+ *     6  7  8
+ *   ----------
+ * 11|18 19 20|27
+ * 14|21 22 23|30
+ * 17|24 25 26|33
+ *   ----------  
+ *    45 46 47   
+ * than adjacent_data = {17, 14, 11, 6, 7, 8, 27, 30, 33, 47, 46, 45}
+ */
+// uint8_t *get_adjacent_data(CubeSide side)
+// {
+    
+// }
 
 /*
  * Action of the function:
@@ -66,8 +104,7 @@ void Cube::_rotate_side(CubeSide side)
 {
     std::size_t first_i = static_cast<std::size_t>(side);
 
-    // reorder
-    uint8_t new_side[COLOR_CELLS_PER_SIDE] = {
+    uint8_t new_side_data[COLOR_CELLS_PER_SIDE] = {
         _cube_data[first_i + 6],
         _cube_data[first_i + 3],
         _cube_data[first_i + 0],
@@ -81,7 +118,7 @@ void Cube::_rotate_side(CubeSide side)
 
     // insert reodered data back into the _cube_data
     for (std::size_t i = 0; i < COLOR_CELLS_PER_SIDE; ++i) {
-        _cube_data[first_i + i] = new_side[i];
+        _cube_data[first_i + i] = new_side_data[i];
     }
 }
 

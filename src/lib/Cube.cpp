@@ -1,4 +1,5 @@
 #include "../include/Cube.h"
+
 #include <cstdlib>
 #include <ctime>
 
@@ -8,28 +9,28 @@ Cube::Cube()
     std::srand(std::time(nullptr));
     
     // fill cube with some colors (fully assembled)
-    for(std::size_t i = 0;  i < 9;  i++) { _cube_data[i] = 0; }
-    for(std::size_t i = 9;  i < 18; i++) { _cube_data[i] = 1; }
-    for(std::size_t i = 18; i < 27; i++) { _cube_data[i] = 2; }
-    for(std::size_t i = 27; i < 36; i++) { _cube_data[i] = 3; }
-    for(std::size_t i = 36; i < 45; i++) { _cube_data[i] = 4; }
-    for(std::size_t i = 45; i < 54; i++) { _cube_data[i] = 5; }
+    for (std::size_t i = 0;  i < 9;  ++i) { _cube_data[i] = 0; }
+    for (std::size_t i = 9;  i < 18; ++i) { _cube_data[i] = 1; }
+    for (std::size_t i = 18; i < 27; ++i) { _cube_data[i] = 2; }
+    for (std::size_t i = 27; i < 36; ++i) { _cube_data[i] = 3; }
+    for (std::size_t i = 36; i < 45; ++i) { _cube_data[i] = 4; }
+    for (std::size_t i = 45; i < 54; ++i) { _cube_data[i] = 5; }
 }
 
 void Cube::shuffle()
 {
     // select random side
-    cube_side side = static_cast<cube_side>((std::rand() % 6) * 9);
+    CubeSide side = static_cast<CubeSide>((std::rand() % 6) * 9);
     // select random rotation
-    rotation rot = static_cast<rotation>((std::rand() % 3) + 1);
+    Rotation rot = static_cast<Rotation>((std::rand() % 3) + 1);
 
     // take action
     rotate(side, rot);
 }
 
-void Cube::rotate(cube_side side, rotation rot)
+void Cube::rotate(CubeSide side, Rotation rot)
 {
-    for(std::size_t i = 0; i < static_cast<std::size_t>(rot); i++) {
+    for (std::size_t i = 0; i < static_cast<std::size_t>(rot); ++i) {
         // rotate selected side
         _rotate_side(side);
 
@@ -38,12 +39,12 @@ void Cube::rotate(cube_side side, rotation rot)
     }
 }
 
-uint8_t *Cube::get_side(cube_side side)
+uint8_t *Cube::get_side(CubeSide side)
 {
     std::size_t first_i = static_cast<std::size_t>(side);
 
-    uint8_t *result = new uint8_t[9];
-    for(std::size_t i = 0; i < 9; i++) {
+    uint8_t *result = new uint8_t[COLOR_CELLS_PER_SIDE];
+    for (std::size_t i = 0; i < COLOR_CELLS_PER_SIDE; ++i) {
         result[i] = _cube_data[first_i + i];
     }
 
@@ -61,12 +62,12 @@ uint8_t *Cube::get_side(cube_side side)
  *              |
  * {6, 3, 0, 7, 4, 1, 8, 5, 2}
  */
-void Cube::_rotate_side(cube_side side)
+void Cube::_rotate_side(CubeSide side)
 {
     std::size_t first_i = static_cast<std::size_t>(side);
 
     // reorder
-    uint8_t new_side[9] = {
+    uint8_t new_side[COLOR_CELLS_PER_SIDE] = {
         _cube_data[first_i + 6],
         _cube_data[first_i + 3],
         _cube_data[first_i + 0],
@@ -79,7 +80,7 @@ void Cube::_rotate_side(cube_side side)
     };
 
     // insert reodered data back into the _cube_data
-    for(std::size_t i = 0; i < 9; i++) {
+    for (std::size_t i = 0; i < COLOR_CELLS_PER_SIDE; ++i) {
         _cube_data[first_i + i] = new_side[i];
     }
 }
@@ -99,13 +100,13 @@ void Cube::_rotate_side(cube_side side)
  *          d6 d7 d8                           d6 d7 d8         
  */
 
- void Cube::_rotate_adjacent(cube_side side)
+ void Cube::_rotate_adjacent(CubeSide side)
  {
      // a lot of swapping here...
      // (God pls trust me with the diagrams below...)
      uint8_t tmp1, tmp2, tmp3; // for swapping
-     switch(side) {
-         case cube_side::SIDE_UP:
+     switch (side) {
+         case CubeSide::SIDE_UP:
              /* BEFORE:
               *    38 37 36
               *   ----------
@@ -135,7 +136,7 @@ void Cube::_rotate_side(cube_side side)
              _cube_data[28] = tmp2;
              _cube_data[27] = tmp3;
              break;
-         case cube_side::SIDE_LEFT:
+         case CubeSide::SIDE_LEFT:
              /* BEFORE:
               *    0  3  6
               *   ----------
@@ -165,7 +166,7 @@ void Cube::_rotate_side(cube_side side)
              _cube_data[21] = tmp2;
              _cube_data[24] = tmp3;
              break;
-         case cube_side::SIDE_FRONT:
+         case CubeSide::SIDE_FRONT:
              /* BEFORE:
               *    6  7  8
               *   ----------
@@ -195,7 +196,7 @@ void Cube::_rotate_side(cube_side side)
              _cube_data[30] = tmp2;
              _cube_data[33] = tmp3;
              break;
-         case cube_side::SIDE_RIGHT:
+         case CubeSide::SIDE_RIGHT:
              /* BEFORE:
               *    8  5  2
               *   ----------
@@ -225,7 +226,7 @@ void Cube::_rotate_side(cube_side side)
              _cube_data[39] = tmp2;
              _cube_data[42] = tmp3;
              break;
-         case cube_side::SIDE_BACK:
+         case CubeSide::SIDE_BACK:
              /* BEFORE:
               *    2  1  0
               *   ----------
@@ -255,7 +256,7 @@ void Cube::_rotate_side(cube_side side)
              _cube_data[12] = tmp2;
              _cube_data[15] = tmp3;
              break;
-         case cube_side::SIDE_DOWN:
+         case CubeSide::SIDE_DOWN:
              /* BEFORE:
               *    24 25 26
               *   ----------

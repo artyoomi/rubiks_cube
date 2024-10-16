@@ -35,8 +35,12 @@
  * Note: this header doesn't define any colors - they are represented as uint8_t in range [0, 5]
  */
 
+// amount of color cells on whole cube
+#define COLOR_CELLS 54
+#define COLOR_CELLS_PER_SIDE 9
+
 // can be static_cast'ed to the offset of the first element
-enum class cube_side : uint8_t {
+enum class CubeSide : uint8_t {
     SIDE_UP    = 0,
     SIDE_LEFT  = 9,
     SIDE_FRONT = 18,
@@ -46,7 +50,7 @@ enum class cube_side : uint8_t {
 };
 
 // can be static_cast'ed to the number of clockwise turns
-enum class rotation : uint8_t{
+enum class Rotation : uint8_t {
     ROTATION_90  = 1,
     ROTATION_180 = 2,
     ROTATION_270 = 3
@@ -55,29 +59,29 @@ enum class rotation : uint8_t{
 class Cube
 {
 public:
-    // normal contructor, 
+    // normal constructor
     Cube();
 
     // do one random rotation
     void shuffle();
 
     // rotate selected side
-    void rotate(cube_side side, rotation rot);
+    void rotate(CubeSide side, Rotation rot);
 
     // get side colors
-    // returned as uint8_t[9] array:
+    // returned as uint8_t[COLOR_CELLS_PER_SIDE] array:
     // 0 1 2
     // 3 4 5
     // 6 7 8
     // Note: dynamically allocates memory!
-    uint8_t *get_side(cube_side side);
+    uint8_t *get_side(CubeSide side);
 private:
     // rotate one side (doesn't affect adjacent side)
-    void _rotate_side(cube_side side);
+    void _rotate_side(CubeSide side);
 
     // rotate adjacent elements
-    void _rotate_adjacent(cube_side side);
-    uint8_t _cube_data[54];
+    void _rotate_adjacent(CubeSide side);
+    uint8_t _cube_data[COLOR_CELLS];
 };
 
 #endif

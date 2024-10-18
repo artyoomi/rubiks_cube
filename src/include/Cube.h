@@ -36,7 +36,7 @@
  */
 
 // amount of color cells on whole cube
-#define COLOR_CELLS 54
+#define TOTAL_COLOR_CELLS 54
 #define COLOR_CELLS_PER_SIDE 9
 #define SHUFFLE_SEED 40
 
@@ -87,7 +87,7 @@ private:
 
     // rotate adjacent elements
     void _rotate_adjacent(CubeSide side);
-    uint8_t _cube_data[COLOR_CELLS];
+    uint8_t _cube_data[TOTAL_COLOR_CELLS];
 };
 
 #endif

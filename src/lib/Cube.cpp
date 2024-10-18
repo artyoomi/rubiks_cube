@@ -64,9 +64,9 @@ uint8_t *Cube::get_side_data(CubeSide side)
 uint8_t *Cube::get_cube_data()
 {
     // make and return deep copy of _cube_data
-    uint8_t *cube_data_copy = new uint8_t[COLOR_CELLS];
+    uint8_t *cube_data_copy = new uint8_t[TOTAL_COLOR_CELLS];
     
-    for (std::size_t i = 0; i < COLOR_CELLS; ++i)
+    for (std::size_t i = 0; i < TOTAL_COLOR_CELLS; ++i)
         cube_data_copy[i] = _cube_data[i];
     
     return cube_data_copy;

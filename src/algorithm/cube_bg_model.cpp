@@ -1,19 +1,10 @@
 #include "cube_bg_model.h"
 #include <cstdlib>
-#include <ctime>
 #include <cstring>
 
 Cube_bg_model::Cube_bg_model()
 {
-    // seed random generator with current time
-    std::srand(std::time(nullptr));
-    
     // fill cube with some colors (fully assembled)
-    /* 
-     * TODO:
-     * maybe should change this nums to CubeSide constants in future
-     * also maybe change [0;5] nums to defines or enum
-     */
     for (std::size_t i = 0;  i < 9;  ++i) { _cube_data[i] = 0; }
     for (std::size_t i = 9;  i < 18; ++i) { _cube_data[i] = 1; }
     for (std::size_t i = 18; i < 27; ++i) { _cube_data[i] = 2; }
@@ -51,34 +42,6 @@ uint8_t *Cube_bg_model::get_side(rotation_side side)
 
     return result;
 }
-
-uint8_t *Cube_bg_model::get_cube_data()
-{
-    // make and return deep copy of _cube_data
-    uint8_t *cube_data_copy = new uint8_t[TOTAL_COLOR_CELLS];
-    
-    for (std::size_t i = 0; i < TOTAL_COLOR_CELLS; ++i)
-        cube_data_copy[i] = _cube_data[i];
-    
-    return cube_data_copy;
-}
-
-/*
- * if side looks like this
- *
- *     6  7  8
- *   ----------
- * 11|18 19 20|27
- * 14|21 22 23|30
- * 17|24 25 26|33
- *   ----------  
- *    45 46 47   
- * than adjacent_data = {17, 14, 11, 6, 7, 8, 27, 30, 33, 47, 46, 45}
- */
-// uint8_t *get_adjacent_data(CubeSide side)
-// {
-    
-// }
 
 /*
  * Action of the function:

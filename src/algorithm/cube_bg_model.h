@@ -61,7 +61,7 @@ public:
     void rotate(rotation_side side, rotation_type rot);
 
     // get side colors
-    // returned as uint8_t[9] array:
+    // returned as uint8_t[COLOR_CELLS_PER_SIDE] array:
     // 0 1 2
     // 3 4 5
     // 6 7 8

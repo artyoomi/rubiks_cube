@@ -1,6 +1,7 @@
 #include "cube_bg_model.h"
 #include <cstdlib>
 #include <ctime>
+#include <cstring>
 
 Cube_bg_model::Cube_bg_model()
 {
@@ -8,12 +9,17 @@ Cube_bg_model::Cube_bg_model()
     std::srand(std::time(nullptr));
     
     // fill cube with some colors (fully assembled)
-    for(std::size_t i = 0;  i < 9;  i++) { _cube_data[i] = 0; }
-    for(std::size_t i = 9;  i < 18; i++) { _cube_data[i] = 1; }
-    for(std::size_t i = 18; i < 27; i++) { _cube_data[i] = 2; }
-    for(std::size_t i = 27; i < 36; i++) { _cube_data[i] = 3; }
-    for(std::size_t i = 36; i < 45; i++) { _cube_data[i] = 4; }
-    for(std::size_t i = 45; i < 54; i++) { _cube_data[i] = 5; }
+    /* 
+     * TODO:
+     * maybe should change this nums to CubeSide constants in future
+     * also maybe change [0;5] nums to defines or enum
+     */
+    for (std::size_t i = 0;  i < 9;  ++i) { _cube_data[i] = 0; }
+    for (std::size_t i = 9;  i < 18; ++i) { _cube_data[i] = 1; }
+    for (std::size_t i = 18; i < 27; ++i) { _cube_data[i] = 2; }
+    for (std::size_t i = 27; i < 36; ++i) { _cube_data[i] = 3; }
+    for (std::size_t i = 36; i < 45; ++i) { _cube_data[i] = 4; }
+    for (std::size_t i = 45; i < 54; ++i) { _cube_data[i] = 5; }
 }
 
 Cube_bg_model::Cube_bg_model(const Cube_bg_model &another)
@@ -40,12 +46,39 @@ uint8_t *Cube_bg_model::get_side(rotation_side side)
     std::size_t first_i = static_cast<std::size_t>(side) * 9;
 
     uint8_t *result = new uint8_t[9];
-    for(std::size_t i = 0; i < 9; i++) {
+    for (std::size_t i = 0; i < 9; ++i)
         result[i] = _cube_data[first_i + i];
-    }
 
     return result;
 }
+
+uint8_t *Cube_bg_model::get_cube_data()
+{
+    // make and return deep copy of _cube_data
+    uint8_t *cube_data_copy = new uint8_t[TOTAL_COLOR_CELLS];
+    
+    for (std::size_t i = 0; i < TOTAL_COLOR_CELLS; ++i)
+        cube_data_copy[i] = _cube_data[i];
+    
+    return cube_data_copy;
+}
+
+/*
+ * if side looks like this
+ *
+ *     6  7  8
+ *   ----------
+ * 11|18 19 20|27
+ * 14|21 22 23|30
+ * 17|24 25 26|33
+ *   ----------  
+ *    45 46 47   
+ * than adjacent_data = {17, 14, 11, 6, 7, 8, 27, 30, 33, 47, 46, 45}
+ */
+// uint8_t *get_adjacent_data(CubeSide side)
+// {
+    
+// }
 
 /*
  * Action of the function:
@@ -62,8 +95,7 @@ void Cube_bg_model::_rotate_side(rotation_side side)
 {
     std::size_t first_i = static_cast<std::size_t>(side);
 
-    // reorder
-    uint8_t new_side[9] = {
+    uint8_t new_side_data[9] = {
         _cube_data[first_i + 6],
         _cube_data[first_i + 3],
         _cube_data[first_i + 0],
@@ -76,8 +108,8 @@ void Cube_bg_model::_rotate_side(rotation_side side)
     };
 
     // insert reodered data back into the _cube_data
-    for(std::size_t i = 0; i < 9; i++) {
-        _cube_data[first_i + i] = new_side[i];
+    for (std::size_t i = 0; i < 9; ++i) {
+        _cube_data[first_i + i] = new_side_data[i];
     }
 }
 

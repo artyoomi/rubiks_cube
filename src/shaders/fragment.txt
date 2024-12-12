@@ -1,0 +1,18 @@
+#version 330 core
+out vec4 fragColor;
+
+// variables from the vertex shader
+in vec4 vertexColor;
+in vec2 texturePos;
+
+// material setup
+uniform sampler2D material;
+
+void main()
+{
+	vec4 texColor = texture(material, texturePos);
+	fragColor = vec4(
+		mix(vertexColor.rgb * vertexColor.a, texColor.rgb * texColor.a, texColor.a),
+		1.0f
+	);
+} 

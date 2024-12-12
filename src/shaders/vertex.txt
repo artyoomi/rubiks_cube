@@ -1,0 +1,18 @@
+#version 330 core
+layout (location = 0) in vec3 inPos;    // vertex coordinates
+layout (location = 1) in vec3 inColor;  // vertex color
+layout (location = 2) in vec2 inTexPos; // texture position at vertex
+  
+out vec4 vertexColor; // output color for the fragment shader
+out vec2 texturePos;  // output texture position for the fragment shader
+
+uniform mat4 model_transform;
+uniform mat4 camera_transform;
+uniform mat4 projection_transform;
+
+void main()
+{
+    gl_Position = projection_transform * camera_transform * model_transform * vec4(inPos, 1.0);
+    vertexColor = vec4(inColor, 1.0);
+    texturePos = inTexPos;
+}

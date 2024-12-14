@@ -27,9 +27,8 @@ void App::_setup_glfw()
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GLFW_TRUE);
     glfwWindowHint(GLFW_SAMPLES, 4);
 
-    _window = glfwCreateWindow(_win_width, _win_height, "Hello Window!", NULL, NULL);
+    _window = glfwCreateWindow(_win_width, _win_height, "Rubik's cube solver", NULL, NULL);
     glfwMakeContextCurrent(_window);
-    // glfwSetInputMode(_window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
 
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
         std::cout << "Couldn't load opengl" << std::endl;

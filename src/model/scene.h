@@ -7,7 +7,7 @@
 #include "cube.h"
 #include "../algorithm/cube_bg_model.h"
 
-#define ROTATION_SPEED 360.0f // deg / sec
+#define ROTATION_SPEED 5 * 360.0f // deg / sec
 #define CAMERA_DIST    15.0f
 
 class Scene

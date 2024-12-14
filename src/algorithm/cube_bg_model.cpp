@@ -1,6 +1,7 @@
 #include "cube_bg_model.h"
 #include <cstdlib>
 #include <cstring>
+#include <stdexcept>
 
 Cube_bg_model::Cube_bg_model()
 {
@@ -43,6 +44,14 @@ uint8_t *Cube_bg_model::get_side(rotation_side side)
     return result;
 }
 
+uint8_t Cube_bg_model::operator[](unsigned index)
+{
+    if(index >= 54)
+        throw std::invalid_argument("Wrong index" + std::to_string(index));
+
+    return _cube_data[index];
+}
+
 /*
  * Action of the function:
  * 0 1 2    cw    6 3 0
@@ -56,7 +65,7 @@ uint8_t *Cube_bg_model::get_side(rotation_side side)
  */
 void Cube_bg_model::_rotate_side(rotation_side side)
 {
-    std::size_t first_i = static_cast<std::size_t>(side);
+    std::size_t first_i = static_cast<std::size_t>(side) * 9;
 
     uint8_t new_side_data[9] = {
         _cube_data[first_i + 6],

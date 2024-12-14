@@ -22,11 +22,11 @@
  *          51 52 53
  *
  * And names of the sides:
- *        (U)p
- *       ---------
- * (L)eft|(F)ront|(R)ight|(B)ack
- *       ---------
- *        (D)own
+ *           (U)p[0]
+ *          ------------
+ * (L)eft[1]|(F)ront[2]|(R)ight[3]|(B)ack[4]
+ *          ------------
+ *           (D)own[5]
  *
  * Now let's define rotations - each side can be rotated to 90, 180, 270 deg clockwise
  * To do that rotation, call rotate(side, rotation).
@@ -67,6 +67,9 @@ public:
     // 6 7 8
     // Note: dynamically allocates memory!
     uint8_t *get_side(rotation_side side);
+
+    // get color directly by the index
+    uint8_t operator[](unsigned index);
 private:
     // rotate one side (doesn't affect adjacent side)
     void _rotate_side(rotation_side side);

@@ -38,7 +38,6 @@ void Scene::solve_cube()
 {
     auto moves = solver::solve(*_bg_cube);
     for(const auto &i : moves) {
-        _bg_cube->rotate(i.first, i.second);
         this->rotate_cube(i.first, i.second);
     }
 }

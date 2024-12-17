@@ -68,7 +68,10 @@ void App::_handle_input()
         _scene->shuffle_cube();
     }
     if (glfwGetKey(_window, GLFW_KEY_EQUAL) == GLFW_PRESS && !prev_states[7]) {
-        _scene->solve_cube();
+        _scene->solve_cube(ealgo_type::HUMAN);
+    }
+    if (glfwGetKey(_window, GLFW_KEY_MINUS) == GLFW_PRESS && !prev_states[7]) {
+        _scene->solve_cube(ealgo_type::THISTLETHWAITE);
     }
     
     prev_states[0] = (glfwGetKey(_window, GLFW_KEY_F) == GLFW_PRESS);

@@ -1,8 +1,6 @@
-#include <iostream>
-#include "solver.h"
-#include "cube_bg_model.h"
+#include "human_algo.h"
 
-std::vector<std::pair<rotation_side, rotation_type>> solver::solve(const Cube_bg_model &const_bg_cube)
+std::vector<std::pair<rotation_side, rotation_type>> Human_algo::solve(const Cube_bg_model &const_bg_cube) const
 {
     // create a copy of cube memory model to operate with
     Cube_bg_model bg_cube = const_bg_cube;
@@ -13,7 +11,7 @@ std::vector<std::pair<rotation_side, rotation_type>> solver::solve(const Cube_bg
 
     // this stages may need to be run multiple times
     while(1) {
-        auto phase1 = solver::phase1(bg_cube);
+        auto phase1 = this->phase1(bg_cube);
         if(phase1.empty())
             break;
 
@@ -23,7 +21,7 @@ std::vector<std::pair<rotation_side, rotation_type>> solver::solve(const Cube_bg
     }
 
     while(1) {
-        auto phase2 = solver::phase2(bg_cube);
+        auto phase2 = this->phase2(bg_cube);
         if(phase2.empty())
             break;
 
@@ -33,7 +31,7 @@ std::vector<std::pair<rotation_side, rotation_type>> solver::solve(const Cube_bg
     }
 
     while(1) {
-        auto phase3 = solver::phase3(bg_cube);
+        auto phase3 = this->phase3(bg_cube);
         if(phase3.empty())
             break;
 
@@ -43,7 +41,7 @@ std::vector<std::pair<rotation_side, rotation_type>> solver::solve(const Cube_bg
     }
 
     while(1) {
-        auto phase4 = solver::phase4(bg_cube);
+        auto phase4 = this->phase4(bg_cube);
         if(phase4.empty())
             break;
 
@@ -53,7 +51,7 @@ std::vector<std::pair<rotation_side, rotation_type>> solver::solve(const Cube_bg
     }
     
     while(1) {
-        auto phase5 = solver::phase5(bg_cube);
+        auto phase5 = this->phase5(bg_cube);
         if(phase5.empty())
             break;
 
@@ -63,7 +61,7 @@ std::vector<std::pair<rotation_side, rotation_type>> solver::solve(const Cube_bg
     }
     
     while(1) {
-        auto phase6 = solver::phase6(bg_cube);
+        auto phase6 = this->phase6(bg_cube);
         if(phase6.empty())
             break;
 
@@ -73,7 +71,7 @@ std::vector<std::pair<rotation_side, rotation_type>> solver::solve(const Cube_bg
     }
     
     while(1) {
-        auto phase7 = solver::phase7(bg_cube);
+        auto phase7 = this->phase7(bg_cube);
         if(phase7.empty())
             break;
 
@@ -86,7 +84,7 @@ std::vector<std::pair<rotation_side, rotation_type>> solver::solve(const Cube_bg
 }
 
 // Phase 7 - orientation of the D edges
-std::vector<std::pair<rotation_side, rotation_type>> solver::phase7(Cube_bg_model &bg_cube)
+std::vector<std::pair<rotation_side, rotation_type>> Human_algo::phase7(Cube_bg_model &bg_cube) const
 {
     // lambda for applying the rotation
     auto apply_rot = [&bg_cube](auto &res_vec, std::vector<std::pair<rotation_side, rotation_type>> rts){
@@ -216,7 +214,7 @@ std::vector<std::pair<rotation_side, rotation_type>> solver::phase7(Cube_bg_mode
 }
 
 // Phase 6 - position of the D edges
-std::vector<std::pair<rotation_side, rotation_type>> solver::phase6(Cube_bg_model &bg_cube)
+std::vector<std::pair<rotation_side, rotation_type>> Human_algo::phase6(Cube_bg_model &bg_cube) const
 {
     // lambda for applying the rotation
     auto apply_rot = [&bg_cube](auto &res_vec, std::vector<std::pair<rotation_side, rotation_type>> rts){
@@ -296,7 +294,7 @@ std::vector<std::pair<rotation_side, rotation_type>> solver::phase6(Cube_bg_mode
 }
 
 // Phase 5 - orientation of the bottom corners
-std::vector<std::pair<rotation_side, rotation_type>> solver::phase5(Cube_bg_model &bg_cube)
+std::vector<std::pair<rotation_side, rotation_type>> Human_algo::phase5(Cube_bg_model &bg_cube) const
 {
     // lambda for applying the rotation
     auto apply_rot = [&bg_cube](auto &res_vec, std::vector<std::pair<rotation_side, rotation_type>> rts){
@@ -394,7 +392,7 @@ std::vector<std::pair<rotation_side, rotation_type>> solver::phase5(Cube_bg_mode
 }
 
 // Phase 4 - position the bottom corners
-std::vector<std::pair<rotation_side, rotation_type>> solver::phase4(Cube_bg_model &bg_cube)
+std::vector<std::pair<rotation_side, rotation_type>> Human_algo::phase4(Cube_bg_model &bg_cube) const
 {
     // lambda for applying the rotation
     auto apply_rot = [&bg_cube](auto &res_vec, std::vector<std::pair<rotation_side, rotation_type>> rts){
@@ -503,7 +501,7 @@ std::vector<std::pair<rotation_side, rotation_type>> solver::phase4(Cube_bg_mode
 }
 
 // Phase 3 - solve the middle edges
-std::vector<std::pair<rotation_side, rotation_type>> solver::phase3(Cube_bg_model &bg_cube)
+std::vector<std::pair<rotation_side, rotation_type>> Human_algo::phase3(Cube_bg_model &bg_cube) const
 {
     // lambda for applying the rotation
     auto apply_rot = [&bg_cube](auto &res_vec, std::vector<std::pair<rotation_side, rotation_type>> rts){
@@ -617,7 +615,7 @@ std::vector<std::pair<rotation_side, rotation_type>> solver::phase3(Cube_bg_mode
 }
 
 // Phase 2 - solve the top corners
-std::vector<std::pair<rotation_side, rotation_type>> solver::phase2(Cube_bg_model &bg_cube)
+std::vector<std::pair<rotation_side, rotation_type>> Human_algo::phase2(Cube_bg_model &bg_cube) const
 {
     // lambda for applying the rotation
     auto apply_rot = [&bg_cube](auto &res_vec, std::vector<std::pair<rotation_side, rotation_type>> rts){
@@ -739,7 +737,7 @@ std::vector<std::pair<rotation_side, rotation_type>> solver::phase2(Cube_bg_mode
 
 
 // Phase 1 - solve the top layer edges
-std::vector<std::pair<rotation_side, rotation_type>> solver::phase1(Cube_bg_model &bg_cube)
+std::vector<std::pair<rotation_side, rotation_type>> Human_algo::phase1(Cube_bg_model &bg_cube) const
 {
     // lambda for applying the rotation
     auto apply_rot = [&bg_cube](auto &res_vec, std::vector<std::pair<rotation_side, rotation_type>> rts){
@@ -1048,7 +1046,7 @@ std::vector<std::pair<rotation_side, rotation_type>> solver::phase1(Cube_bg_mode
 // function to "rotate" moves cw around the cube axis
 // example1: circle_move([U F R D U' F'], 1)  = [U R B D U' R']
 // example2: circle_move([U F R D U' F'], -1) = [U L F D U' L']
-std::vector<std::pair<rotation_side, rotation_type>> solver::circle_move(std::vector<std::pair<rotation_side, rotation_type>> in_vec, int r)
+std::vector<std::pair<rotation_side, rotation_type>> Human_algo::circle_move(std::vector<std::pair<rotation_side, rotation_type>> in_vec, int r) const
 {
     std::vector<std::pair<rotation_side, rotation_type>> out_vec;
     for(const auto &i : in_vec) {

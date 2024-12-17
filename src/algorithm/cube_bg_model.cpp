@@ -1,6 +1,8 @@
 #include "cube_bg_model.h"
+
 #include <cstdlib>
 #include <cstring>
+
 #include <stdexcept>
 
 Cube_bg_model::Cube_bg_model()

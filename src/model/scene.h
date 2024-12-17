@@ -10,6 +10,8 @@
 #define ROTATION_SPEED 5 * 360.0f // deg / sec
 #define CAMERA_DIST    15.0f
 
+enum class ealgo_type {HUMAN, THISTLETHWAITE};
+
 class Scene
 {
 public:
@@ -24,7 +26,7 @@ public:
     void rotate_cube(rotation_side side, rotation_type rot);
     void rotate_camera(float angle_x, float angle_y);
     void shuffle_cube();
-    void solve_cube();
+    void solve_cube(ealgo_type algo_type);
 private:
     Camera *_camera;
     std::vector<Cube> _cubes;

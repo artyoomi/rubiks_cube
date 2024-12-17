@@ -70,7 +70,7 @@ void App::_handle_input()
     if (glfwGetKey(_window, GLFW_KEY_EQUAL) == GLFW_PRESS && !prev_states[7]) {
         _scene->solve_cube(ealgo_type::HUMAN);
     }
-    if (glfwGetKey(_window, GLFW_KEY_MINUS) == GLFW_PRESS && !prev_states[7]) {
+    if (glfwGetKey(_window, GLFW_KEY_MINUS) == GLFW_PRESS && !prev_states[8]) {
         _scene->solve_cube(ealgo_type::THISTLETHWAITE);
     }
     

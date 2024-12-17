@@ -38,7 +38,7 @@ void App::_setup_glfw()
 
 void App::_handle_input()
 {
-    static bool prev_states[8] = {};
+    static bool prev_states[9] = {};
     
     rotation_type rot_type = rotation_type::ROTATION_R;;
     if (glfwGetKey(_window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS ||
@@ -82,6 +82,7 @@ void App::_handle_input()
     prev_states[5] = (glfwGetKey(_window, GLFW_KEY_D) == GLFW_PRESS);
     prev_states[6] = (glfwGetKey(_window, GLFW_KEY_S) == GLFW_PRESS);
     prev_states[7] = (glfwGetKey(_window, GLFW_KEY_EQUAL) == GLFW_PRESS);
+    prev_states[8] = (glfwGetKey(_window, GLFW_KEY_MINUS) == GLFW_PRESS);
 
     if (glfwGetWindowAttrib(_window, GLFW_HOVERED)) {
         static double prev_mouse_x = 0, prev_mouse_y = 0;

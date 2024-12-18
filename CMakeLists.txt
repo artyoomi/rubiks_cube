@@ -36,19 +36,51 @@ find_package(OpenGL REQUIRED)
 
 include_directories(src src/algorithm)
 
+# Find all model subdirectory sources
+file(GLOB_RECURSE MODEL_SOURCES
+    "${PROJECT_SOURCE_DIR}/src/model/*.cpp"
+)
+
+# Find all view subdirectory sources
+file(GLOB_RECURSE VIEW_SOURCES
+    "${PROJECT_SOURCE_DIR}/src/view/*.cpp"
+)
+
+# Find all controller subdirectory sources
+file(GLOB_RECURSE CONTROLLER_SOURCES
+    "${PROJECT_SOURCE_DIR}/src/controller/*.cpp"
+)
+
+# Find all Human algo sources
+file(GLOB_RECURSE THISTLETHWAITE_SOURCES
+    "${PROJECT_SOURCE_DIR}/src/algorithm/human_algo/*.cpp"
+)
+
+# Find all Thistlethwaite algo sources
+file(GLOB_RECURSE THISTLETHWAITE_SOURCES
+    "${PROJECT_SOURCE_DIR}/src/algorithm/thistlethwaite/*.cpp"
+)
+
 add_executable(Rubiks_cube
     src/main.cpp 
     src/glad.c
-    src/model/camera.cpp
-    src/model/cube.cpp
-    src/model/scene.cpp
-    src/view/cube_mesh.cpp
-    src/view/renderer.cpp
-    src/view/resource_load.cpp
-    src/controller/app.cpp
+    ${MODEL_SOURCES}
+    ${VIEW_SOURCES}
+    ${CONTROLLER_SOURCES}
+    # src/model/camera.cpp
+    # src/model/cube.cpp
+    # src/model/scene.cpp
+    # src/view/cube_mesh.cpp
+    # src/view/renderer.cpp
+    # src/view/resource_load.cpp
+    # src/controller/app.cpp
     src/stb_image.cpp
     src/algorithm/cube_bg_model.cpp
-    src/algorithm/human_algorithm/human_algo.cpp
+    
+    # Human algo
+    #src/algorithm/human_algorithm/human_algo.cpp
+
+    ${THISTLETHWAITE_SOURCES}
 )
 
 target_link_libraries(Rubiks_cube

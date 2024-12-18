@@ -1,12 +1,11 @@
 #include <random>
 
 #include "scene.h"
-#include "solver.h"
+//#include "solver.h"
 #include "../../dependencies/glm/gtx/rotate_vector.hpp"
-#include "human_algorithm/human_algo.h"
 
-// remove when Thitlethwaite will be implemented
-#include <stdexcept>
+//#include "human_algorithm/human_algo.h"
+#include "thistlethwaite/thistlethwaite.h"
 
 Scene::Scene()
 {
@@ -41,15 +40,18 @@ void Scene::rotate_cube(rotation_side side, rotation_type rot)
 
 void Scene::solve_cube(ealgo_type algo_type)
 {
-    if (algo_type == ealgo_type::HUMAN) {
-        Human_algo human;
+    std::vector<std::pair<rotation_side, rotation_type>> moves;
 
-        auto moves = human.solve(*_bg_cube);
-        for(const auto &i : moves) {
-            this->rotate_cube(i.first, i.second);
-        }
+    if (algo_type == ealgo_type::HUMAN) {
+        //Human_algo human;
+        //moves = human.solve(*_bg_cube);
     } else if (algo_type == ealgo_type::THISTLETHWAITE) {
-        throw std::runtime_error("Not implemented yet");
+        Thistlethwaite thistlethwaite;
+        moves = thistlethwaite.solve(*_bg_cube);
+    }
+
+    for(const auto &i : moves) {
+        this->rotate_cube(i.first, i.second);
     }
 }
 

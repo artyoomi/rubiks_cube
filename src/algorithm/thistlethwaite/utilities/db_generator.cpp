@@ -1,6 +1,6 @@
 #include "db_generator.h"
 
-void DB_generator::generate(const Goal& goal, Database& database) const
+void DB_generator::generate(const Phase_info& phase_info, Database& database) const
 {
     Cube_bg_model cube;
     uint8_t       depth = 0;
@@ -13,7 +13,7 @@ void DB_generator::generate(const Goal& goal, Database& database) const
         std::vector<bool> visited(database.capacity(), false);
 
         std::cout << "Depth: " << (int)depth << ". ";
-        if (_db_searcher(cube, Cube_bg_model::EMOVE::NO_MOVE, goal, database, 0, depth, visited))
+        if (_db_searcher(cube, Cube_bg_model::EMOVE::NO_MOVE, phase_info, database, 0, depth, visited))
             break;
 
         std::cout << "visited states: " << database.size() << " / " << database.capacity() << std::endl;
@@ -27,7 +27,7 @@ void DB_generator::generate(const Goal& goal, Database& database) const
 
 
 bool DB_generator::_db_searcher(Cube_bg_model cube, Cube_bg_model::EMOVE last_move,
-                                const Goal& goal, Database& database,
+                                const Phase_info& phase_info, Database& database,
                                 uint8_t depth, uint8_t max_depth, std::vector<bool>& visited) const
 {
     // id of the current state of cube
@@ -47,13 +47,13 @@ bool DB_generator::_db_searcher(Cube_bg_model cube, Cube_bg_model::EMOVE last_mo
         return database.full();
     } else {
         // generate child nodes
-        for (const auto move : goal.legalMoves) {
+        for (const auto move : phase_info.allowed_moves) {
             if (utilities::redundant(move, last_move))
                 continue;
 
             cube.rotate(move);
 
-            if (_db_searcher(cube, move, goal, database, depth + 1, max_depth, visited))
+            if (_db_searcher(cube, move, phase_info, database, depth + 1, max_depth, visited))
                 return true;
 
             cube.revert_rotate(move);

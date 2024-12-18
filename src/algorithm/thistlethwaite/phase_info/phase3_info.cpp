@@ -1,6 +1,6 @@
-#include "G2_G3_goal.h"
+#include "phase3_info.h"
 
-bool G2_G3_Goal::contented(const Cube_bg_model& cube) const
+bool Phase3_info::solved(const Cube_bg_model& cube) const
 {
     using ECOLOUR = Cube_bg_model::ECOLOUR;
     using EPIECE  = Cube_bg_model::EPIECE;
@@ -30,9 +30,9 @@ bool G2_G3_Goal::contented(const Cube_bg_model& cube) const
 
         for (auto move : C_evenTetradSolvingMoves[i / 2])
         {
-            imitateMove(move, C_perm);
+            imitate_move(move, C_perm);
             if (C_perm[i] == i) break;    
-            imitateMove(move, C_perm);
+            imitate_move(move, C_perm);
         }
     }
     // solves one corner in the odd tetrad (ULF = 1)
@@ -41,12 +41,12 @@ bool G2_G3_Goal::contented(const Cube_bg_model& cube) const
     {
         for (int j = 0; j < 4; ++j)
         {
-            imitateMove(C_oddTetradSolvingMoves[move_sequence][j], C_perm);
+            imitate_move(C_oddTetradSolvingMoves[move_sequence][j], C_perm);
         }
         if (C_perm[1] == 1) break;
         for (int j = 3; j >= 0; --j)
         {
-            imitateMove(C_oddTetradSolvingMoves[move_sequence][j], C_perm);
+            imitate_move(C_oddTetradSolvingMoves[move_sequence][j], C_perm);
         }
         move_sequence++;
     }
@@ -66,7 +66,7 @@ bool G2_G3_Goal::contented(const Cube_bg_model& cube) const
         (cube.colour(EEDGE::BL) == ECOLOUR::G || cube.colour(EEDGE::BL) == ECOLOUR::B);
 }
 
-void G2_G3_Goal::imitateMove(EMOVE move, std::array<uint8_t, 8>& tetradsPerm) const
+void Phase3_info::imitate_move(EMOVE move, std::array<uint8_t, 8>& tetradsPerm) const
 {
     std::array<uint8_t, 4> indices, positions;
     switch (move)
@@ -91,7 +91,7 @@ void G2_G3_Goal::imitateMove(EMOVE move, std::array<uint8_t, 8>& tetradsPerm) co
         break;
     default:
         std::string moveValue = std::to_string((int)move);
-        throw std::logic_error("G2_G3_Goal::imitateMove invalid enum value " + moveValue);
+        throw std::logic_error("G2_G3_Goal::imitate_move invalid enum value " + moveValue);
     }
 
     for (uint8_t i = 0; i < 8; ++i)

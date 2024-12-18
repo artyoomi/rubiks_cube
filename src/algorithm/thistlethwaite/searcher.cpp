@@ -1,6 +1,6 @@
 #include "searcher.h"
 
-std::vector<Cube_bg_model::EMOVE> AStar::search(const Cube_bg_model& cube, const Goal& goal, const Database& database) const
+std::vector<Cube_bg_model::EMOVE> AStar::search(const Cube_bg_model& cube, const Phase_info& phase_info, const Database& database) const
 {
      bool    solved     = false;
     uint8_t root_score = database[cube];
@@ -17,7 +17,7 @@ std::vector<Cube_bg_model::EMOVE> AStar::search(const Cube_bg_model& cube, const
         pr_q.pop();
 
         // found a solution
-        if (goal.contented(curr_node->cube)) {
+        if (phase_info.solved(curr_node->cube)) {
             solved_node = curr_node;
             solved     = true;
             break;
@@ -27,7 +27,7 @@ std::vector<Cube_bg_model::EMOVE> AStar::search(const Cube_bg_model& cube, const
             throw std::logic_error("Searcher::Astar A solved state in the database didn't satisfiy the goal");
 
         // generate child nodes
-        for (const auto& move : goal.legalMoves) {
+        for (const auto& move : phase_info.allowed_moves) {
             if (utilities::redundant(move, curr_node->move)) continue;
             
             Cube_bg_model copy = curr_node->cube;

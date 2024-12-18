@@ -1,5 +1,4 @@
-#ifndef THISTLETHWAITE_H
-#define THISTLETHWAITE_H
+#pragma once
 
 #include "solver.h"
 #include "groups.h"
@@ -12,22 +11,26 @@ public:
 
 	Thistlethwaite();
 
+	/*
+	 * transform EMOVE notation to (rotation_side;rotation_type) pair
+	 * this uses for compatible between program and this algorithm
+	 */
 	std::vector<std::pair<rotation_side, rotation_type>> emove_to_rot(std::vector<EMOVE> moves) const;
 
-	std::vector<std::pair<rotation_side, rotation_type>> solve(const Cube_bg_model &bg_cube) const override;
+	// solve given cube
+	std::vector<std::pair<rotation_side, rotation_type>> solve(const Cube_bg_model &const_cube) const override;
 
 private:
-	using G0_G1 = TypedGroup<Phase1_database, G0_G1_Goal>;
-	using G1_G2 = TypedGroup<Phase2_database, G1_G2_Goal>;
-	using G2_G3 = TypedGroup<Phase3_database, G2_G3_Goal>;
-	using G3_G4 = TypedGroup<Phase4_database, G3_G4_Goal>;
+	// we give meaningful aliases for convenience
+	using Phase1 = TypedPhase<Phase1_database, Phase1_info>;
+	using Phase2 = TypedPhase<Phase2_database, Phase2_info>;
+	using Phase3 = TypedPhase<Phase3_database, Phase3_info>;
+	using Phase4 = TypedPhase<Phase4_database, Phase4_info>;
     
-	G0_G1 m_G0G1;
-	G1_G2 m_G1G2;
-	G2_G3 m_G2G3;
-	G3_G4 m_G3G4;
+	Phase1 _phase1;
+	Phase2 _phase2;
+	Phase3 _phase3;
+	Phase4 _phase4;
 
-	std::vector<Group*> m_groups;
+	std::vector<Phase*> _phases;
 };
-
-#endif // THISTLETHWAITE_H

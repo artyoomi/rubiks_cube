@@ -2,31 +2,18 @@
 
 Thistlethwaite::Thistlethwaite()
 {
-    // init groups
-    m_G0G1.useDatabase = true;
-    m_G1G2.useDatabase = true;
-    m_G2G3.useDatabase = true;
-    m_G3G4.useDatabase = true;
+    // give name to each phase
+    _phase1.name = "Phase 1. G0->G1";
+    _phase2.name = "Phase 2. G1->G2";
+    _phase3.name = "Phase 3. G2->G3";
+    _phase4.name = "Phase 4. G3->G4";
 
-    m_G0G1.name = "G0->G1";
-    m_G1G2.name = "G1->G2";
-    m_G2G3.name = "G2->G3";
-    m_G3G4.name = "G3->G4";
-
-    m_groups = {
-        &m_G0G1,
-        &m_G1G2,
-        &m_G2G3,
-        &m_G3G4
-    };
+    // combine phases in one vector
+    _phases = {&_phase1, &_phase2, &_phase3, &_phase4};
     
-    for (auto& group : m_groups)
-    {
-        if (group->useDatabase)
-        {
-            group->load_db();
-        }
-    }
+    // load database for each phase before start solving
+    for (auto& phase : _phases)
+        phase->load_db();
 }
 
 std::vector<std::pair<rotation_side, rotation_type>> Thistlethwaite::emove_to_rot(std::vector<EMOVE> moves) const
@@ -107,51 +94,56 @@ std::vector<std::pair<rotation_side, rotation_type>> Thistlethwaite::emove_to_ro
     return result;
 }
 
-std::vector<std::pair<rotation_side, rotation_type>> Thistlethwaite::solve(const Cube_bg_model &cube) const
+std::vector<std::pair<rotation_side, rotation_type>> Thistlethwaite::solve(const Cube_bg_model &const_cube) const
 {
-    Timer              timer;
-    Cube_bg_model      cubeState = cube;
+    // vector with all moves to solve cube
     std::vector<EMOVE> result;
-    double             combinedSolveTime = 0;
+
+    // get copy of given cube
+    Cube_bg_model cube = const_cube;
+
+    // initialize timer to get solve time
+    Timer  timer;
+    double full_solve_time = 0;
+
+    // create A* searcher object
+    AStar astar;
 
     std::cout << "Thistlethwaite's algorithm:" << std::endl;
 
-    for (const auto& group : m_groups)
-    {
+    for (const auto& phase : _phases) {
+        // start timer
         timer.set();
 
-        std::cout << group->name << ": ";
+        std::cout << phase->name << ": ";
 
-        // partial group solution
-        std::vector<EMOVE> groupResult;
-        AStar astar;
-
-        groupResult = astar.search(cubeState, *group->goal, *group->database);
+        // get partial group solution
+        std::vector<EMOVE> phase_result = astar.search(cube, *phase->phase_info, *phase->database);
 
         // add partial solution to the end result
-        result.insert(result.end(), groupResult.begin(), groupResult.end());
+        result.insert(result.end(), phase_result.begin(), phase_result.end());
+
         // perform the partial group solution to pass the new state to the next group
-        for (const EMOVE move : groupResult)
-            cubeState.rotate(move);
+        for (const EMOVE move : phase_result)
+            cube.rotate(move);
 
         // group solve statistics
-        double groupSolveTime = timer.get();
+        double phase_solve_time = timer.get();
 
-        std::cout << "Elapsed time: " << groupSolveTime << "ms, ";
-        std::cout << "Moves: " << groupResult.size() << std::endl;
-        combinedSolveTime += groupSolveTime;
+        std::cout << "Elapsed time: " << phase_solve_time << "ms, ";
+        std::cout << "Moves: " << phase_result.size() << std::endl;
+        full_solve_time += phase_solve_time;
     }
 
     // overall solve statistics
     std::cout << std::endl;
-    std::cout << "Solved in: " << (int)combinedSolveTime / 1000 << " seconds " << "(" << combinedSolveTime << "ms)." << std::endl;
+    std::cout << "Solved in: " << (int)full_solve_time / 1000 << " seconds " << "(" << full_solve_time << "ms)." << std::endl;
     std::cout << "Moves(" << result.size() << "): ";
     for (const auto& move : result)
-    {
         std::cout << cube.move_name(move);
-    }
     std::cout << std::endl;
 
+    // convert emove to rot notation
     auto new_result = emove_to_rot(result);
 
     return new_result;

@@ -1,6 +1,6 @@
-#include "G1_G2_goal.h"
+#include "phase2_info.h"
 
-bool G1_G2_Goal::contented(const Cube_bg_model& cube) const
+bool Phase2_info::solved(const Cube_bg_model& cube) const
 {
     using ECOLOUR   = Cube_bg_model::ECOLOUR;
     using EEDGE     = Cube_bg_model::EEDGE;

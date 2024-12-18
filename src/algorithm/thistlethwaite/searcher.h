@@ -8,7 +8,7 @@
 #include "utilities/searchutil.h"
 #include "cube_bg_model.h"
 #include "database/database.h"
-#include "thistlethwaite/Goals/goal.h"
+#include "thistlethwaite/phase_info/phase_info.h"
 
 /*
  * A* searching algorithm
@@ -26,5 +26,5 @@ struct AStar {
         uint8_t        score;
     };
 
-    std::vector<EMOVE> search(const Cube_bg_model& cube, const Goal& goal, const Database& database) const;
+    std::vector<EMOVE> search(const Cube_bg_model& cube, const Phase_info& phase_info, const Database& database) const;
 };

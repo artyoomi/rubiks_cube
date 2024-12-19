@@ -1,7 +1,11 @@
 #include "../../dependencies/glad/glad.h"
+
 #include "app.h"
+
 #include <iostream>
 #include <chrono>
+#include <thread>
+#include <functional>
 
 App::App(std::size_t window_width, std::size_t window_height) :
     _win_width{window_width}, _win_height{window_height}
@@ -68,10 +72,12 @@ void App::_handle_input()
         _scene->shuffle_cube();
     }
     if (glfwGetKey(_window, GLFW_KEY_EQUAL) == GLFW_PRESS && !prev_states[7]) {
-        _scene->solve_cube(ealgo_type::HUMAN);
+        std::thread solver_thread(&Scene::solve_cube, _scene, ealgo_type::HUMAN);
+        solver_thread.detach();
     }
     if (glfwGetKey(_window, GLFW_KEY_MINUS) == GLFW_PRESS && !prev_states[8]) {
-        _scene->solve_cube(ealgo_type::THISTLETHWAITE);
+        std::thread solver_thread(&Scene::solve_cube, _scene, ealgo_type::THISTLETHWAITE);
+        solver_thread.detach();
     }
     
     prev_states[0] = (glfwGetKey(_window, GLFW_KEY_F) == GLFW_PRESS);

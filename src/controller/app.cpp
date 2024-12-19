@@ -13,6 +13,7 @@ App::App(std::size_t window_width, std::size_t window_height) :
     _setup_glfw();
     _scene = new Scene();
     _renderer = new Renderer(_window);
+    _is_solving = false;
 }
 
 App::~App()
@@ -72,12 +73,20 @@ void App::_handle_input()
         _scene->shuffle_cube();
     }
     if (glfwGetKey(_window, GLFW_KEY_EQUAL) == GLFW_PRESS && !prev_states[7]) {
-        std::thread solver_thread(&Scene::solve_cube, _scene, ealgo_type::HUMAN);
-        solver_thread.detach();
+        if (!_is_solving) {
+            _is_solving = true;
+
+            std::thread solver_thread(&Scene::solve_cube, _scene, ealgo_type::HUMAN, std::ref(_is_solving));
+            solver_thread.detach();
+        }
     }
     if (glfwGetKey(_window, GLFW_KEY_MINUS) == GLFW_PRESS && !prev_states[8]) {
-        std::thread solver_thread(&Scene::solve_cube, _scene, ealgo_type::THISTLETHWAITE);
-        solver_thread.detach();
+        if (!_is_solving) {
+            _is_solving = true;
+
+            std::thread solver_thread(&Scene::solve_cube, _scene, ealgo_type::THISTLETHWAITE, std::ref(_is_solving));
+            solver_thread.detach();
+        }
     }
     
     prev_states[0] = (glfwGetKey(_window, GLFW_KEY_F) == GLFW_PRESS);

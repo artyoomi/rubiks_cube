@@ -2,7 +2,7 @@
 
 #include "solver.h"
 #include "groups.h"
-#include "searcher.h"
+#include "astar.h"
 
 // jaapsch.net/puzzles/thistle.htm
 class Thistlethwaite : public Solver {

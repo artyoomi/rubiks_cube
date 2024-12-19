@@ -19,7 +19,7 @@ public:
         : _size{0},
           _capacity{capacity},
           _fname{fname},
-          _cache_dir_path{"./ha/"}
+          _cache_dir_path{"./"}
     {
         _data.resize(capacity);
         reset();

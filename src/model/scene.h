@@ -7,6 +7,9 @@
 #include "cube.h"
 #include "../algorithm/cube_bg_model.h"
 
+#include <mutex>
+#include <atomic>
+
 #define ROTATION_SPEED 5 * 360.0f // deg / sec
 #define CAMERA_DIST    15.0f
 
@@ -26,11 +29,14 @@ public:
     void rotate_cube(rotation_side side, rotation_type rot);
     void rotate_camera(float angle_x, float angle_y);
     void shuffle_cube();
-    void solve_cube(ealgo_type algo_type);
+    void solve_cube(ealgo_type algo_type, std::atomic<bool>& is_solving);
+
 private:
     Camera *_camera;
     std::vector<Cube> _cubes;
     Cube_bg_model *_bg_cube;
+
+    std::mutex mtx;
 
     std::deque<std::pair<rotation_side, rotation_type>> _rot_queue;
     float _cur_rot_amount = 0.0f;

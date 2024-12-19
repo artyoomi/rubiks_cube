@@ -38,8 +38,11 @@ void Scene::rotate_cube(rotation_side side, rotation_type rot)
     _bg_cube->rotate(side, rot);
 }
 
-void Scene::solve_cube(ealgo_type algo_type)
+void Scene::solve_cube(ealgo_type algo_type, std::atomic<bool>& is_solving)
 {
+    // lock mutex
+    std::lock_guard<std::mutex> lock(mtx);
+
     std::vector<std::pair<rotation_side, rotation_type>> moves;
 
     if (algo_type == ealgo_type::HUMAN) {
@@ -53,6 +56,9 @@ void Scene::solve_cube(ealgo_type algo_type)
     for(const auto &i : moves) {
         this->rotate_cube(i.first, i.second);
     }
+
+    // solving completed
+    is_solving = false;
 }
 
 void Scene::rotate_camera(float angle_x, float angle_y)

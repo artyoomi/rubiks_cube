@@ -1,4 +1,4 @@
-#include "searcher.h"
+#include "astar.h"
 
 std::vector<Cube_bg_model::EMOVE> AStar::search(const Cube_bg_model& cube, const Phase_info& phase_info, const Database& database) const
 {
@@ -24,7 +24,7 @@ std::vector<Cube_bg_model::EMOVE> AStar::search(const Cube_bg_model& cube, const
         }
         // solved state in the database didn't satisfiy the goal
         if (database[curr_node->cube] == 0)
-            throw std::logic_error("Searcher::Astar A solved state in the database didn't satisfiy the goal");
+            throw std::logic_error("AStar A solved state in the database didn't satisfiy the goal");
 
         // generate child nodes
         for (const auto& move : phase_info.allowed_moves) {

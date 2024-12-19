@@ -1,6 +1,11 @@
 #pragma once
-#include "../../dependencies/GLFW/glfw3.h"
+
 #include <cstddef>
+
+#include <atomic>
+#include <mutex>
+
+#include "../../dependencies/GLFW/glfw3.h"
 #include "../model/scene.h"
 #include "../view/renderer.h"
 
@@ -19,4 +24,6 @@ private:
 
     Scene    *_scene;
     Renderer *_renderer;
+
+    std::atomic<bool> _is_solving;
 };

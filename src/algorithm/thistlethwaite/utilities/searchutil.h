@@ -5,7 +5,7 @@
 // functions to help in search
 namespace utilities
 {
-    using EMOVE = Cube_bg_model::EMOVE;
+    using emove = Cube_bg_model::emove;
 
-    bool redundant(EMOVE curr, EMOVE last);
+    bool redundant(emove curr, emove last);
 };

@@ -10,14 +10,14 @@
  * Base class for phase additional info and functions
  */
 struct Phase_info {
-	using ECOLOUR = Cube_bg_model::ECOLOUR;
-    using EMOVE   = Cube_bg_model::EMOVE;
-    using EEDGE   = Cube_bg_model::EEDGE;
-    using ECORNER = Cube_bg_model::ECORNER;
-    using EPIECE  = Cube_bg_model::EPIECE;
+	using ecolour = Cube_bg_model::ecolour;
+    using emove   = Cube_bg_model::emove;
+    using eedge   = Cube_bg_model::eedge;
+    using ecorner = Cube_bg_model::ecorner;
+    using epiece  = Cube_bg_model::epiece;
 
 	 // checks if cube solved on current phase
 	virtual bool solved(const Cube_bg_model& cube) const = 0;
 
-	std::vector<EMOVE> allowed_moves;
+	std::vector<emove> allowed_moves;
 };

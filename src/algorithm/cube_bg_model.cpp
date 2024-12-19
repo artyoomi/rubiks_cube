@@ -25,12 +25,12 @@ Cube_bg_model& Cube_bg_model::operator=(const Cube_bg_model& lhs)
 
 void Cube_bg_model::reset()
 {
-    for (std::size_t i = 0;  i < 1 * COLORS_PER_SIDE; ++i) { _cube_data[i] = ECOLOUR::W; }
-    for (std::size_t i = 9;  i < 2 * COLORS_PER_SIDE; ++i) { _cube_data[i] = ECOLOUR::O; }
-    for (std::size_t i = 18; i < 3 * COLORS_PER_SIDE; ++i) { _cube_data[i] = ECOLOUR::G; }
-    for (std::size_t i = 27; i < 4 * COLORS_PER_SIDE; ++i) { _cube_data[i] = ECOLOUR::R; }
-    for (std::size_t i = 36; i < 5 * COLORS_PER_SIDE; ++i) { _cube_data[i] = ECOLOUR::B; }
-    for (std::size_t i = 45; i < 6 * COLORS_PER_SIDE; ++i) { _cube_data[i] = ECOLOUR::Y; }
+    for (std::size_t i = 0;  i < 1 * COLORS_PER_SIDE; ++i) { _cube_data[i] = ecolour::W; }
+    for (std::size_t i = 9;  i < 2 * COLORS_PER_SIDE; ++i) { _cube_data[i] = ecolour::O; }
+    for (std::size_t i = 18; i < 3 * COLORS_PER_SIDE; ++i) { _cube_data[i] = ecolour::G; }
+    for (std::size_t i = 27; i < 4 * COLORS_PER_SIDE; ++i) { _cube_data[i] = ecolour::R; }
+    for (std::size_t i = 36; i < 5 * COLORS_PER_SIDE; ++i) { _cube_data[i] = ecolour::B; }
+    for (std::size_t i = 45; i < 6 * COLORS_PER_SIDE; ++i) { _cube_data[i] = ecolour::Y; }
 }
 
 bool Cube_bg_model::solved() const
@@ -44,18 +44,18 @@ bool Cube_bg_model::solved() const
     return true;
 }
 
-std::array<Cube_bg_model::ECOLOUR, COLORS_PER_SIDE> Cube_bg_model::get_side(rotation_side side)
+std::array<Cube_bg_model::ecolour, COLORS_PER_SIDE> Cube_bg_model::get_side(rotation_side side)
 {
     std::size_t first_i = static_cast<std::size_t>(side) * 9;
 
-    std::array<ECOLOUR, COLORS_PER_SIDE> result;
+    std::array<ecolour, COLORS_PER_SIDE> result;
     for (std::size_t i = 0; i < 9; ++i)
         result[i] = _cube_data[first_i + i];
 
     return result;
 }
 
-Cube_bg_model::ECOLOUR Cube_bg_model::operator[](unsigned index)
+Cube_bg_model::ecolour Cube_bg_model::operator[](unsigned index)
 {
     if(index >= TOTAL_COLOR_CELLS)
         throw std::invalid_argument("Wrong index" + std::to_string(index));
@@ -75,82 +75,82 @@ void Cube_bg_model::rotate(rotation_side side, rotation_type rot)
     }
 }
 
-void Cube_bg_model::rotate(EMOVE move)
+void Cube_bg_model::rotate(emove move)
 {
     switch (move) {
     // upper
-    case EMOVE::U:
+    case emove::U:
         rotate(rotation_side::SIDE_U, rotation_type::ROTATION_R);
         break;
-    case EMOVE::Up:
+    case emove::Up:
         rotate(rotation_side::SIDE_U, rotation_type::ROTATION_L);
         break;
-    case EMOVE::U2:
+    case emove::U2:
         rotate(rotation_side::SIDE_U, rotation_type::ROTATION_R);
         rotate(rotation_side::SIDE_U, rotation_type::ROTATION_R);
         break;
     
     // left
-    case EMOVE::L:
+    case emove::L:
         rotate(rotation_side::SIDE_L, rotation_type::ROTATION_R);
         break;
-    case EMOVE::Lp:
+    case emove::Lp:
         rotate(rotation_side::SIDE_L, rotation_type::ROTATION_L);
         break;
-    case EMOVE::L2:
+    case emove::L2:
         rotate(rotation_side::SIDE_L, rotation_type::ROTATION_R);
         rotate(rotation_side::SIDE_L, rotation_type::ROTATION_R);
         break;
     
     // front
-    case EMOVE::F:
+    case emove::F:
         rotate(rotation_side::SIDE_F, rotation_type::ROTATION_R);
         break;
-    case EMOVE::Fp:
+    case emove::Fp:
         rotate(rotation_side::SIDE_F, rotation_type::ROTATION_L);
         break;
-    case EMOVE::F2:
+    case emove::F2:
         rotate(rotation_side::SIDE_F, rotation_type::ROTATION_R);
         rotate(rotation_side::SIDE_F, rotation_type::ROTATION_R);
         break;
     
     // right
-    case EMOVE::R:
+    case emove::R:
         rotate(rotation_side::SIDE_R, rotation_type::ROTATION_R);
         break;
-    case EMOVE::Rp:
+    case emove::Rp:
         rotate(rotation_side::SIDE_R, rotation_type::ROTATION_L);
         break;
-    case EMOVE::R2:
+    case emove::R2:
         rotate(rotation_side::SIDE_R, rotation_type::ROTATION_R);
         rotate(rotation_side::SIDE_R, rotation_type::ROTATION_R);
         break;
     
     // back
-    case EMOVE::B:
+    case emove::B:
         rotate(rotation_side::SIDE_B, rotation_type::ROTATION_R);
         break;
-    case EMOVE::Bp:
+    case emove::Bp:
         rotate(rotation_side::SIDE_B, rotation_type::ROTATION_L);
         break;
-    case EMOVE::B2:
+    case emove::B2:
         rotate(rotation_side::SIDE_B, rotation_type::ROTATION_R);
         rotate(rotation_side::SIDE_B, rotation_type::ROTATION_R);
         break;
     
     // down
-    case EMOVE::D:
+    case emove::D:
         rotate(rotation_side::SIDE_D, rotation_type::ROTATION_R);
         break;
-    case EMOVE::Dp:
+    case emove::Dp:
         rotate(rotation_side::SIDE_D, rotation_type::ROTATION_L);
         break;
-    case EMOVE::D2:
+    case emove::D2:
         rotate(rotation_side::SIDE_D, rotation_type::ROTATION_R);
         rotate(rotation_side::SIDE_D, rotation_type::ROTATION_R);
         break;
     
-    case EMOVE::NO_MOVE:
+    case emove::NO_MOVE:
         break;
     
     default:
@@ -159,83 +159,83 @@ void Cube_bg_model::rotate(EMOVE move)
     }
 }
 
-void Cube_bg_model::revert_rotate(EMOVE move)
+void Cube_bg_model::revert_rotate(emove move)
 {
     // make inverse move to given
     switch (move) {
     // upper
-    case EMOVE::U:
+    case emove::U:
         rotate(rotation_side::SIDE_U, rotation_type::ROTATION_L);
         break;
-    case EMOVE::Up:
+    case emove::Up:
         rotate(rotation_side::SIDE_U, rotation_type::ROTATION_R);
         break;
-    case EMOVE::U2:
+    case emove::U2:
         rotate(rotation_side::SIDE_U, rotation_type::ROTATION_R);
         rotate(rotation_side::SIDE_U, rotation_type::ROTATION_R);
         break;
     
     // left
-    case EMOVE::L:
+    case emove::L:
         rotate(rotation_side::SIDE_L, rotation_type::ROTATION_L);
         break;
-    case EMOVE::Lp:
+    case emove::Lp:
         rotate(rotation_side::SIDE_L, rotation_type::ROTATION_R);
         break;
-    case EMOVE::L2:
+    case emove::L2:
         rotate(rotation_side::SIDE_L, rotation_type::ROTATION_R);
         rotate(rotation_side::SIDE_L, rotation_type::ROTATION_R);
         break;
     
     // front
-    case EMOVE::F:
+    case emove::F:
         rotate(rotation_side::SIDE_F, rotation_type::ROTATION_L);
         break;
-    case EMOVE::Fp:
+    case emove::Fp:
         rotate(rotation_side::SIDE_F, rotation_type::ROTATION_R);
         break;
-    case EMOVE::F2:
+    case emove::F2:
         rotate(rotation_side::SIDE_F, rotation_type::ROTATION_R);
         rotate(rotation_side::SIDE_F, rotation_type::ROTATION_R);
         break;
     
     // right
-    case EMOVE::R:
+    case emove::R:
         rotate(rotation_side::SIDE_R, rotation_type::ROTATION_L);
         break;
-    case EMOVE::Rp:
+    case emove::Rp:
         rotate(rotation_side::SIDE_R, rotation_type::ROTATION_R);
         break;
-    case EMOVE::R2:
+    case emove::R2:
         rotate(rotation_side::SIDE_R, rotation_type::ROTATION_R);
         rotate(rotation_side::SIDE_R, rotation_type::ROTATION_R);
         break;
     
     // back
-    case EMOVE::B:
+    case emove::B:
         rotate(rotation_side::SIDE_B, rotation_type::ROTATION_L);
         break;
-    case EMOVE::Bp:
+    case emove::Bp:
         rotate(rotation_side::SIDE_B, rotation_type::ROTATION_R);
         break;
-    case EMOVE::B2:
+    case emove::B2:
         rotate(rotation_side::SIDE_B, rotation_type::ROTATION_L);
         rotate(rotation_side::SIDE_B, rotation_type::ROTATION_L);
         break;
     
     // down
-    case EMOVE::D:
+    case emove::D:
         rotate(rotation_side::SIDE_D, rotation_type::ROTATION_L);
         break;
-    case EMOVE::Dp:
+    case emove::Dp:
         rotate(rotation_side::SIDE_D, rotation_type::ROTATION_R);
         break;
-    case EMOVE::D2:
+    case emove::D2:
         rotate(rotation_side::SIDE_D, rotation_type::ROTATION_R);
         rotate(rotation_side::SIDE_D, rotation_type::ROTATION_R);
         break;
 
-    case EMOVE::NO_MOVE:
+    case emove::NO_MOVE:
         break;
     
     default:
@@ -259,7 +259,7 @@ void Cube_bg_model::_rotate_side(rotation_side side)
 {
     std::size_t first_i = static_cast<std::size_t>(side) * 9;
 
-    ECOLOUR new_side_data[9] = {
+    ecolour new_side_data[9] = {
         _cube_data[first_i + 6],
         _cube_data[first_i + 3],
         _cube_data[first_i + 0],
@@ -295,7 +295,7 @@ void Cube_bg_model::_rotate_side(rotation_side side)
  {
      // a lot of swapping here...
      // (God pls trust me with the diagrams below...)
-     ECOLOUR tmp1, tmp2, tmp3; // for swapping
+     ecolour tmp1, tmp2, tmp3; // for swapping
      switch(side) {
          case rotation_side::SIDE_U:
              /* BEFORE:
@@ -480,12 +480,12 @@ void Cube_bg_model::_rotate_side(rotation_side side)
      }
  }
 
-Cube_bg_model::ECOLOUR Cube_bg_model::colour(ECORNER index) const
+Cube_bg_model::ecolour Cube_bg_model::colour(ecorner index) const
 {
     return _cube_data[(uint8_t)index];
 }
 
-Cube_bg_model::ECOLOUR Cube_bg_model::colour(EEDGE index) const
+Cube_bg_model::ecolour Cube_bg_model::colour(eedge index) const
 {
     return _cube_data[(uint8_t)index];
 }
@@ -493,9 +493,9 @@ Cube_bg_model::ECOLOUR Cube_bg_model::colour(EEDGE index) const
 uint8_t Cube_bg_model::edge_orientation(const edge_t& edge) const
 {
     return
-         (( edge[0] == ECOLOUR::G || edge[0] == ECOLOUR::B) ||
-          ((edge[0] == ECOLOUR::W || edge[0] == ECOLOUR::Y) &&
-           (edge[1] == ECOLOUR::R || edge[1] == ECOLOUR::O)));
+         (( edge[0] == ecolour::G || edge[0] == ecolour::B) ||
+          ((edge[0] == ecolour::W || edge[0] == ecolour::Y) &&
+           (edge[1] == ecolour::R || edge[1] == ecolour::O)));
 
     // checks if a facelet has one of the colours from the R/L axis, if not, checks if it's from the U/D axis and
     // that the adjacent edge facelet has a colour from the F/B axis
@@ -509,7 +509,7 @@ uint8_t Cube_bg_model::corner_orientation(const corner_t& corner) const
 
     // retrun 0 / 1 / 2 based on which axis the L/R colour is on
     for (uint8_t i = 0; i < 3; ++i) {
-        if (corner[i] == ECOLOUR::R || corner[i] == ECOLOUR::O)
+        if (corner[i] == ecolour::R || corner[i] == ecolour::O)
             return i;
     }
 
@@ -592,128 +592,128 @@ uint8_t Cube_bg_model::corner_index(const corner_t& corner) const
     }
 }
 
-uint8_t Cube_bg_model::piece_index(EPIECE piece) const
+uint8_t Cube_bg_model::piece_index(epiece piece) const
 {
     switch (piece) {
-    case EPIECE::UL:
-        return edge_index({colour(EEDGE::UL), colour(EEDGE::LU)});
-    case EPIECE::DL:
-        return edge_index({colour(EEDGE::DL), colour(EEDGE::LD)});
-    case EPIECE::DR:
-        return edge_index({colour(EEDGE::DR), colour(EEDGE::RD)});
-    case EPIECE::UR:
-        return edge_index({colour(EEDGE::UR), colour(EEDGE::RU)});
-    case EPIECE::LF:
-        return edge_index({colour(EEDGE::LF), colour(EEDGE::FL)});
-    case EPIECE::LB:
-        return edge_index({colour(EEDGE::LB), colour(EEDGE::BL)});
-    case EPIECE::RF:
-        return edge_index({colour(EEDGE::RF), colour(EEDGE::FR)});
-    case EPIECE::RB:
-        return edge_index({colour(EEDGE::RB), colour(EEDGE::BR)});
-    case EPIECE::UF:
-        return edge_index({colour(EEDGE::UF), colour(EEDGE::FU)});
-    case EPIECE::DF:
-        return edge_index({colour(EEDGE::DF), colour(EEDGE::FD)});
-    case EPIECE::DB:
-        return edge_index({colour(EEDGE::DB), colour(EEDGE::BD)});
-    case EPIECE::UB:
-        return edge_index({colour(EEDGE::UB), colour(EEDGE::BU)});
-    case EPIECE::ULB:
-        return corner_index({colour(ECORNER::LUB), colour(ECORNER::ULB), colour(ECORNER::BLU)});
-    case EPIECE::ULF:
-        return corner_index({colour(ECORNER::LUF), colour(ECORNER::ULF), colour(ECORNER::FLU)});
-    case EPIECE::DLF:
-        return corner_index({colour(ECORNER::LDF), colour(ECORNER::DLF), colour(ECORNER::FLD)});
-    case EPIECE::DLB:
-        return corner_index({colour(ECORNER::LDB), colour(ECORNER::DLB), colour(ECORNER::BLD)});
-    case EPIECE::DRB:
-        return corner_index({colour(ECORNER::RDB), colour(ECORNER::DRB), colour(ECORNER::BRD)});
-    case EPIECE::DRF:
-        return corner_index({colour(ECORNER::RDF), colour(ECORNER::DRF), colour(ECORNER::FRD)});
-    case EPIECE::URF:
-        return corner_index({colour(ECORNER::RUF), colour(ECORNER::URF), colour(ECORNER::FRU)});
-    case EPIECE::URB:
-        return corner_index({colour(ECORNER::RUB), colour(ECORNER::URB), colour(ECORNER::BRU)});
+    case epiece::UL:
+        return edge_index({colour(eedge::UL), colour(eedge::LU)});
+    case epiece::DL:
+        return edge_index({colour(eedge::DL), colour(eedge::LD)});
+    case epiece::DR:
+        return edge_index({colour(eedge::DR), colour(eedge::RD)});
+    case epiece::UR:
+        return edge_index({colour(eedge::UR), colour(eedge::RU)});
+    case epiece::LF:
+        return edge_index({colour(eedge::LF), colour(eedge::FL)});
+    case epiece::LB:
+        return edge_index({colour(eedge::LB), colour(eedge::BL)});
+    case epiece::RF:
+        return edge_index({colour(eedge::RF), colour(eedge::FR)});
+    case epiece::RB:
+        return edge_index({colour(eedge::RB), colour(eedge::BR)});
+    case epiece::UF:
+        return edge_index({colour(eedge::UF), colour(eedge::FU)});
+    case epiece::DF:
+        return edge_index({colour(eedge::DF), colour(eedge::FD)});
+    case epiece::DB:
+        return edge_index({colour(eedge::DB), colour(eedge::BD)});
+    case epiece::UB:
+        return edge_index({colour(eedge::UB), colour(eedge::BU)});
+    case epiece::ULB:
+        return corner_index({colour(ecorner::LUB), colour(ecorner::ULB), colour(ecorner::BLU)});
+    case epiece::ULF:
+        return corner_index({colour(ecorner::LUF), colour(ecorner::ULF), colour(ecorner::FLU)});
+    case epiece::DLF:
+        return corner_index({colour(ecorner::LDF), colour(ecorner::DLF), colour(ecorner::FLD)});
+    case epiece::DLB:
+        return corner_index({colour(ecorner::LDB), colour(ecorner::DLB), colour(ecorner::BLD)});
+    case epiece::DRB:
+        return corner_index({colour(ecorner::RDB), colour(ecorner::DRB), colour(ecorner::BRD)});
+    case epiece::DRF:
+        return corner_index({colour(ecorner::RDF), colour(ecorner::DRF), colour(ecorner::FRD)});
+    case epiece::URF:
+        return corner_index({colour(ecorner::RUF), colour(ecorner::URF), colour(ecorner::FRU)});
+    case epiece::URB:
+        return corner_index({colour(ecorner::RUB), colour(ecorner::URB), colour(ecorner::BRU)});
     default:
         std::string value = std::to_string((int)piece);
         throw std::logic_error("Cube_bg_model::piece_index invalid enum value: " + value);
     }
 }
 
-Cube_bg_model::edge_t Cube_bg_model::edge(EPIECE piece) const
+Cube_bg_model::edge_t Cube_bg_model::edge(epiece piece) const
 {
     switch (piece) {
-    case EPIECE::UL:
-        return {colour(EEDGE::LU), colour(EEDGE::UL)};
-    case EPIECE::DL:
-        return {colour(EEDGE::LD), colour(EEDGE::DL)};
-    case EPIECE::DR:
-        return {colour(EEDGE::RD), colour(EEDGE::DR)};
-    case EPIECE::UR:
-        return {colour(EEDGE::RU), colour(EEDGE::UR)};
-    case EPIECE::LF:
-        return {colour(EEDGE::LF), colour(EEDGE::FL)};
-    case EPIECE::LB:
-        return {colour(EEDGE::LB), colour(EEDGE::BL)};
-    case EPIECE::RF:
-        return {colour(EEDGE::RF), colour(EEDGE::FR)};
-    case EPIECE::RB:
-        return {colour(EEDGE::RB), colour(EEDGE::BR)};
-    case EPIECE::UF:
-        return {colour(EEDGE::UF), colour(EEDGE::FU)};
-    case EPIECE::DF:
-        return {colour(EEDGE::DF), colour(EEDGE::FD)};
-    case EPIECE::DB:
-        return {colour(EEDGE::DB), colour(EEDGE::BD)};
-    case EPIECE::UB:
-        return {colour(EEDGE::UB), colour(EEDGE::BU)};
+    case epiece::UL:
+        return {colour(eedge::LU), colour(eedge::UL)};
+    case epiece::DL:
+        return {colour(eedge::LD), colour(eedge::DL)};
+    case epiece::DR:
+        return {colour(eedge::RD), colour(eedge::DR)};
+    case epiece::UR:
+        return {colour(eedge::RU), colour(eedge::UR)};
+    case epiece::LF:
+        return {colour(eedge::LF), colour(eedge::FL)};
+    case epiece::LB:
+        return {colour(eedge::LB), colour(eedge::BL)};
+    case epiece::RF:
+        return {colour(eedge::RF), colour(eedge::FR)};
+    case epiece::RB:
+        return {colour(eedge::RB), colour(eedge::BR)};
+    case epiece::UF:
+        return {colour(eedge::UF), colour(eedge::FU)};
+    case epiece::DF:
+        return {colour(eedge::DF), colour(eedge::FD)};
+    case epiece::DB:
+        return {colour(eedge::DB), colour(eedge::BD)};
+    case epiece::UB:
+        return {colour(eedge::UB), colour(eedge::BU)};
     default:
         std::string value = std::to_string((int)piece);
         throw std::logic_error("Cube_bg_model::edge invalid enum value: " + value);
     }
 }
 
-Cube_bg_model::corner_t Cube_bg_model::corner(EPIECE piece) const
+Cube_bg_model::corner_t Cube_bg_model::corner(epiece piece) const
 {
     // same as edge(), only requires the position of the edge / corner piece
     switch (piece) {
-    case EPIECE::ULB:
-        return {colour(ECORNER::LUB), colour(ECORNER::ULB), colour(ECORNER::BLU)};
-    case EPIECE::ULF:
-        return {colour(ECORNER::LUF), colour(ECORNER::ULF), colour(ECORNER::FLU)};
-    case EPIECE::DLF:
-        return {colour(ECORNER::LDF), colour(ECORNER::DLF), colour(ECORNER::FLD)};
-    case EPIECE::DLB:
-        return {colour(ECORNER::LDB), colour(ECORNER::DLB), colour(ECORNER::BLD)};
-    case EPIECE::DRB:
-        return {colour(ECORNER::RDB), colour(ECORNER::DRB), colour(ECORNER::BRD)};
-    case EPIECE::DRF:
-        return {colour(ECORNER::RDF), colour(ECORNER::DRF), colour(ECORNER::FRD)};
-    case EPIECE::URF:
-        return {colour(ECORNER::RUF), colour(ECORNER::URF), colour(ECORNER::FRU)};
-    case EPIECE::URB:
-        return {colour(ECORNER::RUB), colour(ECORNER::URB), colour(ECORNER::BRU)};
+    case epiece::ULB:
+        return {colour(ecorner::LUB), colour(ecorner::ULB), colour(ecorner::BLU)};
+    case epiece::ULF:
+        return {colour(ecorner::LUF), colour(ecorner::ULF), colour(ecorner::FLU)};
+    case epiece::DLF:
+        return {colour(ecorner::LDF), colour(ecorner::DLF), colour(ecorner::FLD)};
+    case epiece::DLB:
+        return {colour(ecorner::LDB), colour(ecorner::DLB), colour(ecorner::BLD)};
+    case epiece::DRB:
+        return {colour(ecorner::RDB), colour(ecorner::DRB), colour(ecorner::BRD)};
+    case epiece::DRF:
+        return {colour(ecorner::RDF), colour(ecorner::DRF), colour(ecorner::FRD)};
+    case epiece::URF:
+        return {colour(ecorner::RUF), colour(ecorner::URF), colour(ecorner::FRU)};
+    case epiece::URB:
+        return {colour(ecorner::RUB), colour(ecorner::URB), colour(ecorner::BRU)};
     default:
         std::string value = std::to_string((int)piece);
         throw std::logic_error("Cube_bg_model::corner invalid enum value: " + value);
     }
 }
 
-std::string Cube_bg_model::colour_name(ECOLOUR colour) const
+std::string Cube_bg_model::colour_name(ecolour colour) const
 {
     switch (colour) {
-    case ECOLOUR::W:
+    case ecolour::W:
         return "W";
-    case ECOLOUR::O:
+    case ecolour::O:
         return "O";
-    case ECOLOUR::G:
+    case ecolour::G:
         return "G";
-    case ECOLOUR::R:
+    case ecolour::R:
         return "R";
-    case ECOLOUR::B:
+    case ecolour::B:
         return "B";
-    case ECOLOUR::Y:
+    case ecolour::Y:
         return "Y";
     default:
         std::string value = std::to_string((int)colour);
@@ -721,46 +721,46 @@ std::string Cube_bg_model::colour_name(ECOLOUR colour) const
     }
 }
 
-std::string Cube_bg_model::move_name(EMOVE move) const
+std::string Cube_bg_model::move_name(emove move) const
 {
     switch (move) {
-    case EMOVE::U:
+    case emove::U:
         return "U";
-    case EMOVE::Up:
+    case emove::Up:
         return "U'";
-    case EMOVE::U2:
+    case emove::U2:
         return "U2";
-    case EMOVE::L:
+    case emove::L:
         return "L";
-    case EMOVE::Lp:
+    case emove::Lp:
         return "L'";
-    case EMOVE::L2:
+    case emove::L2:
         return "L2";
-    case EMOVE::F:
+    case emove::F:
         return "F";
-    case EMOVE::Fp:
+    case emove::Fp:
         return "F'";
-    case EMOVE::F2:
+    case emove::F2:
         return "F2";
-    case EMOVE::R:
+    case emove::R:
         return "R";
-    case EMOVE::Rp:
+    case emove::Rp:
         return "R'";
-    case EMOVE::R2:
+    case emove::R2:
         return "R2";
-    case EMOVE::B:
+    case emove::B:
         return "B";
-    case EMOVE::Bp:
+    case emove::Bp:
         return "B'";
-    case EMOVE::B2:
+    case emove::B2:
         return "B2";
-    case EMOVE::D:
+    case emove::D:
         return "D";
-    case EMOVE::Dp:
+    case emove::Dp:
         return "D'";
-    case EMOVE::D2:
+    case emove::D2:
         return "D2";
-    case EMOVE::NO_MOVE:
+    case emove::NO_MOVE:
         return "";
     default:
         std::string value = std::to_string((int)move);

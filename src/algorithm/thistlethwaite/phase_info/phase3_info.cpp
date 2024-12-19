@@ -2,20 +2,16 @@
 
 bool Phase3_info::solved(const Cube_bg_model& cube) const
 {
-    using ECOLOUR = Cube_bg_model::ECOLOUR;
-    using EPIECE  = Cube_bg_model::EPIECE;
-    using EEDGE   = Cube_bg_model::EEDGE;
-
     // stores which corner is currently occupying which position
     std::array<uint8_t, 8> C_perm = {
-        cube.piece_index(EPIECE::ULB),
-        cube.piece_index(EPIECE::ULF),
-        cube.piece_index(EPIECE::DLF),
-        cube.piece_index(EPIECE::DLB),
-        cube.piece_index(EPIECE::DRB),
-        cube.piece_index(EPIECE::DRF),
-        cube.piece_index(EPIECE::URF),
-        cube.piece_index(EPIECE::URB),
+        cube.piece_index(epiece::ULB),
+        cube.piece_index(epiece::ULF),
+        cube.piece_index(epiece::DLF),
+        cube.piece_index(epiece::DLB),
+        cube.piece_index(epiece::DRB),
+        cube.piece_index(epiece::DRF),
+        cube.piece_index(epiece::URF),
+        cube.piece_index(epiece::URB),
     };
     
     // checks whether the tetrads are formed
@@ -56,37 +52,37 @@ bool Phase3_info::solved(const Cube_bg_model& cube) const
 
     // checks if all the edges are in their home slice (M-slice edges are already solved)
     return
-        (cube.colour(EEDGE::UR) == ECOLOUR::W || cube.colour(EEDGE::UR) == ECOLOUR::Y) &&
-        (cube.colour(EEDGE::UL) == ECOLOUR::W || cube.colour(EEDGE::UL) == ECOLOUR::Y) &&
-        (cube.colour(EEDGE::DR) == ECOLOUR::W || cube.colour(EEDGE::DR) == ECOLOUR::Y) &&
-        (cube.colour(EEDGE::DL) == ECOLOUR::W || cube.colour(EEDGE::DL) == ECOLOUR::Y) &&
-        (cube.colour(EEDGE::FR) == ECOLOUR::G || cube.colour(EEDGE::FR) == ECOLOUR::B) &&
-        (cube.colour(EEDGE::FL) == ECOLOUR::G || cube.colour(EEDGE::FL) == ECOLOUR::B) &&
-        (cube.colour(EEDGE::BR) == ECOLOUR::G || cube.colour(EEDGE::BR) == ECOLOUR::B) &&
-        (cube.colour(EEDGE::BL) == ECOLOUR::G || cube.colour(EEDGE::BL) == ECOLOUR::B);
+        (cube.colour(eedge::UR) == ecolour::W || cube.colour(eedge::UR) == ecolour::Y) &&
+        (cube.colour(eedge::UL) == ecolour::W || cube.colour(eedge::UL) == ecolour::Y) &&
+        (cube.colour(eedge::DR) == ecolour::W || cube.colour(eedge::DR) == ecolour::Y) &&
+        (cube.colour(eedge::DL) == ecolour::W || cube.colour(eedge::DL) == ecolour::Y) &&
+        (cube.colour(eedge::FR) == ecolour::G || cube.colour(eedge::FR) == ecolour::B) &&
+        (cube.colour(eedge::FL) == ecolour::G || cube.colour(eedge::FL) == ecolour::B) &&
+        (cube.colour(eedge::BR) == ecolour::G || cube.colour(eedge::BR) == ecolour::B) &&
+        (cube.colour(eedge::BL) == ecolour::G || cube.colour(eedge::BL) == ecolour::B);
 }
 
-void Phase3_info::imitate_move(EMOVE move, std::array<uint8_t, 8>& tetradsPerm) const
+void Phase3_info::imitate_move(emove move, std::array<uint8_t, 8>& tetradsPerm) const
 {
     std::array<uint8_t, 4> indices, positions;
     switch (move)
     {
-    case EMOVE::U2:
+    case emove::U2:
         indices = { 0,6,1,7 };
         break;
-    case EMOVE::D2:
+    case emove::D2:
         indices = { 2,4,3,5 };
         break;
-    case EMOVE::L2:
+    case emove::L2:
         indices = { 0,2,1,3 };
         break;
-    case EMOVE::R2:
+    case emove::R2:
         indices = { 4,6,5,7 };
         break;
-    case EMOVE::F2:
+    case emove::F2:
         indices = { 2,6,1,5 };
         break;
-    case EMOVE::B2:
+    case emove::B2:
         indices = { 0,4,3,7 };
         break;
     default:

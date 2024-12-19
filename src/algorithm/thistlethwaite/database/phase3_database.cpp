@@ -2,29 +2,27 @@
 
 uint32_t Phase3_database::id(const Cube_bg_model& cube) const
 {
-    using EPIECE = Cube_bg_model::EPIECE;
-
     // stores the edges that are currently occupying each position on the E & S slice
     std::array<uint8_t, 8> E_perm = {
-        cube.piece_index(EPIECE::RF),
-        cube.piece_index(EPIECE::RB),
-        cube.piece_index(EPIECE::LF),
-        cube.piece_index(EPIECE::LB),
-        cube.piece_index(EPIECE::UL),
-        cube.piece_index(EPIECE::UR),
-        cube.piece_index(EPIECE::DL),
-        cube.piece_index(EPIECE::DR),
+        cube.piece_index(epiece::RF),
+        cube.piece_index(epiece::RB),
+        cube.piece_index(epiece::LF),
+        cube.piece_index(epiece::LB),
+        cube.piece_index(epiece::UL),
+        cube.piece_index(epiece::UR),
+        cube.piece_index(epiece::DL),
+        cube.piece_index(epiece::DR),
     };
     // stores which corner is currently occupying which position
     std::array<uint8_t, 8> C_perm = {
-        cube.piece_index(EPIECE::ULB),
-        cube.piece_index(EPIECE::ULF),
-        cube.piece_index(EPIECE::DLF),
-        cube.piece_index(EPIECE::DLB),
-        cube.piece_index(EPIECE::DRB),
-        cube.piece_index(EPIECE::DRF),
-        cube.piece_index(EPIECE::URF),
-        cube.piece_index(EPIECE::URB),
+        cube.piece_index(epiece::ULB),
+        cube.piece_index(epiece::ULF),
+        cube.piece_index(epiece::DLF),
+        cube.piece_index(epiece::DLB),
+        cube.piece_index(epiece::DRB),
+        cube.piece_index(epiece::DRF),
+        cube.piece_index(epiece::URF),
+        cube.piece_index(epiece::URB),
     };
     
     // stores the positions of the 4 edges that need to be brought back to the E-slice
@@ -107,27 +105,27 @@ uint32_t Phase3_database::id(const Cube_bg_model& cube) const
     return (C_ind * 70 + E_ind) * 6 + F_ind;
 }
 
-void Phase3_database::imitate_move(EMOVE move, std::array<uint8_t, 8>& tetradsPerm) const
+void Phase3_database::imitate_move(emove move, std::array<uint8_t, 8>& tetradsPerm) const
 {
     std::array<uint8_t, 4> indices, positions;
     switch (move)
     {
-    case EMOVE::U2:
+    case emove::U2:
         indices = { 0,6,1,7 };
         break;
-    case EMOVE::D2:
+    case emove::D2:
         indices = { 2,4,3,5 };
         break;
-    case EMOVE::L2:
+    case emove::L2:
         indices = { 0,2,1,3 };
         break;
-    case EMOVE::R2:
+    case emove::R2:
         indices = { 4,6,5,7 };
         break;
-    case EMOVE::F2:
+    case emove::F2:
         indices = { 2,6,1,5 };
         break;
-    case EMOVE::B2:
+    case emove::B2:
         indices = { 0,4,3,7 };
         break;
     default:

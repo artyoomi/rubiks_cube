@@ -16,74 +16,74 @@ Thistlethwaite::Thistlethwaite()
         phase->load_db();
 }
 
-std::vector<std::pair<rotation_side, rotation_type>> Thistlethwaite::emove_to_rot(std::vector<EMOVE> moves) const
+std::vector<std::pair<rotation_side, rotation_type>> Thistlethwaite::emove_to_rot(std::vector<emove> moves) const
 {
     std::vector<std::pair<rotation_side, rotation_type>> result;
 
-    for (const EMOVE& move : moves) {
+    for (const emove& move : moves) {
         switch (move)
         {
-        case EMOVE::U:
+        case emove::U:
             result.push_back(std::make_pair(rotation_side::SIDE_U, rotation_type::ROTATION_R));
             break;
-        case EMOVE::Up:
+        case emove::Up:
             result.push_back(std::make_pair(rotation_side::SIDE_U, rotation_type::ROTATION_L));
             break;
-        case EMOVE::U2:
+        case emove::U2:
             result.push_back(std::make_pair(rotation_side::SIDE_U, rotation_type::ROTATION_R));
             result.push_back(std::make_pair(rotation_side::SIDE_U, rotation_type::ROTATION_R));
             break;
-        case EMOVE::L:
+        case emove::L:
             result.push_back(std::make_pair(rotation_side::SIDE_L, rotation_type::ROTATION_R));
             break;
-        case EMOVE::Lp:
+        case emove::Lp:
             result.push_back(std::make_pair(rotation_side::SIDE_L, rotation_type::ROTATION_L));
             break;
-        case EMOVE::L2:
+        case emove::L2:
             result.push_back(std::make_pair(rotation_side::SIDE_L, rotation_type::ROTATION_R));
             result.push_back(std::make_pair(rotation_side::SIDE_L, rotation_type::ROTATION_R));
             break;
-        case EMOVE::F:
+        case emove::F:
             result.push_back(std::make_pair(rotation_side::SIDE_F, rotation_type::ROTATION_R));
             break;
-        case EMOVE::Fp:
+        case emove::Fp:
             result.push_back(std::make_pair(rotation_side::SIDE_F, rotation_type::ROTATION_L));
             break;
-        case EMOVE::F2:
+        case emove::F2:
             result.push_back(std::make_pair(rotation_side::SIDE_F, rotation_type::ROTATION_R));
             result.push_back(std::make_pair(rotation_side::SIDE_F, rotation_type::ROTATION_R));
             break;
-        case EMOVE::R:
+        case emove::R:
             result.push_back(std::make_pair(rotation_side::SIDE_R, rotation_type::ROTATION_R));
             break;
-        case EMOVE::Rp:
+        case emove::Rp:
             result.push_back(std::make_pair(rotation_side::SIDE_R, rotation_type::ROTATION_L));
             break;
-        case EMOVE::R2:
+        case emove::R2:
             result.push_back(std::make_pair(rotation_side::SIDE_R, rotation_type::ROTATION_R));
             result.push_back(std::make_pair(rotation_side::SIDE_R, rotation_type::ROTATION_R));
             break;
-        case EMOVE::B:
+        case emove::B:
             result.push_back(std::make_pair(rotation_side::SIDE_B, rotation_type::ROTATION_R));
             break;
-        case EMOVE::Bp:
+        case emove::Bp:
             result.push_back(std::make_pair(rotation_side::SIDE_B, rotation_type::ROTATION_L));
             break;
-        case EMOVE::B2:
+        case emove::B2:
             result.push_back(std::make_pair(rotation_side::SIDE_B, rotation_type::ROTATION_R));
             result.push_back(std::make_pair(rotation_side::SIDE_B, rotation_type::ROTATION_R));
             break;
-        case EMOVE::D:
+        case emove::D:
             result.push_back(std::make_pair(rotation_side::SIDE_D, rotation_type::ROTATION_R));
             break;
-        case EMOVE::Dp:
+        case emove::Dp:
             result.push_back(std::make_pair(rotation_side::SIDE_D, rotation_type::ROTATION_L));
             break;
-        case EMOVE::D2:
+        case emove::D2:
             result.push_back(std::make_pair(rotation_side::SIDE_D, rotation_type::ROTATION_R));
             result.push_back(std::make_pair(rotation_side::SIDE_D, rotation_type::ROTATION_R));
             break;
-        case EMOVE::NO_MOVE:
+        case emove::NO_MOVE:
             break;
         default:
             std::string value = std::to_string((int)move);
@@ -97,7 +97,7 @@ std::vector<std::pair<rotation_side, rotation_type>> Thistlethwaite::emove_to_ro
 std::vector<std::pair<rotation_side, rotation_type>> Thistlethwaite::solve(const Cube_bg_model &const_cube) const
 {
     // vector with all moves to solve cube
-    std::vector<EMOVE> result;
+    std::vector<emove> result;
 
     // get copy of given cube
     Cube_bg_model cube = const_cube;
@@ -118,13 +118,13 @@ std::vector<std::pair<rotation_side, rotation_type>> Thistlethwaite::solve(const
         std::cout << phase->name << ": ";
 
         // get partial group solution
-        std::vector<EMOVE> phase_result = astar.search(cube, *phase->phase_info, *phase->database);
+        std::vector<emove> phase_result = astar.search(cube, *phase->phase_info, *phase->database);
 
         // add partial solution to the end result
         result.insert(result.end(), phase_result.begin(), phase_result.end());
 
         // perform the partial group solution to pass the new state to the next group
-        for (const EMOVE move : phase_result)
+        for (const emove move : phase_result)
             cube.rotate(move);
 
         // group solve statistics

@@ -14,7 +14,7 @@
  * A* searching algorithm
  */
 struct AStar {
-    using EMOVE = Cube_bg_model::EMOVE;
+    using emove = Cube_bg_model::emove;
 
     struct AStar_node;
     using AStar_node_ptr = std::shared_ptr<AStar_node>;
@@ -22,9 +22,9 @@ struct AStar {
     struct AStar_node {
         Cube_bg_model  cube;
         AStar_node_ptr parent = nullptr;
-        EMOVE          move   = EMOVE::NO_MOVE;
+        emove          move   = emove::NO_MOVE;
         uint8_t        score;
     };
 
-    std::vector<EMOVE> search(const Cube_bg_model& cube, const Phase_info& phase_info, const Database& database) const;
+    std::vector<emove> search(const Cube_bg_model& cube, const Phase_info& phase_info, const Database& database) const;
 };

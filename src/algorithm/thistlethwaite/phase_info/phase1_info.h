@@ -7,12 +7,12 @@ struct Phase1_info : public Phase_info {
     {
         // all moves are allowed
         allowed_moves = {
-            EMOVE::U, EMOVE::Up, EMOVE::U2,
-            EMOVE::L, EMOVE::Lp, EMOVE::L2,
-            EMOVE::F, EMOVE::Fp, EMOVE::F2,
-            EMOVE::R, EMOVE::Rp, EMOVE::R2,
-            EMOVE::B, EMOVE::Bp, EMOVE::B2,
-            EMOVE::D, EMOVE::Dp, EMOVE::D2
+            emove::U, emove::Up, emove::U2,
+            emove::L, emove::Lp, emove::L2,
+            emove::F, emove::Fp, emove::F2,
+            emove::R, emove::Rp, emove::R2,
+            emove::B, emove::Bp, emove::B2,
+            emove::D, emove::Dp, emove::D2
         };
     }
 

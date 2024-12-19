@@ -2,22 +2,20 @@
 
 uint32_t Phase1_database::id(const Cube_bg_model& cube) const
 {
-    using EPIECE = Cube_bg_model::EPIECE;
-
     // stores the orientation of all edges (by position, regardless of which edge is where)
     // the orientation of 11 edges dictates the orientation of the 12th edge (even orientation values)
     std::array<uint8_t, 11> edge_orientation_perm = {
-        cube.edge_orientation(cube.edge(EPIECE::RB)),
-        cube.edge_orientation(cube.edge(EPIECE::RF)),
-        cube.edge_orientation(cube.edge(EPIECE::UR)),
-        cube.edge_orientation(cube.edge(EPIECE::DR)),
-        cube.edge_orientation(cube.edge(EPIECE::LB)),
-        cube.edge_orientation(cube.edge(EPIECE::LF)),
-        cube.edge_orientation(cube.edge(EPIECE::UL)),
-        cube.edge_orientation(cube.edge(EPIECE::DL)),
-        cube.edge_orientation(cube.edge(EPIECE::UB)),
-        cube.edge_orientation(cube.edge(EPIECE::UF)),
-        cube.edge_orientation(cube.edge(EPIECE::DB)),
+        cube.edge_orientation(cube.edge(epiece::RB)),
+        cube.edge_orientation(cube.edge(epiece::RF)),
+        cube.edge_orientation(cube.edge(epiece::UR)),
+        cube.edge_orientation(cube.edge(epiece::DR)),
+        cube.edge_orientation(cube.edge(epiece::LB)),
+        cube.edge_orientation(cube.edge(epiece::LF)),
+        cube.edge_orientation(cube.edge(epiece::UL)),
+        cube.edge_orientation(cube.edge(epiece::DL)),
+        cube.edge_orientation(cube.edge(epiece::UB)),
+        cube.edge_orientation(cube.edge(epiece::UF)),
+        cube.edge_orientation(cube.edge(epiece::DB)),
     };
 
     // convert to decimal [0; 2047]

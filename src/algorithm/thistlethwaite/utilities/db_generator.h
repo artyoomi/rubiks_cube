@@ -19,7 +19,7 @@ public:
     void generate(const Phase_info& phase_info, Database& database) const;
 
 private:
-    bool _db_searcher(Cube_bg_model cube, Cube_bg_model::EMOVE last_move,
+    bool _db_searcher(Cube_bg_model cube, Cube_bg_model::emove last_move,
                       const Phase_info& phase_info, Database& database,
                       uint8_t depth, uint8_t max_depth,
                       std::vector<bool>& visited) const;

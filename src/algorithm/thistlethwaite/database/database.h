@@ -15,6 +15,8 @@
  */
 class Database {
 public:
+    using epiece = Cube_bg_model::epiece;
+
     Database(std::size_t capacity, const std::string& fname)
         : _size{0},
           _capacity{capacity},

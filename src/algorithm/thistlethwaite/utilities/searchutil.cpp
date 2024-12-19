@@ -1,6 +1,6 @@
 #include "searchutil.h"
 
-bool utilities::redundant(EMOVE curr, EMOVE last)
+bool utilities::redundant(emove curr, emove last)
 {
     // moves on the same face are redundant since:
     // L->L     is the same as L2
@@ -11,36 +11,36 @@ bool utilities::redundant(EMOVE curr, EMOVE last)
     // R->L is the same as L->R
     // but since it's impossible to prune both of these, only check for one of the two combinations
 
-    if ((curr == EMOVE::U || curr == EMOVE::Up || curr == EMOVE::U2) &&
-       ((last == EMOVE::U || last == EMOVE::Up || last == EMOVE::U2) ||
-        (last == EMOVE::D || last == EMOVE::Dp || last == EMOVE::D2)))
+    if ((curr == emove::U || curr == emove::Up || curr == emove::U2) &&
+       ((last == emove::U || last == emove::Up || last == emove::U2) ||
+        (last == emove::D || last == emove::Dp || last == emove::D2)))
     {
         return true;
     }
-    if ((curr == EMOVE::L || curr == EMOVE::Lp || curr == EMOVE::L2) &&
-       ((last == EMOVE::L || last == EMOVE::Lp || last == EMOVE::L2) ||
-        (last == EMOVE::R || last == EMOVE::Rp || last == EMOVE::R2)))
+    if ((curr == emove::L || curr == emove::Lp || curr == emove::L2) &&
+       ((last == emove::L || last == emove::Lp || last == emove::L2) ||
+        (last == emove::R || last == emove::Rp || last == emove::R2)))
     {
         return true;
     }
-    if ((curr == EMOVE::F || curr == EMOVE::Fp || curr == EMOVE::F2) &&
-       ((last == EMOVE::F || last == EMOVE::Fp || last == EMOVE::F2) ||
-        (last == EMOVE::B || last == EMOVE::Bp || last == EMOVE::B2)))
+    if ((curr == emove::F || curr == emove::Fp || curr == emove::F2) &&
+       ((last == emove::F || last == emove::Fp || last == emove::F2) ||
+        (last == emove::B || last == emove::Bp || last == emove::B2)))
     {
         return true;
     }
-    if ((curr == EMOVE::R || curr == EMOVE::Rp || curr == EMOVE::R2) &&
-        (last == EMOVE::R || last == EMOVE::Rp || last == EMOVE::R2))
+    if ((curr == emove::R || curr == emove::Rp || curr == emove::R2) &&
+        (last == emove::R || last == emove::Rp || last == emove::R2))
     {
         return true;
     }
-    if ((curr == EMOVE::B || curr == EMOVE::Bp || curr == EMOVE::B2) &&
-        (last == EMOVE::B || last == EMOVE::Bp || last == EMOVE::B2))
+    if ((curr == emove::B || curr == emove::Bp || curr == emove::B2) &&
+        (last == emove::B || last == emove::Bp || last == emove::B2))
     {
         return true;
     }
-    if ((curr == EMOVE::D || curr == EMOVE::Dp || curr == EMOVE::D2) &&
-        (last == EMOVE::D || last == EMOVE::Dp || last == EMOVE::D2))
+    if ((curr == emove::D || curr == emove::Dp || curr == emove::D2) &&
+        (last == emove::D || last == emove::Dp || last == emove::D2))
     {
         return true;
     }

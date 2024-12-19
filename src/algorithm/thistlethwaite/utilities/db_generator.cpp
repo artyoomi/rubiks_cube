@@ -13,7 +13,7 @@ void DB_generator::generate(const Phase_info& phase_info, Database& database) co
         std::vector<bool> visited(database.capacity(), false);
 
         std::cout << "Depth: " << (int)depth << ". ";
-        if (_db_searcher(cube, Cube_bg_model::EMOVE::NO_MOVE, phase_info, database, 0, depth, visited))
+        if (_db_searcher(cube, Cube_bg_model::emove::NO_MOVE, phase_info, database, 0, depth, visited))
             break;
 
         std::cout << "visited states: " << database.size() << " / " << database.capacity() << std::endl;
@@ -26,7 +26,7 @@ void DB_generator::generate(const Phase_info& phase_info, Database& database) co
 }
 
 
-bool DB_generator::_db_searcher(Cube_bg_model cube, Cube_bg_model::EMOVE last_move,
+bool DB_generator::_db_searcher(Cube_bg_model cube, Cube_bg_model::emove last_move,
                                 const Phase_info& phase_info, Database& database,
                                 uint8_t depth, uint8_t max_depth, std::vector<bool>& visited) const
 {

@@ -7,15 +7,15 @@
 // jaapsch.net/puzzles/thistle.htm
 class Thistlethwaite : public Solver {
 public:
-    using EMOVE = Cube_bg_model::EMOVE;
+    using emove = Cube_bg_model::emove;
 
 	Thistlethwaite();
 
 	/*
-	 * transform EMOVE notation to (rotation_side;rotation_type) pair
+	 * transform emove notation to (rotation_side;rotation_type) pair
 	 * this uses for compatible between program and this algorithm
 	 */
-	std::vector<std::pair<rotation_side, rotation_type>> emove_to_rot(std::vector<EMOVE> moves) const;
+	std::vector<std::pair<rotation_side, rotation_type>> emove_to_rot(std::vector<emove> moves) const;
 
 	// solve given cube
 	std::vector<std::pair<rotation_side, rotation_type>> solve(const Cube_bg_model &const_cube) const override;

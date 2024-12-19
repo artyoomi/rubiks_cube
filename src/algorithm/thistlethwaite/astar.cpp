@@ -1,11 +1,11 @@
 #include "astar.h"
 
-std::vector<Cube_bg_model::EMOVE> AStar::search(const Cube_bg_model& cube, const Phase_info& phase_info, const Database& database) const
+std::vector<Cube_bg_model::emove> AStar::search(const Cube_bg_model& cube, const Phase_info& phase_info, const Database& database) const
 {
      bool    solved     = false;
     uint8_t root_score = database[cube];
 
-    AStar_node_ptr root_node   = std::make_shared<AStar_node>(AStar_node{cube, nullptr, EMOVE::NO_MOVE, root_score});
+    AStar_node_ptr root_node   = std::make_shared<AStar_node>(AStar_node{cube, nullptr, emove::NO_MOVE, root_score});
     AStar_node_ptr curr_node   = nullptr;
     AStar_node_ptr solved_node = nullptr;
 
@@ -48,7 +48,7 @@ std::vector<Cube_bg_model::EMOVE> AStar::search(const Cube_bg_model& cube, const
     if (!solved)
         throw std::logic_error("Searcher::Astar Didn't find a solution, invalid database.");
 
-    std::vector<EMOVE> result;
+    std::vector<emove> result;
     while (solved_node->parent)
     {
         result.push_back(solved_node->move);

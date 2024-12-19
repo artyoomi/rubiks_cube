@@ -2,33 +2,31 @@
 
 uint32_t Phase2_database::id(const Cube_bg_model& cube) const
 {
-    using EPIECE  = Cube_bg_model::EPIECE;
-
     // stores the orientation of all corners (by position, regardless of which corner is where)
     std::array<uint8_t, 7> corner_orientation_perm = {
-        cube.corner_orientation(cube.corner(EPIECE::ULB)),
-        cube.corner_orientation(cube.corner(EPIECE::ULF)),
-        cube.corner_orientation(cube.corner(EPIECE::DLF)),
-        cube.corner_orientation(cube.corner(EPIECE::DLB)),
-        cube.corner_orientation(cube.corner(EPIECE::URF)),
-        cube.corner_orientation(cube.corner(EPIECE::URB)),
-        cube.corner_orientation(cube.corner(EPIECE::DRB))
+        cube.corner_orientation(cube.corner(epiece::ULB)),
+        cube.corner_orientation(cube.corner(epiece::ULF)),
+        cube.corner_orientation(cube.corner(epiece::DLF)),
+        cube.corner_orientation(cube.corner(epiece::DLB)),
+        cube.corner_orientation(cube.corner(epiece::URF)),
+        cube.corner_orientation(cube.corner(epiece::URB)),
+        cube.corner_orientation(cube.corner(epiece::DRB))
     };
 
     // stores the edges that are currently occupying each position
     std::array<uint8_t, 12> edge_perm = {
-        cube.piece_index(EPIECE::UB),
-        cube.piece_index(EPIECE::UF),
-        cube.piece_index(EPIECE::DB),
-        cube.piece_index(EPIECE::DF),
-        cube.piece_index(EPIECE::UR),
-        cube.piece_index(EPIECE::UL),
-        cube.piece_index(EPIECE::DR),
-        cube.piece_index(EPIECE::DL),
-        cube.piece_index(EPIECE::RF),
-        cube.piece_index(EPIECE::LF),
-        cube.piece_index(EPIECE::RB),
-        cube.piece_index(EPIECE::LB)
+        cube.piece_index(epiece::UB),
+        cube.piece_index(epiece::UF),
+        cube.piece_index(epiece::DB),
+        cube.piece_index(epiece::DF),
+        cube.piece_index(epiece::UR),
+        cube.piece_index(epiece::UL),
+        cube.piece_index(epiece::DR),
+        cube.piece_index(epiece::DL),
+        cube.piece_index(epiece::RF),
+        cube.piece_index(epiece::LF),
+        cube.piece_index(epiece::RB),
+        cube.piece_index(epiece::LB)
     };
 
     // stores the positions of the 4 edges that need to be brought back to the M-slice

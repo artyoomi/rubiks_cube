@@ -1,7 +1,7 @@
 #pragma once
 
 #include "database.h"
-#include "thistlethwaite/utilities/indexer.h"
+#include "../utilities/indexer.h"
 
 /*
  * In G3->G4, finally the cube is solved. In this state the cube is seperated to 3 edge slices

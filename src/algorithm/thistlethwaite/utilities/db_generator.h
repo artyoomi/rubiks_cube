@@ -7,8 +7,8 @@
 #include "../database/database.h"
 #include "../phase_info/phase_info.h"
 
-#include "thistlethwaite/utilities/timer.h"
-#include "thistlethwaite/utilities/searchutil.h"
+#include "../utilities/timer.h"
+#include "../utilities/searchutil.h"
 
 /* 
  * Searches the cube (IDDFS) for all possible states and stores the depth of each state in a file

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "database.h"
-#include "thistlethwaite/utilities/indexer.h"
+#include "../utilities/indexer.h"
 
 /*
  * In G3, a cube is solvable using 180-degree moves only. This means that all edges are in their

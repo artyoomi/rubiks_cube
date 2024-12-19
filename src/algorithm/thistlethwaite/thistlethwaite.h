@@ -1,6 +1,6 @@
 #pragma once
 
-#include "solver.h"
+#include "../solver.h"
 #include "groups.h"
 #include "astar.h"
 

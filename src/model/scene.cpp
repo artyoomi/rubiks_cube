@@ -1,11 +1,10 @@
 #include <random>
 
 #include "scene.h"
-//#include "solver.h"
 #include "../../dependencies/glm/gtx/rotate_vector.hpp"
 
-//#include "human_algorithm/human_algo.h"
-#include "thistlethwaite/thistlethwaite.h"
+#include "../algorithm/human_algorithm/human_algo.h"
+#include "../algorithm/thistlethwaite/thistlethwaite.h"
 
 Scene::Scene()
 {
@@ -46,9 +45,10 @@ void Scene::solve_cube(ealgo_type algo_type, std::atomic<bool>& is_solving)
     std::vector<std::pair<rotation_side, rotation_type>> moves;
 
     if (algo_type == ealgo_type::HUMAN) {
-        //Human_algo human;
-        //moves = human.solve(*_bg_cube);
-    } else if (algo_type == ealgo_type::THISTLETHWAITE) {
+        Human_algo human;
+        moves = human.solve(*_bg_cube);
+    }
+    else if (algo_type == ealgo_type::THISTLETHWAITE) {
         Thistlethwaite thistlethwaite;
         moves = thistlethwaite.solve(*_bg_cube);
     }

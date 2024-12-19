@@ -8,7 +8,7 @@
 #include <string>
 #include <vector>
 
-#include "cube_bg_model.h"
+#include "../../cube_bg_model.h"
 
 /*
  * Base class for each database

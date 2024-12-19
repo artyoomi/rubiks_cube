@@ -94,7 +94,7 @@ std::vector<std::pair<rotation_side, rotation_type>> Human_algo::phase7(Cube_bg_
         }
     };
 
-    auto is_edge_correct = [](int a1, int a2, int b1, int b2) {
+    auto is_edge_correct = [](color a1, color a2, color b1, color b2) {
         return (a1 == b1) && (a2 == b2);
     };
 
@@ -102,18 +102,18 @@ std::vector<std::pair<rotation_side, rotation_type>> Human_algo::phase7(Cube_bg_
 
     while(true) {
         // 1. Count wrongly positioned edges
-        std::vector<std::vector<int>> corners = {
+        std::vector<std::vector<color>> corners = {
             {bg_cube[48], bg_cube[16]},
             {bg_cube[46], bg_cube[25]},
             {bg_cube[50], bg_cube[34]},
             {bg_cube[52], bg_cube[43]},
         };
 
-        std::vector<std::vector<int>> colors = {
-            {5, 1}, // DL
-            {5, 2}, // DF
-            {5, 3}, // DR
-            {5, 4}  // DB
+        std::vector<std::vector<color>> colors = {
+            {color::D, color::L}, // DL
+            {color::D, color::F}, // DF
+            {color::D, color::R}, // DR
+            {color::D, color::B}  // DB
         };
 
         std::vector<int> wrong_edges;
@@ -224,7 +224,7 @@ std::vector<std::pair<rotation_side, rotation_type>> Human_algo::phase6(Cube_bg_
         }
     };
 
-    auto is_edge_correct = [](int a1, int a2, int b1, int b2) {
+    auto is_edge_correct = [](color a1, color a2, color b1, color b2) {
         return (std::min(a1, a2) == std::min(b1, b2)) &&
                (std::max(a1, a2) == std::max(b1, b2));
     };
@@ -233,18 +233,18 @@ std::vector<std::pair<rotation_side, rotation_type>> Human_algo::phase6(Cube_bg_
 
     while(true) {
         // 1. Count correctly placed D egdes (ignoring their orientation)
-        std::vector<std::vector<int>> corners = {
+        std::vector<std::vector<color>> corners = {
             {bg_cube[48], bg_cube[16]},
             {bg_cube[46], bg_cube[25]},
             {bg_cube[50], bg_cube[34]},
             {bg_cube[52], bg_cube[43]},
         };
 
-        std::vector<std::vector<int>> colors = {
-            {5, 1}, // DL
-            {5, 2}, // DF
-            {5, 3}, // DR
-            {5, 4}  // DB
+        std::vector<std::vector<color>> colors = {
+            {color::D, color::L}, // DL
+            {color::D, color::F}, // DF
+            {color::D, color::R}, // DR
+            {color::D, color::B}  // DB
         };
 
         std::vector<int> correct_edges;
@@ -304,25 +304,25 @@ std::vector<std::pair<rotation_side, rotation_type>> Human_algo::phase5(Cube_bg_
         }
     };
 
-    auto is_corner_correct = [](int a1, int a2, int a3, int b1, int b2, int b3) {
+    auto is_corner_correct = [](color a1, color a2, color a3, color b1, color b2, color b3) {
         return (a1 == b1) && (a2 == b2) && (a3 == b3);
     };
 
     std::vector<std::pair<rotation_side, rotation_type>> result;
 
     while(true) {
-        std::vector<std::vector<int>> corners = {
+        std::vector<std::vector<color>> corners = {
             {bg_cube[51], bg_cube[44], bg_cube[15]},
             {bg_cube[45], bg_cube[17], bg_cube[24]},
             {bg_cube[47], bg_cube[26], bg_cube[33]},
             {bg_cube[53], bg_cube[35], bg_cube[42]}
         };
 
-        std::vector<std::vector<int>> colors = {
-            {5, 4, 1}, // DBL
-            {5, 1, 2}, // DLF
-            {5, 2, 3}, // DFR
-            {5, 3, 4}  // DRB
+        std::vector<std::vector<color>> colors = {
+            {color::D, color::B, color::L}, // DBL
+            {color::D, color::L, color::F}, // DLF
+            {color::D, color::F, color::R}, // DFR
+            {color::D, color::R, color::B}  // DRB
         };
 
         // 1. Count twisted corners
@@ -336,33 +336,33 @@ std::vector<std::pair<rotation_side, rotation_type>> Human_algo::phase5(Cube_bg_
         // 2. Choose rotation
         int rotation = 0;
         if(twisted_corners.size() == 4) {
-            if(bg_cube[17] == 5)
+            if(bg_cube[17] == color::D)
                 rotation = 0;
-            else if(bg_cube[44] == 5)
+            else if(bg_cube[44] == color::D)
                 rotation = 1;
-            else if(bg_cube[26] == 5)
+            else if(bg_cube[26] == color::D)
                 rotation = -1;
-            else if(bg_cube[35] == 5)
+            else if(bg_cube[35] == color::D)
                 rotation = 2;
         }
         else if(twisted_corners.size() == 3) {
-            if(bg_cube[45] == 5)
+            if(bg_cube[45] == color::D)
                 rotation = 0;
-            else if(bg_cube[51] == 5)
+            else if(bg_cube[51] == color::D)
                 rotation = 1;
-            else if(bg_cube[47] == 5)
+            else if(bg_cube[47] == color::D)
                 rotation = -1;
-            else if(bg_cube[53] == 5)
+            else if(bg_cube[53] == color::D)
                 rotation = 2;
         }
         else if(twisted_corners.size() == 2) {
-            if(bg_cube[24] == 5)
+            if(bg_cube[24] == color::D)
                 rotation = 0;
-            else if(bg_cube[15] == 5)
+            else if(bg_cube[15] == color::D)
                 rotation = 1;
-            else if(bg_cube[33] == 5)
+            else if(bg_cube[33] == color::D)
                 rotation = -1;
-            else if(bg_cube[42] == 5)
+            else if(bg_cube[42] == color::D)
                 rotation = 2;
         }
         else
@@ -402,7 +402,13 @@ std::vector<std::pair<rotation_side, rotation_type>> Human_algo::phase4(Cube_bg_
         }
     };
 
-    auto are_sets_equal = [](int a1, int a2, int a3, int b1, int b2, int b3) {
+    auto are_sets_equal = [](color a1c, color a2c, color a3c, color b1c, color b2c, color b3c) {
+        int a1 = static_cast<int>(a1c);
+        int a2 = static_cast<int>(a2c);
+        int a3 = static_cast<int>(a3c);
+        int b1 = static_cast<int>(b1c);
+        int b2 = static_cast<int>(b2c);
+        int b3 = static_cast<int>(b3c);
         return (std::min(a1, std::min(a2, a3)) == std::min(b1, std::min(b2, b3))) &&
                (std::max(a1, std::max(a2, a3)) == std::max(b1, std::max(b2, b3))) &&
                (a1+a2+a3 == b1+b2+b3);
@@ -413,18 +419,18 @@ std::vector<std::pair<rotation_side, rotation_type>> Human_algo::phase4(Cube_bg_
     // 1. Rotate D until at least two corners are positioned correctly (ignoring their orientation)
     std::vector<int> correct_corners;
     while(true) {
-        std::vector<std::vector<int>> corners = {
+        std::vector<std::vector<color>> corners = {
             {bg_cube[51], bg_cube[44], bg_cube[15]},
             {bg_cube[45], bg_cube[17], bg_cube[24]},
             {bg_cube[47], bg_cube[26], bg_cube[33]},
             {bg_cube[53], bg_cube[35], bg_cube[42]}
         };
 
-        std::vector<std::vector<int>> colors = {
-            {5, 4, 1}, // DBL
-            {5, 1, 2}, // DLF
-            {5, 2, 3}, // DFR
-            {5, 3, 4}  // DRB
+        std::vector<std::vector<color>> colors = {
+            {color::D, color::B, color::L}, // DBL
+            {color::D, color::L, color::F}, // DLF
+            {color::D, color::F, color::R}, // DFR
+            {color::D, color::R, color::B}  // DRB
         };
 
         correct_corners.clear();
@@ -539,58 +545,58 @@ std::vector<std::pair<rotation_side, rotation_type>> Human_algo::phase3(Cube_bg_
     // 1. Find edges in the D layer that belongs to the middle layer
     while(true) {
         // DF edge doesn't have D color
-        if(bg_cube[25] != 5 && bg_cube[46] != 5) {
+        if(bg_cube[25] != color::D && bg_cube[46] != color::D) {
             // find the destination
             // FD -> FR
-            if(bg_cube[25] == 2 && bg_cube[46] == 3) {
+            if(bg_cube[25] == color::F && bg_cube[46] == color::R) {
                 apply_rot(result, FD_FR_move);
             }
             // FD -> RB
-            else if(bg_cube[25] == 3 && bg_cube[46] == 4) {
+            else if(bg_cube[25] == color::R && bg_cube[46] == color::B) {
                 apply_rot(result, {std::make_pair(rotation_side::SIDE_D, rotation_type::ROTATION_R)});
                 apply_rot(result, circle_move(FD_FR_move, -1));
             }
             // FD -> BL
-            else if(bg_cube[25] == 4 && bg_cube[46] == 1) {
+            else if(bg_cube[25] == color::B && bg_cube[46] == color::L) {
                 apply_rot(result, {
                     std::make_pair(rotation_side::SIDE_D, rotation_type::ROTATION_R),
                     std::make_pair(rotation_side::SIDE_D, rotation_type::ROTATION_R)});
                 apply_rot(result, circle_move(FD_FR_move, 2));
             }
             // FD -> LF
-            else if(bg_cube[25] == 1 && bg_cube[46] == 2) {
+            else if(bg_cube[25] == color::L && bg_cube[46] == color::F) {
                 apply_rot(result, {std::make_pair(rotation_side::SIDE_D, rotation_type::ROTATION_L)});
                 apply_rot(result, circle_move(FD_FR_move, 1));
             }
             // DF -> FR
-            else if(bg_cube[25] == 3 && bg_cube[46] == 2) {
+            else if(bg_cube[25] == color::R && bg_cube[46] == color::F) {
                 apply_rot(result, DF_FR_move);
             }
             // DF -> RB
-            else if(bg_cube[25] == 4 && bg_cube[46] == 3) {
+            else if(bg_cube[25] == color::B && bg_cube[46] == color::R) {
                 apply_rot(result, {std::make_pair(rotation_side::SIDE_D, rotation_type::ROTATION_R)});
                 apply_rot(result, circle_move(DF_FR_move, -1));
             }
             // DF -> BL
-            else if(bg_cube[25] == 1 && bg_cube[46] == 4) {
+            else if(bg_cube[25] == color::L && bg_cube[46] == color::B) {
                 apply_rot(result, {
                     std::make_pair(rotation_side::SIDE_D, rotation_type::ROTATION_R),
                     std::make_pair(rotation_side::SIDE_D, rotation_type::ROTATION_R)});
                 apply_rot(result, circle_move(DF_FR_move, 2));
             }
             // DF -> LF
-            else if(bg_cube[25] == 2 && bg_cube[46] == 1) {
+            else if(bg_cube[25] == color::F && bg_cube[46] == color::L) {
                 apply_rot(result, {std::make_pair(rotation_side::SIDE_D, rotation_type::ROTATION_L)});
                 apply_rot(result, circle_move(DF_FR_move, 1));
             }
             
         }
         // Rotate D to place any middle-layer edges into DF place
-        else if(bg_cube[16] != 5 && bg_cube[48] != 5)
+        else if(bg_cube[16] != color::D && bg_cube[48] != color::D)
             apply_rot(result, {std::make_pair(rotation_side::SIDE_D, rotation_type::ROTATION_R)});
-        else if(bg_cube[34] != 5 && bg_cube[50] != 5)
+        else if(bg_cube[34] != color::D && bg_cube[50] != color::D)
             apply_rot(result, {std::make_pair(rotation_side::SIDE_D, rotation_type::ROTATION_R)});
-        else if(bg_cube[43] != 5 && bg_cube[52] != 5)
+        else if(bg_cube[43] != color::D && bg_cube[52] != color::D)
             apply_rot(result, {
                 std::make_pair(rotation_side::SIDE_D, rotation_type::ROTATION_R),
                 std::make_pair(rotation_side::SIDE_D, rotation_type::ROTATION_R)});
@@ -601,13 +607,13 @@ std::vector<std::pair<rotation_side, rotation_type>> Human_algo::phase3(Cube_bg_
     // 2. Check middle layer edges placement
     //    If some of them aren't places correctly, swap them with random edge from D
     //    and repeat the phase3
-    if(bg_cube[14] != 1 || bg_cube[21] != 2)
+    if(bg_cube[14] != color::L || bg_cube[21] != color::F)
         apply_rot(result, circle_move(FD_FR_move, 1));
-    else if(bg_cube[23] != 2 || bg_cube[30] != 3)
+    else if(bg_cube[23] != color::F || bg_cube[30] != color::R)
         apply_rot(result, FD_FR_move);
-    else if(bg_cube[32] != 3 || bg_cube[39] != 4)
+    else if(bg_cube[32] != color::R || bg_cube[39] != color::B)
         apply_rot(result, circle_move(FD_FR_move, -1));
-    else if(bg_cube[41] != 4 || bg_cube[12] != 1)
+    else if(bg_cube[41] != color::B || bg_cube[12] != color::L)
         apply_rot(result, circle_move(FD_FR_move, 2));
     
 
@@ -630,13 +636,13 @@ std::vector<std::pair<rotation_side, rotation_type>> Human_algo::phase2(Cube_bg_
     // 1. Find corners with U color in the D layer and place them correctly
     while(true) {
         // check DFR corner
-        if(bg_cube[26] == 0 || bg_cube[47] == 0 || bg_cube[33] == 0) {
+        if(bg_cube[26] == color::U || bg_cube[47] == color::U || bg_cube[33] == color::U) {
             // define basic_move according to the orientation of the corner
             // also get another two color codes
             std::vector<std::pair<rotation_side, rotation_type>> basic_move;
-            int subcolor1, subcolor2;
+            color subcolor1, subcolor2;
             
-            if(bg_cube[26] == 0) { // FRD -> URF
+            if(bg_cube[26] == color::U) { // FRD -> URF
                 subcolor1 = bg_cube[47];
                 subcolor2 = bg_cube[33];
                 basic_move = {
@@ -645,7 +651,7 @@ std::vector<std::pair<rotation_side, rotation_type>> Human_algo::phase2(Cube_bg_
                     std::make_pair(rotation_side::SIDE_F, rotation_type::ROTATION_L)
                 };
             }
-            else if(bg_cube[47] == 0) { // DFR -> URF
+            else if(bg_cube[47] == color::U) { // DFR -> URF
                 subcolor1 = bg_cube[26];
                 subcolor2 = bg_cube[33];
                 basic_move = {
@@ -658,7 +664,7 @@ std::vector<std::pair<rotation_side, rotation_type>> Human_algo::phase2(Cube_bg_
                     std::make_pair(rotation_side::SIDE_R, rotation_type::ROTATION_R)
                 };
             }
-            else if(bg_cube[33] == 0) { // RDF -> URF
+            else if(bg_cube[33] == color::U) { // RDF -> URF
                 subcolor1 = bg_cube[47];
                 subcolor2 = bg_cube[26];
                 basic_move = {
@@ -669,18 +675,18 @@ std::vector<std::pair<rotation_side, rotation_type>> Human_algo::phase2(Cube_bg_
             }
             
             // now define the overall operation rotation according to the subcolors
-            if(std::min(subcolor1, subcolor2) == 1 && std::max(subcolor1, subcolor2) == 2) {
+            if(std::min(subcolor1, subcolor2) == color::L && std::max(subcolor1, subcolor2) == color::F) {
                 apply_rot(result, {std::make_pair(rotation_side::SIDE_D, rotation_type::ROTATION_L)});
                 apply_rot(result, circle_move(basic_move, 1));
             }
-            else if(std::min(subcolor1, subcolor2) == 2 && std::max(subcolor1, subcolor2) == 3) {
+            else if(std::min(subcolor1, subcolor2) == color::F && std::max(subcolor1, subcolor2) == color::R) {
                 apply_rot(result, basic_move);
             }
-            else if(std::min(subcolor1, subcolor2) == 3 && std::max(subcolor1, subcolor2) == 4) {
+            else if(std::min(subcolor1, subcolor2) == color::R && std::max(subcolor1, subcolor2) == color::B) {
                 apply_rot(result, {std::make_pair(rotation_side::SIDE_D, rotation_type::ROTATION_R)});
                 apply_rot(result, circle_move(basic_move, -1));
             }
-            else if(std::min(subcolor1, subcolor2) == 1 && std::max(subcolor1, subcolor2) == 4) {
+            else if(std::min(subcolor1, subcolor2) == color::L && std::max(subcolor1, subcolor2) == color::B) {
                 apply_rot(result, {
                     std::make_pair(rotation_side::SIDE_D, rotation_type::ROTATION_R),
                     std::make_pair(rotation_side::SIDE_D, rotation_type::ROTATION_R)});
@@ -688,13 +694,13 @@ std::vector<std::pair<rotation_side, rotation_type>> Human_algo::phase2(Cube_bg_
             }
         }
         // check all other corners in the D layer & rotate D to place corner to DFR position
-        else if(bg_cube[17] == 0 || bg_cube[24] == 0 || bg_cube[45] == 0)
+        else if(bg_cube[17] == color::U || bg_cube[24] == color::U || bg_cube[45] == color::U)
                 apply_rot(result, {std::make_pair(rotation_side::SIDE_D, rotation_type::ROTATION_R)});
-        else if(bg_cube[15] == 0 || bg_cube[51] == 0 || bg_cube[44] == 0)
+        else if(bg_cube[15] == color::U || bg_cube[51] == color::U || bg_cube[44] == color::U)
                 apply_rot(result, {
                     std::make_pair(rotation_side::SIDE_D, rotation_type::ROTATION_R),
                     std::make_pair(rotation_side::SIDE_D, rotation_type::ROTATION_R)});
-        else if(bg_cube[35] == 0 || bg_cube[42] == 0 || bg_cube[53] == 0)
+        else if(bg_cube[35] == color::U || bg_cube[42] == color::U || bg_cube[53] == color::U)
                 apply_rot(result, {std::make_pair(rotation_side::SIDE_D, rotation_type::ROTATION_L)});
         else
             break;
@@ -703,20 +709,20 @@ std::vector<std::pair<rotation_side, rotation_type>> Human_algo::phase2(Cube_bg_
     // 1. Check colors of the U corners
     int action = 0; // 0 = no_action, 1 = R'DR, 2 = R'D'R
     int circle = 0;
-    if(bg_cube[0] != 0) {
-        action = (bg_cube[38] == 0) ? 1 : 2;
+    if(bg_cube[0] != color::U) {
+        action = (bg_cube[38] == color::U) ? 1 : 2;
         circle = 2;
     }
-    else if(bg_cube[6] != 0) {
-        action = (bg_cube[11] == 0) ? 1 : 2;
+    else if(bg_cube[6] != color::U) {
+        action = (bg_cube[11] == color::U) ? 1 : 2;
         circle = 1;
     }
-    else if(bg_cube[8] != 0) {
-        action = (bg_cube[20] == 0) ? 1 : 2;
+    else if(bg_cube[8] != color::U) {
+        action = (bg_cube[20] == color::U) ? 1 : 2;
         circle = 0;
     }
-    else if(bg_cube[2] != 0) {
-        action = (bg_cube[29] == 0) ? 1 : 2;
+    else if(bg_cube[2] != color::U) {
+        action = (bg_cube[29] == color::U) ? 1 : 2;
         circle = -1;
     }
 
@@ -751,36 +757,36 @@ std::vector<std::pair<rotation_side, rotation_type>> Human_algo::phase1(Cube_bg_
     
     // 0. Prepare the U side - rotate it to correctly place at least one edge if presented
     int rot_count = 0;
-    if(bg_cube[1] == 0) {
-        if(bg_cube[37] == 1)
+    if(bg_cube[1] == color::U) {
+        if(bg_cube[37] == color::L)
             rot_count = 3;
-        else if(bg_cube[37] == 2)
+        else if(bg_cube[37] == color::F)
             rot_count = 2;
-        else if(bg_cube[37] == 3)
+        else if(bg_cube[37] == color::R)
             rot_count = 1;
     }
-    else if(bg_cube[3] == 0) {
-        if(bg_cube[10] == 2)
+    else if(bg_cube[3] == color::U) {
+        if(bg_cube[10] == color::F)
             rot_count = 3;
-        else if(bg_cube[10] == 3)
+        else if(bg_cube[10] == color::R)
             rot_count = 2;
-        else if(bg_cube[10] == 4)
+        else if(bg_cube[10] == color::B)
             rot_count = 1;
     }
-    else if(bg_cube[7] == 0) {
-        if(bg_cube[19] == 1)
+    else if(bg_cube[7] == color::U) {
+        if(bg_cube[19] == color::L)
             rot_count = 1;
-        else if(bg_cube[19] == 3)
+        else if(bg_cube[19] == color::R)
             rot_count = 3;
-        else if(bg_cube[19] == 4)
+        else if(bg_cube[19] == color::B)
             rot_count = 2;
     }
-    else if(bg_cube[5] == 0) {
-        if(bg_cube[28] == 1)
+    else if(bg_cube[5] == color::U) {
+        if(bg_cube[28] == color::L)
             rot_count = 2;
-        else if(bg_cube[28] == 2)
+        else if(bg_cube[28] == color::F)
             rot_count = 1;
-        else if(bg_cube[28] == 4)
+        else if(bg_cube[28] == color::B)
             rot_count = 3;
     }
     for(int i = 0; i < rot_count; i++) {
@@ -790,16 +796,16 @@ std::vector<std::pair<rotation_side, rotation_type>> Human_algo::phase1(Cube_bg_
     // 1. Check edges that are already placed in the top layer
     while(true) {
         // UB edge
-        if((bg_cube[1] == 0 && bg_cube[37] != 4) || bg_cube[37] == 0)
+        if((bg_cube[1] == color::U && bg_cube[37] != color::B) || bg_cube[37] == color::U)
             result.emplace_back(rotation_side::SIDE_B, rotation_type::ROTATION_R);
         // UL edge
-        else if((bg_cube[3] == 0 && bg_cube[10] != 1) || bg_cube[10] == 0)
+        else if((bg_cube[3] == color::U && bg_cube[10] != color::L) || bg_cube[10] == color::U)
             result.emplace_back(rotation_side::SIDE_L, rotation_type::ROTATION_R);
         // UR edge
-        else if((bg_cube[5] == 0 && bg_cube[28] != 3) || bg_cube[28] == 0)
+        else if((bg_cube[5] == color::U && bg_cube[28] != color::R) || bg_cube[28] == color::U)
             result.emplace_back(rotation_side::SIDE_R, rotation_type::ROTATION_R);
         // UF edge
-        else if((bg_cube[7] == 0 && bg_cube[19] != 2) || bg_cube[19] == 0)
+        else if((bg_cube[7] == color::U && bg_cube[19] != color::F) || bg_cube[19] == color::U)
             result.emplace_back(rotation_side::SIDE_F, rotation_type::ROTATION_R);
         else
             break;
@@ -810,7 +816,7 @@ std::vector<std::pair<rotation_side, rotation_type>> Human_algo::phase1(Cube_bg_
     // 2. Place edges from the D to the U layer
     while(true) {
         // orient & place DF edge
-        if(bg_cube[46] == 0) {
+        if(bg_cube[46] == color::U) {
             // F2
             std::vector<std::pair<rotation_side, rotation_type>> basic_move = {
                 std::make_pair(rotation_side::SIDE_F, rotation_type::ROTATION_R),
@@ -818,24 +824,24 @@ std::vector<std::pair<rotation_side, rotation_type>> Human_algo::phase1(Cube_bg_
             };
             
             // DF -> UF
-            if(bg_cube[25] == 2) {
+            if(bg_cube[25] == color::F) {
                 apply_rot(result, basic_move);
             }
             // DF -> UL
-            else if(bg_cube[25] == 1) {
+            else if(bg_cube[25] == color::L) {
                 // circled left
                 apply_rot(result, {
                     std::make_pair(rotation_side::SIDE_D, rotation_type::ROTATION_L)});
                 apply_rot(result, circle_move(basic_move, 1));
             }
             // DF -> UR
-            else if(bg_cube[25] == 3) {
+            else if(bg_cube[25] == color::R) {
                 // circled right
                 apply_rot(result, {std::make_pair(rotation_side::SIDE_D, rotation_type::ROTATION_R)});
                 apply_rot(result, circle_move(basic_move, -1));
             }
             // DF -> UB
-            else if(bg_cube[25] == 4) {
+            else if(bg_cube[25] == color::B) {
                 // circled 180
                 apply_rot(result, {
                     std::make_pair(rotation_side::SIDE_D, rotation_type::ROTATION_R),
@@ -844,7 +850,7 @@ std::vector<std::pair<rotation_side, rotation_type>> Human_algo::phase1(Cube_bg_
             }
         }
         // orient & place FD edge
-        else if(bg_cube[25] == 0) {
+        else if(bg_cube[25] == color::U) {
             // U' F' R F U
             std::vector<std::pair<rotation_side, rotation_type>> basic_move = {
                 std::make_pair(rotation_side::SIDE_U, rotation_type::ROTATION_L),
@@ -855,24 +861,24 @@ std::vector<std::pair<rotation_side, rotation_type>> Human_algo::phase1(Cube_bg_
             };
             
             // FD -> UF
-            if(bg_cube[46] == 2) {
+            if(bg_cube[46] == color::F) {
                 apply_rot(result, basic_move);
             }
             // FD -> UL
-            else if(bg_cube[46] == 1) {
+            else if(bg_cube[46] == color::L) {
                 // circled left
                 apply_rot(result, {
                     std::make_pair(rotation_side::SIDE_D, rotation_type::ROTATION_L)});
                 apply_rot(result, circle_move(basic_move, 1));
             }
             // FD -> UR
-            else if(bg_cube[46] == 3) {
+            else if(bg_cube[46] == color::R) {
                 // circled right
                 apply_rot(result, {std::make_pair(rotation_side::SIDE_D, rotation_type::ROTATION_R)});
                 apply_rot(result, circle_move(basic_move, -1));
             }
             // FD -> UB
-            else if(bg_cube[46] == 4) {
+            else if(bg_cube[46] == color::B) {
                 // circled 180
                 apply_rot(result, {
                     std::make_pair(rotation_side::SIDE_D, rotation_type::ROTATION_R),
@@ -881,11 +887,11 @@ std::vector<std::pair<rotation_side, rotation_type>> Human_algo::phase1(Cube_bg_
             }
         }
         // rotate D to place edge with UP color to the DF/FD
-        else if(bg_cube[50] == 0 || bg_cube[34] == 0)
+        else if(bg_cube[50] == color::U || bg_cube[34] == color::U)
                 apply_rot(result, {std::make_pair(rotation_side::SIDE_D, rotation_type::ROTATION_L)});
-        else if(bg_cube[48] == 0 || bg_cube[16] == 0)
+        else if(bg_cube[48] == color::U || bg_cube[16] == color::U)
                 apply_rot(result, {std::make_pair(rotation_side::SIDE_D, rotation_type::ROTATION_R)});
-        else if(bg_cube[52] == 0 || bg_cube[43] == 0)
+        else if(bg_cube[52] == color::U || bg_cube[43] == color::U)
                 apply_rot(result, {
                     std::make_pair(rotation_side::SIDE_D, rotation_type::ROTATION_R),
                     std::make_pair(rotation_side::SIDE_D, rotation_type::ROTATION_R)});
@@ -946,94 +952,94 @@ std::vector<std::pair<rotation_side, rotation_type>> Human_algo::phase1(Cube_bg_
         };
 
         // RF -> Ux
-        if(bg_cube[30] == 0) {
-            if(bg_cube[23] == 1)
+        if(bg_cube[30] == color::U) {
+            if(bg_cube[23] == color::L)
                 apply_rot(result, RF_UL_move);
-            else if(bg_cube[23] == 2)
+            else if(bg_cube[23] == color::F)
                 apply_rot(result, RF_UF_move);
-            else if(bg_cube[23] == 3)
+            else if(bg_cube[23] == color::R)
                 apply_rot(result, RF_UR_move);
-            else if(bg_cube[23] == 4)
+            else if(bg_cube[23] == color::B)
                 apply_rot(result, RF_UB_move);
         }
         // FR -> Ux
-        else if(bg_cube[23] == 0) {
-            if(bg_cube[30] == 1)
+        else if(bg_cube[23] == color::U) {
+            if(bg_cube[30] == color::L)
                 apply_rot(result, FR_UL_move);
-            else if(bg_cube[30] == 2)
+            else if(bg_cube[30] == color::F)
                 apply_rot(result, FR_UF_move);
-            else if(bg_cube[30] == 3)
+            else if(bg_cube[30] == color::R)
                 apply_rot(result, FR_UR_move);
-            else if(bg_cube[30] == 4)
+            else if(bg_cube[30] == color::B)
                 apply_rot(result, FR_UB_move);
         }
         
         // BR -> Ux
-        else if(bg_cube[39] == 0) {
-            if(bg_cube[32] == 1)
+        else if(bg_cube[39] == color::U) {
+            if(bg_cube[32] == color::L)
                 apply_rot(result, circle_move(RF_UB_move, -1));
-            else if(bg_cube[32] == 2)
+            else if(bg_cube[32] == color::F)
                 apply_rot(result, circle_move(RF_UL_move, -1));
-            else if(bg_cube[32] == 3)
+            else if(bg_cube[32] == color::R)
                 apply_rot(result, circle_move(RF_UF_move, -1));
-            else if(bg_cube[32] == 4)
+            else if(bg_cube[32] == color::B)
                 apply_rot(result, circle_move(RF_UR_move, -1));
         }
         // RB -> Ux
-        else if(bg_cube[32] == 0) {
-            if(bg_cube[39] == 1)
+        else if(bg_cube[32] == color::U) {
+            if(bg_cube[39] == color::L)
                 apply_rot(result, circle_move(FR_UB_move, -1));
-            else if(bg_cube[39] == 2)
+            else if(bg_cube[39] == color::F)
                 apply_rot(result, circle_move(FR_UL_move, -1));
-            else if(bg_cube[39] == 3)
+            else if(bg_cube[39] == color::R)
                 apply_rot(result, circle_move(FR_UF_move, -1));
-            else if(bg_cube[39] == 4)
+            else if(bg_cube[39] == color::B)
                 apply_rot(result, circle_move(FR_UR_move, -1));
         }
 
         // FL -> Ux
-        else if(bg_cube[21] == 0) {
-            if(bg_cube[14] == 1)
+        else if(bg_cube[21] == color::U) {
+            if(bg_cube[14] == color::L)
                 apply_rot(result, circle_move(RF_UF_move, 1));
-            else if(bg_cube[14] == 2)
+            else if(bg_cube[14] == color::F)
                 apply_rot(result, circle_move(RF_UR_move, 1));
-            else if(bg_cube[14] == 3)
+            else if(bg_cube[14] == color::R)
                 apply_rot(result, circle_move(RF_UB_move, 1));
-            else if(bg_cube[14] == 4)
+            else if(bg_cube[14] == color::B)
                 apply_rot(result, circle_move(RF_UL_move, 1));
         }
         // LF -> Ux
-        else if(bg_cube[14] == 0) {
-            if(bg_cube[21] == 1)
+        else if(bg_cube[14] == color::U) {
+            if(bg_cube[21] == color::L)
                 apply_rot(result, circle_move(FR_UF_move, 1));
-            else if(bg_cube[21] == 2)
+            else if(bg_cube[21] == color::F)
                 apply_rot(result, circle_move(FR_UR_move, 1));
-            else if(bg_cube[21] == 3)
+            else if(bg_cube[21] == color::R)
                 apply_rot(result, circle_move(FR_UB_move, 1));
-            else if(bg_cube[21] == 4)
+            else if(bg_cube[21] == color::B)
                 apply_rot(result, circle_move(FR_UL_move, 1));
         }
 
         // LB -> Ux
-        else if(bg_cube[12] == 0) {
-            if(bg_cube[41] == 1)
+        else if(bg_cube[12] == color::U) {
+            if(bg_cube[41] == color::L)
                 apply_rot(result, circle_move(RF_UR_move, 2));
-            else if(bg_cube[41] == 2)
+            else if(bg_cube[41] == color::F)
                 apply_rot(result, circle_move(RF_UB_move, 2));
-            else if(bg_cube[41] == 3)
+            else if(bg_cube[41] == color::R)
                 apply_rot(result, circle_move(RF_UL_move, 2));
-            else if(bg_cube[41] == 4)
+            else if(bg_cube[41] == color::B)
                 apply_rot(result, circle_move(RF_UF_move, 2));
         }
         // BL -> Ux
-        else if(bg_cube[41] == 0) {
-            if(bg_cube[12] == 1)
+        else if(bg_cube[41] == color::U) {
+            if(bg_cube[12] == color::L)
                 apply_rot(result, circle_move(FR_UR_move, 2));
-            else if(bg_cube[12] == 2)
+            else if(bg_cube[12] == color::F)
                 apply_rot(result, circle_move(FR_UB_move, 2));
-            else if(bg_cube[12] == 3)
+            else if(bg_cube[12] == color::R)
                 apply_rot(result, circle_move(FR_UL_move, 2));
-            else if(bg_cube[12] == 4)
+            else if(bg_cube[12] == color::B)
                 apply_rot(result, circle_move(FR_UF_move, 2));
         }
         

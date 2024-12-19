@@ -2,8 +2,10 @@
 
 #include <vector>
 
-#include "solver.h"
-#include "cube_bg_model.h"
+#include "../solver.h"
+#include "../cube_bg_model.h"
+
+using color = Cube_bg_model::ecolor;
 
 class Human_algo : Solver {
 public:

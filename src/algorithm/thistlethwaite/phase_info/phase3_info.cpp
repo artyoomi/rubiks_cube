@@ -52,14 +52,14 @@ bool Phase3_info::solved(const Cube_bg_model& cube) const
 
     // checks if all the edges are in their home slice (M-slice edges are already solved)
     return
-        (cube.colour(eedge::UR) == ecolour::W || cube.colour(eedge::UR) == ecolour::Y) &&
-        (cube.colour(eedge::UL) == ecolour::W || cube.colour(eedge::UL) == ecolour::Y) &&
-        (cube.colour(eedge::DR) == ecolour::W || cube.colour(eedge::DR) == ecolour::Y) &&
-        (cube.colour(eedge::DL) == ecolour::W || cube.colour(eedge::DL) == ecolour::Y) &&
-        (cube.colour(eedge::FR) == ecolour::G || cube.colour(eedge::FR) == ecolour::B) &&
-        (cube.colour(eedge::FL) == ecolour::G || cube.colour(eedge::FL) == ecolour::B) &&
-        (cube.colour(eedge::BR) == ecolour::G || cube.colour(eedge::BR) == ecolour::B) &&
-        (cube.colour(eedge::BL) == ecolour::G || cube.colour(eedge::BL) == ecolour::B);
+        (cube.colour(eedge::UR) == ecolour::U || cube.colour(eedge::UR) == ecolour::D) &&
+        (cube.colour(eedge::UL) == ecolour::U || cube.colour(eedge::UL) == ecolour::D) &&
+        (cube.colour(eedge::DR) == ecolour::U || cube.colour(eedge::DR) == ecolour::D) &&
+        (cube.colour(eedge::DL) == ecolour::U || cube.colour(eedge::DL) == ecolour::D) &&
+        (cube.colour(eedge::FR) == ecolour::F || cube.colour(eedge::FR) == ecolour::B) &&
+        (cube.colour(eedge::FL) == ecolour::F || cube.colour(eedge::FL) == ecolour::B) &&
+        (cube.colour(eedge::BR) == ecolour::F || cube.colour(eedge::BR) == ecolour::B) &&
+        (cube.colour(eedge::BL) == ecolour::F || cube.colour(eedge::BL) == ecolour::B);
 }
 
 void Phase3_info::imitate_move(emove move, std::array<uint8_t, 8>& tetradsPerm) const

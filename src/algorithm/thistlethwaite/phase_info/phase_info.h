@@ -4,13 +4,13 @@
 #include <array>
 #include <memory>
 
-#include "cube_bg_model.h"
+#include "../../cube_bg_model.h"
 
 /*
  * Base class for phase additional info and functions
  */
 struct Phase_info {
-	using ecolour = Cube_bg_model::ecolour;
+	using ecolour = Cube_bg_model::ecolor;
     using emove   = Cube_bg_model::emove;
     using eedge   = Cube_bg_model::eedge;
     using ecorner = Cube_bg_model::ecorner;

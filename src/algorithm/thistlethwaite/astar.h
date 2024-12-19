@@ -6,9 +6,9 @@
 #include <queue>
 
 #include "utilities/searchutil.h"
-#include "cube_bg_model.h"
+#include "../cube_bg_model.h"
 #include "database/database.h"
-#include "thistlethwaite/phase_info/phase_info.h"
+#include "phase_info/phase_info.h"
 
 /*
  * A* searching algorithm

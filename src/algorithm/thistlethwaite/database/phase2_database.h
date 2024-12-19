@@ -1,7 +1,7 @@
 #pragma once
 
 #include "database.h"
-#include "thistlethwaite/utilities/indexer.h"
+#include "../utilities/indexer.h"
 
 /*
  * In G2, all the M-slice edges are brought back to their home slice and the orientation of all the corners

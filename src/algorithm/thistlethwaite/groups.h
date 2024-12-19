@@ -13,7 +13,7 @@
 #include "phase_info/phase3_info.h"
 #include "phase_info/phase4_info.h"
 
-#include "thistlethwaite/utilities/db_generator.h"
+#include "utilities/db_generator.h"
 
 /*
  * Base class for one phase in Thistlethwaite's algorithm

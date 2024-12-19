@@ -34,7 +34,7 @@ endif()
 
 find_package(OpenGL REQUIRED)
 
-include_directories(src src/algorithm)
+# include_directories(src src/algorithm)
 
 # Find all model subdirectory sources
 file(GLOB_RECURSE MODEL_SOURCES
@@ -67,18 +67,11 @@ add_executable(Rubiks_cube
     ${MODEL_SOURCES}
     ${VIEW_SOURCES}
     ${CONTROLLER_SOURCES}
-    # src/model/camera.cpp
-    # src/model/cube.cpp
-    # src/model/scene.cpp
-    # src/view/cube_mesh.cpp
-    # src/view/renderer.cpp
-    # src/view/resource_load.cpp
-    # src/controller/app.cpp
     src/stb_image.cpp
     src/algorithm/cube_bg_model.cpp
     
     # Human algo
-    #src/algorithm/human_algorithm/human_algo.cpp
+    src/algorithm/human_algorithm/human_algo.cpp
 
     ${THISTLETHWAITE_SOURCES}
 )

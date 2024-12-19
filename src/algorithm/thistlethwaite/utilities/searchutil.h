@@ -1,6 +1,6 @@
 #pragma once
 
-#include "cube_bg_model.h"
+#include "../../cube_bg_model.h"
 
 // functions to help in search
 namespace utilities

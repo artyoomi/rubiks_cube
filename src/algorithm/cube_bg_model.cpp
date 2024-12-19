@@ -25,12 +25,12 @@ Cube_bg_model& Cube_bg_model::operator=(const Cube_bg_model& lhs)
 
 void Cube_bg_model::reset()
 {
-    for (std::size_t i = 0;  i < 1 * COLORS_PER_SIDE; ++i) { _cube_data[i] = ecolour::W; }
-    for (std::size_t i = 9;  i < 2 * COLORS_PER_SIDE; ++i) { _cube_data[i] = ecolour::O; }
-    for (std::size_t i = 18; i < 3 * COLORS_PER_SIDE; ++i) { _cube_data[i] = ecolour::G; }
-    for (std::size_t i = 27; i < 4 * COLORS_PER_SIDE; ++i) { _cube_data[i] = ecolour::R; }
-    for (std::size_t i = 36; i < 5 * COLORS_PER_SIDE; ++i) { _cube_data[i] = ecolour::B; }
-    for (std::size_t i = 45; i < 6 * COLORS_PER_SIDE; ++i) { _cube_data[i] = ecolour::Y; }
+    for (std::size_t i = 0;  i < 1 * COLORS_PER_SIDE; ++i) { _cube_data[i] = ecolor::U; }
+    for (std::size_t i = 9;  i < 2 * COLORS_PER_SIDE; ++i) { _cube_data[i] = ecolor::L; }
+    for (std::size_t i = 18; i < 3 * COLORS_PER_SIDE; ++i) { _cube_data[i] = ecolor::F; }
+    for (std::size_t i = 27; i < 4 * COLORS_PER_SIDE; ++i) { _cube_data[i] = ecolor::R; }
+    for (std::size_t i = 36; i < 5 * COLORS_PER_SIDE; ++i) { _cube_data[i] = ecolor::B; }
+    for (std::size_t i = 45; i < 6 * COLORS_PER_SIDE; ++i) { _cube_data[i] = ecolor::D; }
 }
 
 bool Cube_bg_model::solved() const
@@ -44,18 +44,18 @@ bool Cube_bg_model::solved() const
     return true;
 }
 
-std::array<Cube_bg_model::ecolour, COLORS_PER_SIDE> Cube_bg_model::get_side(rotation_side side)
+std::array<Cube_bg_model::ecolor, COLORS_PER_SIDE> Cube_bg_model::get_side(rotation_side side)
 {
     std::size_t first_i = static_cast<std::size_t>(side) * 9;
 
-    std::array<ecolour, COLORS_PER_SIDE> result;
+    std::array<ecolor, COLORS_PER_SIDE> result;
     for (std::size_t i = 0; i < 9; ++i)
         result[i] = _cube_data[first_i + i];
 
     return result;
 }
 
-Cube_bg_model::ecolour Cube_bg_model::operator[](unsigned index)
+Cube_bg_model::ecolor Cube_bg_model::operator[](unsigned index)
 {
     if(index >= TOTAL_COLOR_CELLS)
         throw std::invalid_argument("Wrong index" + std::to_string(index));
@@ -259,7 +259,7 @@ void Cube_bg_model::_rotate_side(rotation_side side)
 {
     std::size_t first_i = static_cast<std::size_t>(side) * 9;
 
-    ecolour new_side_data[9] = {
+    ecolor new_side_data[9] = {
         _cube_data[first_i + 6],
         _cube_data[first_i + 3],
         _cube_data[first_i + 0],
@@ -295,7 +295,7 @@ void Cube_bg_model::_rotate_side(rotation_side side)
  {
      // a lot of swapping here...
      // (God pls trust me with the diagrams below...)
-     ecolour tmp1, tmp2, tmp3; // for swapping
+     ecolor tmp1, tmp2, tmp3; // for swapping
      switch(side) {
          case rotation_side::SIDE_U:
              /* BEFORE:
@@ -480,12 +480,12 @@ void Cube_bg_model::_rotate_side(rotation_side side)
      }
  }
 
-Cube_bg_model::ecolour Cube_bg_model::colour(ecorner index) const
+Cube_bg_model::ecolor Cube_bg_model::colour(ecorner index) const
 {
     return _cube_data[(uint8_t)index];
 }
 
-Cube_bg_model::ecolour Cube_bg_model::colour(eedge index) const
+Cube_bg_model::ecolor Cube_bg_model::colour(eedge index) const
 {
     return _cube_data[(uint8_t)index];
 }
@@ -493,9 +493,9 @@ Cube_bg_model::ecolour Cube_bg_model::colour(eedge index) const
 uint8_t Cube_bg_model::edge_orientation(const edge_t& edge) const
 {
     return
-         (( edge[0] == ecolour::G || edge[0] == ecolour::B) ||
-          ((edge[0] == ecolour::W || edge[0] == ecolour::Y) &&
-           (edge[1] == ecolour::R || edge[1] == ecolour::O)));
+         (( edge[0] == ecolor::F || edge[0] == ecolor::B) ||
+          ((edge[0] == ecolor::U || edge[0] == ecolor::D) &&
+           (edge[1] == ecolor::R || edge[1] == ecolor::L)));
 
     // checks if a facelet has one of the colours from the R/L axis, if not, checks if it's from the U/D axis and
     // that the adjacent edge facelet has a colour from the F/B axis
@@ -509,7 +509,7 @@ uint8_t Cube_bg_model::corner_orientation(const corner_t& corner) const
 
     // retrun 0 / 1 / 2 based on which axis the L/R colour is on
     for (uint8_t i = 0; i < 3; ++i) {
-        if (corner[i] == ecolour::R || corner[i] == ecolour::O)
+        if (corner[i] == ecolor::R || corner[i] == ecolor::L)
             return i;
     }
 
@@ -700,20 +700,20 @@ Cube_bg_model::corner_t Cube_bg_model::corner(epiece piece) const
     }
 }
 
-std::string Cube_bg_model::colour_name(ecolour colour) const
+std::string Cube_bg_model::colour_name(ecolor colour) const
 {
     switch (colour) {
-    case ecolour::W:
+    case ecolor::U:
         return "W";
-    case ecolour::O:
+    case ecolor::L:
         return "O";
-    case ecolour::G:
+    case ecolor::F:
         return "G";
-    case ecolour::R:
+    case ecolor::R:
         return "R";
-    case ecolour::B:
+    case ecolor::B:
         return "B";
-    case ecolour::Y:
+    case ecolor::D:
         return "Y";
     default:
         std::string value = std::to_string((int)colour);

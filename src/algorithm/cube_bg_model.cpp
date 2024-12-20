@@ -82,7 +82,7 @@ void Cube_bg_model::rotate(emove move)
     case emove::U:
         rotate(rotation_side::SIDE_U, rotation_type::ROTATION_R);
         break;
-    case emove::Up:
+    case emove::Ur:
         rotate(rotation_side::SIDE_U, rotation_type::ROTATION_L);
         break;
     case emove::U2:
@@ -94,7 +94,7 @@ void Cube_bg_model::rotate(emove move)
     case emove::L:
         rotate(rotation_side::SIDE_L, rotation_type::ROTATION_R);
         break;
-    case emove::Lp:
+    case emove::Lr:
         rotate(rotation_side::SIDE_L, rotation_type::ROTATION_L);
         break;
     case emove::L2:
@@ -106,7 +106,7 @@ void Cube_bg_model::rotate(emove move)
     case emove::F:
         rotate(rotation_side::SIDE_F, rotation_type::ROTATION_R);
         break;
-    case emove::Fp:
+    case emove::Fr:
         rotate(rotation_side::SIDE_F, rotation_type::ROTATION_L);
         break;
     case emove::F2:
@@ -118,7 +118,7 @@ void Cube_bg_model::rotate(emove move)
     case emove::R:
         rotate(rotation_side::SIDE_R, rotation_type::ROTATION_R);
         break;
-    case emove::Rp:
+    case emove::Rr:
         rotate(rotation_side::SIDE_R, rotation_type::ROTATION_L);
         break;
     case emove::R2:
@@ -130,7 +130,7 @@ void Cube_bg_model::rotate(emove move)
     case emove::B:
         rotate(rotation_side::SIDE_B, rotation_type::ROTATION_R);
         break;
-    case emove::Bp:
+    case emove::Br:
         rotate(rotation_side::SIDE_B, rotation_type::ROTATION_L);
         break;
     case emove::B2:
@@ -142,7 +142,7 @@ void Cube_bg_model::rotate(emove move)
     case emove::D:
         rotate(rotation_side::SIDE_D, rotation_type::ROTATION_R);
         break;
-    case emove::Dp:
+    case emove::Dr:
         rotate(rotation_side::SIDE_D, rotation_type::ROTATION_L);
         break;
     case emove::D2:
@@ -167,7 +167,7 @@ void Cube_bg_model::revert_rotate(emove move)
     case emove::U:
         rotate(rotation_side::SIDE_U, rotation_type::ROTATION_L);
         break;
-    case emove::Up:
+    case emove::Ur:
         rotate(rotation_side::SIDE_U, rotation_type::ROTATION_R);
         break;
     case emove::U2:
@@ -179,7 +179,7 @@ void Cube_bg_model::revert_rotate(emove move)
     case emove::L:
         rotate(rotation_side::SIDE_L, rotation_type::ROTATION_L);
         break;
-    case emove::Lp:
+    case emove::Lr:
         rotate(rotation_side::SIDE_L, rotation_type::ROTATION_R);
         break;
     case emove::L2:
@@ -191,7 +191,7 @@ void Cube_bg_model::revert_rotate(emove move)
     case emove::F:
         rotate(rotation_side::SIDE_F, rotation_type::ROTATION_L);
         break;
-    case emove::Fp:
+    case emove::Fr:
         rotate(rotation_side::SIDE_F, rotation_type::ROTATION_R);
         break;
     case emove::F2:
@@ -203,7 +203,7 @@ void Cube_bg_model::revert_rotate(emove move)
     case emove::R:
         rotate(rotation_side::SIDE_R, rotation_type::ROTATION_L);
         break;
-    case emove::Rp:
+    case emove::Rr:
         rotate(rotation_side::SIDE_R, rotation_type::ROTATION_R);
         break;
     case emove::R2:
@@ -215,7 +215,7 @@ void Cube_bg_model::revert_rotate(emove move)
     case emove::B:
         rotate(rotation_side::SIDE_B, rotation_type::ROTATION_L);
         break;
-    case emove::Bp:
+    case emove::Br:
         rotate(rotation_side::SIDE_B, rotation_type::ROTATION_R);
         break;
     case emove::B2:
@@ -227,7 +227,7 @@ void Cube_bg_model::revert_rotate(emove move)
     case emove::D:
         rotate(rotation_side::SIDE_D, rotation_type::ROTATION_L);
         break;
-    case emove::Dp:
+    case emove::Dr:
         rotate(rotation_side::SIDE_D, rotation_type::ROTATION_R);
         break;
     case emove::D2:
@@ -726,37 +726,37 @@ std::string Cube_bg_model::move_name(emove move) const
     switch (move) {
     case emove::U:
         return "U";
-    case emove::Up:
+    case emove::Ur:
         return "U'";
     case emove::U2:
         return "U2";
     case emove::L:
         return "L";
-    case emove::Lp:
+    case emove::Lr:
         return "L'";
     case emove::L2:
         return "L2";
     case emove::F:
         return "F";
-    case emove::Fp:
+    case emove::Fr:
         return "F'";
     case emove::F2:
         return "F2";
     case emove::R:
         return "R";
-    case emove::Rp:
+    case emove::Rr:
         return "R'";
     case emove::R2:
         return "R2";
     case emove::B:
         return "B";
-    case emove::Bp:
+    case emove::Br:
         return "B'";
     case emove::B2:
         return "B2";
     case emove::D:
         return "D";
-    case emove::Dp:
+    case emove::Dr:
         return "D'";
     case emove::D2:
         return "D2";

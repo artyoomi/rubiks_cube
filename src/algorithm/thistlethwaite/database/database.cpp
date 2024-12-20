@@ -28,13 +28,16 @@ bool Database::load()
 
 void Database::save() const
 {
+    // open file
     std::ofstream ofs(_cache_dir_path + _fname);
 
-    //if (!outfile)
-    //   throw std::runtime_error("Can't open file for write!");
+    // check if file is open
+    if (ofs.is_open())
+        throw std::runtime_error("Database::save: Can't open file for write!");
 
-    for (size_t i = 0; i < _capacity; ++i)
-        ofs << (size_t)_data[i] << std::endl;
+    // write database data to file
+    for (std::size_t i = 0; i < _capacity; ++i)
+        ofs << (std::size_t)_data[i] << std::endl;
     
     ofs.close();
 }

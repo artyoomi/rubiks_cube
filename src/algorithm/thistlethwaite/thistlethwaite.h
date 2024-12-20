@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../solver.h"
-#include "groups.h"
+#include "phases.h"
 #include "searcher.h"
 
 // jaapsch.net/puzzles/thistle.htm

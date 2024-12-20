@@ -26,7 +26,7 @@ std::vector<std::pair<rotation_side, rotation_type>> Thistlethwaite::emove_to_ro
         case emove::U:
             result.push_back(std::make_pair(rotation_side::SIDE_U, rotation_type::ROTATION_R));
             break;
-        case emove::Up:
+        case emove::Ur:
             result.push_back(std::make_pair(rotation_side::SIDE_U, rotation_type::ROTATION_L));
             break;
         case emove::U2:
@@ -36,7 +36,7 @@ std::vector<std::pair<rotation_side, rotation_type>> Thistlethwaite::emove_to_ro
         case emove::L:
             result.push_back(std::make_pair(rotation_side::SIDE_L, rotation_type::ROTATION_R));
             break;
-        case emove::Lp:
+        case emove::Lr:
             result.push_back(std::make_pair(rotation_side::SIDE_L, rotation_type::ROTATION_L));
             break;
         case emove::L2:
@@ -46,7 +46,7 @@ std::vector<std::pair<rotation_side, rotation_type>> Thistlethwaite::emove_to_ro
         case emove::F:
             result.push_back(std::make_pair(rotation_side::SIDE_F, rotation_type::ROTATION_R));
             break;
-        case emove::Fp:
+        case emove::Fr:
             result.push_back(std::make_pair(rotation_side::SIDE_F, rotation_type::ROTATION_L));
             break;
         case emove::F2:
@@ -56,7 +56,7 @@ std::vector<std::pair<rotation_side, rotation_type>> Thistlethwaite::emove_to_ro
         case emove::R:
             result.push_back(std::make_pair(rotation_side::SIDE_R, rotation_type::ROTATION_R));
             break;
-        case emove::Rp:
+        case emove::Rr:
             result.push_back(std::make_pair(rotation_side::SIDE_R, rotation_type::ROTATION_L));
             break;
         case emove::R2:
@@ -66,7 +66,7 @@ std::vector<std::pair<rotation_side, rotation_type>> Thistlethwaite::emove_to_ro
         case emove::B:
             result.push_back(std::make_pair(rotation_side::SIDE_B, rotation_type::ROTATION_R));
             break;
-        case emove::Bp:
+        case emove::Br:
             result.push_back(std::make_pair(rotation_side::SIDE_B, rotation_type::ROTATION_L));
             break;
         case emove::B2:
@@ -76,7 +76,7 @@ std::vector<std::pair<rotation_side, rotation_type>> Thistlethwaite::emove_to_ro
         case emove::D:
             result.push_back(std::make_pair(rotation_side::SIDE_D, rotation_type::ROTATION_R));
             break;
-        case emove::Dp:
+        case emove::Dr:
             result.push_back(std::make_pair(rotation_side::SIDE_D, rotation_type::ROTATION_L));
             break;
         case emove::D2:
@@ -106,7 +106,7 @@ std::vector<std::pair<rotation_side, rotation_type>> Thistlethwaite::solve(const
     Timer  timer;
     double full_solve_time = 0;
 
-    // create A* searcher object
+    // create searcher object
     Searcher searcher;
 
     std::cout << "Thistlethwaite's algorithm:" << std::endl;

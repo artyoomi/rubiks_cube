@@ -9,10 +9,10 @@ struct Phase2_info : public Phase_info
         // forbid U and D quarter turns
         allowed_moves = {
             emove::U2,
-            emove::L, emove::Lp, emove::L2,
-            emove::F, emove::Fp, emove::F2,
-            emove::R, emove::Rp, emove::R2,
-            emove::B, emove::Bp, emove::B2,
+            emove::L, emove::Lr, emove::L2,
+            emove::F, emove::Fr, emove::F2,
+            emove::R, emove::Rr, emove::R2,
+            emove::B, emove::Br, emove::B2,
             emove::D2
         };
     }

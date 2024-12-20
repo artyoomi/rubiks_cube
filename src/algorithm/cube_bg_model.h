@@ -94,12 +94,12 @@ public:
     // all cube moves enum
     enum class emove : uint8_t {
         NO_MOVE,
-        U, Up, U2,
-        L, Lp, L2,
-        F, Fp, F2,
-        R, Rp, R2,
-        B, Bp, B2,
-        D, Dp, D2,
+        U, Ur, U2,
+        L, Lr, L2,
+        F, Fr, F2,
+        R, Rr, R2,
+        B, Br, B2,
+        D, Dr, D2,
     };
 
     // determine edge as two colors array

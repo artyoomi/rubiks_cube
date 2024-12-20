@@ -31,10 +31,10 @@ struct Phase {
         }
     }
 
-    Database   *database    = nullptr;
-    Phase_info *phase_info  = nullptr;
+    Database   *database   = nullptr;
+    Phase_info *phase_info = nullptr;
 
-    // name for current phase
+    // name of current phase
     std::string name;
 
 protected:

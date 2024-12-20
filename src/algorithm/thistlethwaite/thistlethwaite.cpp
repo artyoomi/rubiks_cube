@@ -107,7 +107,7 @@ std::vector<std::pair<rotation_side, rotation_type>> Thistlethwaite::solve(const
     double full_solve_time = 0;
 
     // create A* searcher object
-    AStar astar;
+    Searcher searcher;
 
     std::cout << "Thistlethwaite's algorithm:" << std::endl;
 
@@ -118,7 +118,7 @@ std::vector<std::pair<rotation_side, rotation_type>> Thistlethwaite::solve(const
         std::cout << phase->name << ": ";
 
         // get partial group solution
-        std::vector<emove> phase_result = astar.search(cube, *phase->phase_info, *phase->database);
+        std::vector<emove> phase_result = searcher.search(cube, *phase->phase_info, *phase->database);
 
         // add partial solution to the end result
         result.insert(result.end(), phase_result.begin(), phase_result.end());

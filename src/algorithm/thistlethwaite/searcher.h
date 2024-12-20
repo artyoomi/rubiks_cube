@@ -11,17 +11,17 @@
 #include "phase_info/phase_info.h"
 
 /*
- * A* searching algorithm implementation
+ * Database search algorithm
  */
-struct AStar {
+struct Searcher {
     using emove = Cube_bg_model::emove;
 
-    struct AStar_node;
-    using AStar_node_ptr = std::shared_ptr<AStar_node>;
+    struct Graph_node;
+    using Graph_node_ptr = std::shared_ptr<Graph_node>;
 
-    struct AStar_node {
+    struct Graph_node {
         Cube_bg_model  cube;
-        AStar_node_ptr parent = nullptr;
+        Graph_node_ptr parent = nullptr;
         emove          move   = emove::NO_MOVE;
         uint8_t        score;
     };

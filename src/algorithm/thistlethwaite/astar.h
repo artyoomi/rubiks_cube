@@ -11,7 +11,7 @@
 #include "phase_info/phase_info.h"
 
 /*
- * A* searching algorithm
+ * A* searching algorithm implementation
  */
 struct AStar {
     using emove = Cube_bg_model::emove;

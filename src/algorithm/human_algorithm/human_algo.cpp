@@ -80,6 +80,8 @@ std::vector<std::pair<rotation_side, rotation_type>> Human_algo::solve(const Cub
         }
     }
 
+    std::cout << "Human algo: solved in (" << result.size() << ") turns\n";
+
     return result;
 }
 

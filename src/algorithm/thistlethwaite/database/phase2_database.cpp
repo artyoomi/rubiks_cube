@@ -39,7 +39,8 @@ uint32_t Phase2_database::id(const Cube_bg_model& cube) const
             edge_pos_comb[e++] = i + 1;
     }
 
-    uint32_t edge_index = combIndexer4.id(edge_pos_comb);   // edge
+    // get edges index according to found edge inarray indexes
+    uint32_t edges_index = combIndexer4.id(edge_pos_comb);   // edge
     uint32_t corner_index = 0;                              // corner
 
     // treats corner orientations as ternary numbers and converts it to decimal
@@ -53,5 +54,5 @@ uint32_t Phase2_database::id(const Cube_bg_model& cube) const
         corner_orientation_perm[6] * 729;
 
     // (0..3^7 - 1) * 12C4 + (0..12C4 - 1) = 0..1082564
-    return corner_index * 495 + edge_index;
+    return corner_index * 495 + edges_index;
 }

@@ -23,6 +23,7 @@ std::vector<Cube_bg_model::emove> Searcher::search(const Cube_bg_model& cube, co
      * with minimal score in fastest possible time
      */
     std::priority_queue<Graph_node_ptr, std::vector<Graph_node_ptr>, decltype(cmp_nodes)> pr_q;
+    //std::priority_queue<Graph_node_ptr> pr_q;
 
     // firstly, add root_node to queue
     pr_q.push(root_node);
@@ -40,7 +41,7 @@ std::vector<Cube_bg_model::emove> Searcher::search(const Cube_bg_model& cube, co
 
         // solved state in the database didn't match the goal
         if (database[curr_node->cube] == 0)
-            throw std::logic_error("Graph: A solved state in the database didn't match the goal");
+            throw std::logic_error("Searcher: A solved state in the database didn't match the goal");
 
         // generate child nodes with allowed moves
         for (const auto& move : phase_info.allowed_moves) {

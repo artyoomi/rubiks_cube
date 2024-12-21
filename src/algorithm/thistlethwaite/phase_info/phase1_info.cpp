@@ -2,50 +2,50 @@
 
 bool Phase1_info::solved(const Cube_bg_model& cube) const
 {
-    ecolour E_UB = cube.colour(eedge::UB);
-    ecolour E_UR = cube.colour(eedge::UR);
-    ecolour E_UF = cube.colour(eedge::UF);
-    ecolour E_UL = cube.colour(eedge::UL);
+    ecolor E_UB = cube.color(eedge::UB);
+    ecolor E_UR = cube.color(eedge::UR);
+    ecolor E_UF = cube.color(eedge::UF);
+    ecolor E_UL = cube.color(eedge::UL);
 
-    ecolour E_LU = cube.colour(eedge::LU);
-    ecolour E_LF = cube.colour(eedge::LF);
-    ecolour E_LD = cube.colour(eedge::LD);
-    ecolour E_LB = cube.colour(eedge::LB);
+    ecolor E_LU = cube.color(eedge::LU);
+    ecolor E_LF = cube.color(eedge::LF);
+    ecolor E_LD = cube.color(eedge::LD);
+    ecolor E_LB = cube.color(eedge::LB);
 
-    ecolour E_FU = cube.colour(eedge::FU);
-    ecolour E_FR = cube.colour(eedge::FR);
-    ecolour E_FD = cube.colour(eedge::FD);
-    ecolour E_FL = cube.colour(eedge::FL);
+    ecolor E_FU = cube.color(eedge::FU);
+    ecolor E_FR = cube.color(eedge::FR);
+    ecolor E_FD = cube.color(eedge::FD);
+    ecolor E_FL = cube.color(eedge::FL);
 
-    ecolour E_RU = cube.colour(eedge::RU);
-    ecolour E_RB = cube.colour(eedge::RB);
-    ecolour E_RD = cube.colour(eedge::RD);
-    ecolour E_RF = cube.colour(eedge::RF);
+    ecolor E_RU = cube.color(eedge::RU);
+    ecolor E_RB = cube.color(eedge::RB);
+    ecolor E_RD = cube.color(eedge::RD);
+    ecolor E_RF = cube.color(eedge::RF);
 
-    ecolour E_BU = cube.colour(eedge::BU);
-    ecolour E_BL = cube.colour(eedge::BL);
-    ecolour E_BD = cube.colour(eedge::BD);
-    ecolour E_BR = cube.colour(eedge::BR);
+    ecolor E_BU = cube.color(eedge::BU);
+    ecolor E_BL = cube.color(eedge::BL);
+    ecolor E_BD = cube.color(eedge::BD);
+    ecolor E_BR = cube.color(eedge::BR);
 
-    ecolour E_DF = cube.colour(eedge::DF);
-    ecolour E_DR = cube.colour(eedge::DR);
-    ecolour E_DB = cube.colour(eedge::DB);
-    ecolour E_DL = cube.colour(eedge::DL);
+    ecolor E_DF = cube.color(eedge::DF);
+    ecolor E_DR = cube.color(eedge::DR);
+    ecolor E_DB = cube.color(eedge::DB);
+    ecolor E_DL = cube.color(eedge::DL);
 
     // same logic from Cube_bg_model::getEdgeOrientation
     return 
-        ((E_FR == ecolour::B || E_FR == ecolour::F) || ((E_FR == ecolour::U || E_FR == ecolour::D) && (E_RF == ecolour::L || E_RF == ecolour::R))) &&
-        ((E_FL == ecolour::B || E_FL == ecolour::F) || ((E_FL == ecolour::U || E_FL == ecolour::D) && (E_LF == ecolour::L || E_LF == ecolour::R))) &&
-        ((E_FU == ecolour::B || E_FU == ecolour::F) || ((E_FU == ecolour::U || E_FU == ecolour::D) && (E_UF == ecolour::L || E_UF == ecolour::R))) &&
-        ((E_FD == ecolour::B || E_FD == ecolour::F) || ((E_FD == ecolour::U || E_FD == ecolour::D) && (E_DF == ecolour::L || E_DF == ecolour::R))) &&
+        ((E_FR == ecolor::B || E_FR == ecolor::F) || ((E_FR == ecolor::U || E_FR == ecolor::D) && (E_RF == ecolor::L || E_RF == ecolor::R))) &&
+        ((E_FL == ecolor::B || E_FL == ecolor::F) || ((E_FL == ecolor::U || E_FL == ecolor::D) && (E_LF == ecolor::L || E_LF == ecolor::R))) &&
+        ((E_FU == ecolor::B || E_FU == ecolor::F) || ((E_FU == ecolor::U || E_FU == ecolor::D) && (E_UF == ecolor::L || E_UF == ecolor::R))) &&
+        ((E_FD == ecolor::B || E_FD == ecolor::F) || ((E_FD == ecolor::U || E_FD == ecolor::D) && (E_DF == ecolor::L || E_DF == ecolor::R))) &&
 
-        ((E_BR == ecolour::B || E_BR == ecolour::F) || ((E_BR == ecolour::U || E_BR == ecolour::D) && (E_RB == ecolour::L || E_RB == ecolour::R))) &&
-        ((E_BL == ecolour::B || E_BL == ecolour::F) || ((E_BL == ecolour::U || E_BL == ecolour::D) && (E_LB == ecolour::L || E_LB == ecolour::R))) &&
-        ((E_BU == ecolour::B || E_BU == ecolour::F) || ((E_BU == ecolour::U || E_BU == ecolour::D) && (E_UB == ecolour::L || E_UB == ecolour::R))) &&
-        ((E_BD == ecolour::B || E_BD == ecolour::F) || ((E_BD == ecolour::U || E_BD == ecolour::D) && (E_DB == ecolour::L || E_DB == ecolour::R))) &&
+        ((E_BR == ecolor::B || E_BR == ecolor::F) || ((E_BR == ecolor::U || E_BR == ecolor::D) && (E_RB == ecolor::L || E_RB == ecolor::R))) &&
+        ((E_BL == ecolor::B || E_BL == ecolor::F) || ((E_BL == ecolor::U || E_BL == ecolor::D) && (E_LB == ecolor::L || E_LB == ecolor::R))) &&
+        ((E_BU == ecolor::B || E_BU == ecolor::F) || ((E_BU == ecolor::U || E_BU == ecolor::D) && (E_UB == ecolor::L || E_UB == ecolor::R))) &&
+        ((E_BD == ecolor::B || E_BD == ecolor::F) || ((E_BD == ecolor::U || E_BD == ecolor::D) && (E_DB == ecolor::L || E_DB == ecolor::R))) &&
 
-        ((E_RU == ecolour::R || E_RU == ecolour::L) || ((E_RU == ecolour::U || E_RU == ecolour::D) && (E_UR == ecolour::B || E_UR == ecolour::F))) &&
-        ((E_RD == ecolour::R || E_RD == ecolour::L) || ((E_RD == ecolour::U || E_RD == ecolour::D) && (E_DR == ecolour::B || E_DR == ecolour::F))) &&
-        ((E_LU == ecolour::R || E_LU == ecolour::L) || ((E_LU == ecolour::U || E_LU == ecolour::D) && (E_UL == ecolour::B || E_UL == ecolour::F))) &&
-        ((E_LD == ecolour::R || E_LD == ecolour::L) || ((E_LD == ecolour::U || E_LD == ecolour::D) && (E_DL == ecolour::B || E_DL == ecolour::F)));
+        ((E_RU == ecolor::R || E_RU == ecolor::L) || ((E_RU == ecolor::U || E_RU == ecolor::D) && (E_UR == ecolor::B || E_UR == ecolor::F))) &&
+        ((E_RD == ecolor::R || E_RD == ecolor::L) || ((E_RD == ecolor::U || E_RD == ecolor::D) && (E_DR == ecolor::B || E_DR == ecolor::F))) &&
+        ((E_LU == ecolor::R || E_LU == ecolor::L) || ((E_LU == ecolor::U || E_LU == ecolor::D) && (E_UL == ecolor::B || E_UL == ecolor::F))) &&
+        ((E_LD == ecolor::R || E_LD == ecolor::L) || ((E_LD == ecolor::U || E_LD == ecolor::D) && (E_DL == ecolor::B || E_DL == ecolor::F)));
 }

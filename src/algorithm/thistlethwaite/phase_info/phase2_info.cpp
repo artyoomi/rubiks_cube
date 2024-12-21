@@ -3,35 +3,35 @@
 bool Phase2_info::solved(const Cube_bg_model& cube) const
 {
     // M-slice edges
-    ecolour E_FU = cube.colour(eedge::FU);
-    ecolour E_FD = cube.colour(eedge::FD);
-    ecolour E_BU = cube.colour(eedge::BU);
-    ecolour E_BD = cube.colour(eedge::BD);
+    ecolor E_FU = cube.color(eedge::FU);
+    ecolor E_FD = cube.color(eedge::FD);
+    ecolor E_BU = cube.color(eedge::BU);
+    ecolor E_BD = cube.color(eedge::BD);
 
-    ecolour E_UF = cube.colour(eedge::UF);
-    ecolour E_DF = cube.colour(eedge::DF);
-    ecolour E_UB = cube.colour(eedge::UB);
-    ecolour E_DB = cube.colour(eedge::DB);
+    ecolor E_UF = cube.color(eedge::UF);
+    ecolor E_DF = cube.color(eedge::DF);
+    ecolor E_UB = cube.color(eedge::UB);
+    ecolor E_DB = cube.color(eedge::DB);
 
     // corner facelets from the L/R axis
-    ecolour C_LFU = cube.colour(ecorner::LUF);
-    ecolour C_LUB = cube.colour(ecorner::LUB);
-    ecolour C_LDF = cube.colour(ecorner::LDF);
-    ecolour C_LBD = cube.colour(ecorner::LDB);
-    ecolour C_RBU = cube.colour(ecorner::RUB);
-    ecolour C_RDB = cube.colour(ecorner::RDB);
-    ecolour C_RFD = cube.colour(ecorner::RDF);
-    ecolour C_RUF = cube.colour(ecorner::RUF);
+    ecolor C_LFU = cube.color(ecorner::LUF);
+    ecolor C_LUB = cube.color(ecorner::LUB);
+    ecolor C_LDF = cube.color(ecorner::LDF);
+    ecolor C_LBD = cube.color(ecorner::LDB);
+    ecolor C_RBU = cube.color(ecorner::RUB);
+    ecolor C_RDB = cube.color(ecorner::RDB);
+    ecolor C_RFD = cube.color(ecorner::RDF);
+    ecolor C_RUF = cube.color(ecorner::RUF);
 
     return
         // checks that the M-slice edges are in the M-slice
-        (E_FU == ecolour::F || E_FU == ecolour::B) && (E_UF == ecolour::U || E_UF == ecolour::D) &&
-        (E_FD == ecolour::F || E_FD == ecolour::B) && (E_DF == ecolour::U || E_DF == ecolour::D) &&
-        (E_BU == ecolour::F || E_BU == ecolour::B) && (E_UB == ecolour::U || E_UB == ecolour::D) &&
-        (E_BD == ecolour::F || E_BD == ecolour::B) && (E_DB == ecolour::U || E_DB == ecolour::D) &&
+        (E_FU == ecolor::F || E_FU == ecolor::B) && (E_UF == ecolor::U || E_UF == ecolor::D) &&
+        (E_FD == ecolor::F || E_FD == ecolor::B) && (E_DF == ecolor::U || E_DF == ecolor::D) &&
+        (E_BU == ecolor::F || E_BU == ecolor::B) && (E_UB == ecolor::U || E_UB == ecolor::D) &&
+        (E_BD == ecolor::F || E_BD == ecolor::B) && (E_DB == ecolor::U || E_DB == ecolor::D) &&
         // checks that the corners are oriented (their L/R facelet is in the L/R face)
-        (C_LFU == ecolour::L || C_LFU == ecolour::R) && (C_LUB == ecolour::L || C_LUB == ecolour::R) &&
-        (C_LDF == ecolour::L || C_LDF == ecolour::R) && (C_LBD == ecolour::L || C_LBD == ecolour::R) &&
-        (C_RBU == ecolour::L || C_RBU == ecolour::R) && (C_RDB == ecolour::L || C_RDB == ecolour::R) &&
-        (C_RFD == ecolour::L || C_RFD == ecolour::R) && (C_RUF == ecolour::L || C_RUF == ecolour::R);
+        (C_LFU == ecolor::L || C_LFU == ecolor::R) && (C_LUB == ecolor::L || C_LUB == ecolor::R) &&
+        (C_LDF == ecolor::L || C_LDF == ecolor::R) && (C_LBD == ecolor::L || C_LBD == ecolor::R) &&
+        (C_RBU == ecolor::L || C_RBU == ecolor::R) && (C_RDB == ecolor::L || C_RDB == ecolor::R) &&
+        (C_RFD == ecolor::L || C_RFD == ecolor::R) && (C_RUF == ecolor::L || C_RUF == ecolor::R);
 }

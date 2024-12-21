@@ -51,11 +51,6 @@ file(GLOB_RECURSE CONTROLLER_SOURCES
     "${PROJECT_SOURCE_DIR}/src/controller/*.cpp"
 )
 
-# Find all Human algo sources
-file(GLOB_RECURSE THISTLETHWAITE_SOURCES
-    "${PROJECT_SOURCE_DIR}/src/algorithm/human_algo/*.cpp"
-)
-
 # Find all Thistlethwaite algo sources
 file(GLOB_RECURSE THISTLETHWAITE_SOURCES
     "${PROJECT_SOURCE_DIR}/src/algorithm/thistlethwaite/*.cpp"
@@ -81,3 +76,10 @@ target_link_libraries(Rubiks_cube
     OpenGL::GL 
 )
 
+enable_testing()
+
+add_executable(Cube_bg_model_test src/tests/cube_bg_model_tests.cpp src/algorithm/cube_bg_model.cpp)
+target_link_libraries(Cube_bg_model_test gtest_main gtest)
+
+include(GoogleTest)
+gtest_discover_tests(Cube_bg_model_test)

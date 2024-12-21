@@ -32,7 +32,7 @@ bool utilities::redundant(emove curr, emove last)
         return true;
 
     if ((curr == emove::B || curr == emove::Br || curr == emove::B2) &&
-        (last == emove::B || last == emove::Rr || last == emove::B2))
+        (last == emove::B || last == emove::Br || last == emove::B2))
         return true;
 
     if ((curr == emove::D || curr == emove::Dr || curr == emove::D2) &&

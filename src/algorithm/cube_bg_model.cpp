@@ -44,7 +44,7 @@ bool Cube_bg_model::solved() const
     return true;
 }
 
-std::array<Cube_bg_model::ecolor, COLORS_PER_SIDE> Cube_bg_model::get_side(rotation_side side)
+std::array<Cube_bg_model::ecolor, COLORS_PER_SIDE> Cube_bg_model::get_side(ecolor side) const
 {
     std::size_t first_i = static_cast<std::size_t>(side) * 9;
 
@@ -53,6 +53,16 @@ std::array<Cube_bg_model::ecolor, COLORS_PER_SIDE> Cube_bg_model::get_side(rotat
         result[i] = _cube_data[first_i + i];
 
     return result;
+}
+
+std::array<Cube_bg_model::ecolor, COLORS_PER_SIDE> Cube_bg_model::get_side(rotation_side side) const
+{
+    return get_side(static_cast<ecolor>((static_cast<std::size_t>(side))));
+}
+
+std::array<Cube_bg_model::ecolor, TOTAL_COLOR_CELLS> Cube_bg_model::get_data() const
+{
+    return _cube_data;
 }
 
 Cube_bg_model::ecolor Cube_bg_model::operator[](unsigned index)
@@ -480,25 +490,24 @@ void Cube_bg_model::_rotate_side(rotation_side side)
      }
  }
 
-Cube_bg_model::ecolor Cube_bg_model::colour(ecorner index) const
+Cube_bg_model::ecolor Cube_bg_model::color(ecorner index) const
 {
     return _cube_data[(uint8_t)index];
 }
 
-Cube_bg_model::ecolor Cube_bg_model::colour(eedge index) const
+Cube_bg_model::ecolor Cube_bg_model::color(eedge index) const
 {
     return _cube_data[(uint8_t)index];
 }
 
 uint8_t Cube_bg_model::edge_orientation(const edge_t& edge) const
 {
+    // checks if a facelet has one of the colors from the F/B axis, if not, checks if it's from the U/D axis and
+    // that the adjacent edge facelet has a color from the R/L axis
     return
          (( edge[0] == ecolor::F || edge[0] == ecolor::B) ||
           ((edge[0] == ecolor::U || edge[0] == ecolor::D) &&
            (edge[1] == ecolor::R || edge[1] == ecolor::L)));
-
-    // checks if a facelet has one of the colours from the R/L axis, if not, checks if it's from the U/D axis and
-    // that the adjacent edge facelet has a colour from the F/B axis
 }
 
 uint8_t Cube_bg_model::corner_orientation(const corner_t& corner) const
@@ -507,7 +516,7 @@ uint8_t Cube_bg_model::corner_orientation(const corner_t& corner) const
     // orientation is determined by the twist of the corner, but this follows
     // a differnet logic to avoid unnecessary extra code
 
-    // retrun 0 / 1 / 2 based on which axis the L/R colour is on
+    // retrun 0 / 1 / 2 based on which axis the L/R color is on
     for (uint8_t i = 0; i < 3; ++i) {
         if (corner[i] == ecolor::R || corner[i] == ecolor::L)
             return i;
@@ -518,7 +527,7 @@ uint8_t Cube_bg_model::corner_orientation(const corner_t& corner) const
 
 uint8_t Cube_bg_model::edge_index(const edge_t& edge) const
 { 
-    // unique index based on colour combinations
+    // unique index based on color combinations
     uint8_t index = ((1 << (uint8_t)edge[0]) + (1 << (uint8_t)edge[1]));
 
     /* The dependence of the obtained value at (1 << color[i]) on the base side of the color
@@ -556,14 +565,14 @@ uint8_t Cube_bg_model::edge_index(const edge_t& edge) const
     case 17: // UB
         return 11;
     default:
-        std::string colors = colour_name(edge[0]) + colour_name(edge[1]);
-        throw std::logic_error("Cube_bg_model::corner_index invalid combination of edge colours: " + colors);
+        std::string colors = color_name(edge[0]) + color_name(edge[1]);
+        throw std::logic_error("Cube_bg_model::corner_index invalid combination of edge colors: " + colors);
     }
 }
 
 uint8_t Cube_bg_model::corner_index(const corner_t& corner) const
 {
-    // unique index based on colour combinations
+    // unique index based on color combinations
     uint8_t index = ((1 << (uint8_t)corner[0]) + (1 << (uint8_t)corner[1]) + (1 << (uint8_t)corner[2]));
 
     /* The dependence of the obtained value at (1 << color[i]) on the base side of the color
@@ -593,8 +602,8 @@ uint8_t Cube_bg_model::corner_index(const corner_t& corner) const
     case 25: // RUB
         return 7;
     default:
-        std::string colours = colour_name(corner[0]) + colour_name(corner[1]) + colour_name(corner[2]);
-        throw std::logic_error("Cube_bg_model::corner_index invalid combination of edge colours:" + colours);
+        std::string colors = color_name(corner[0]) + color_name(corner[1]) + color_name(corner[2]);
+        throw std::logic_error("Cube_bg_model::corner_index invalid combination of edge colors:" + colors);
     }
 }
 
@@ -602,45 +611,45 @@ uint8_t Cube_bg_model::piece_index(epiece piece) const
 {
     switch (piece) {
     case epiece::UL:
-        return edge_index({colour(eedge::UL), colour(eedge::LU)});
+        return edge_index({color(eedge::UL), color(eedge::LU)});
     case epiece::DL:
-        return edge_index({colour(eedge::DL), colour(eedge::LD)});
+        return edge_index({color(eedge::DL), color(eedge::LD)});
     case epiece::DR:
-        return edge_index({colour(eedge::DR), colour(eedge::RD)});
+        return edge_index({color(eedge::DR), color(eedge::RD)});
     case epiece::UR:
-        return edge_index({colour(eedge::UR), colour(eedge::RU)});
+        return edge_index({color(eedge::UR), color(eedge::RU)});
     case epiece::LF:
-        return edge_index({colour(eedge::LF), colour(eedge::FL)});
+        return edge_index({color(eedge::LF), color(eedge::FL)});
     case epiece::LB:
-        return edge_index({colour(eedge::LB), colour(eedge::BL)});
+        return edge_index({color(eedge::LB), color(eedge::BL)});
     case epiece::RF:
-        return edge_index({colour(eedge::RF), colour(eedge::FR)});
+        return edge_index({color(eedge::RF), color(eedge::FR)});
     case epiece::RB:
-        return edge_index({colour(eedge::RB), colour(eedge::BR)});
+        return edge_index({color(eedge::RB), color(eedge::BR)});
     case epiece::UF:
-        return edge_index({colour(eedge::UF), colour(eedge::FU)});
+        return edge_index({color(eedge::UF), color(eedge::FU)});
     case epiece::DF:
-        return edge_index({colour(eedge::DF), colour(eedge::FD)});
+        return edge_index({color(eedge::DF), color(eedge::FD)});
     case epiece::DB:
-        return edge_index({colour(eedge::DB), colour(eedge::BD)});
+        return edge_index({color(eedge::DB), color(eedge::BD)});
     case epiece::UB:
-        return edge_index({colour(eedge::UB), colour(eedge::BU)});
+        return edge_index({color(eedge::UB), color(eedge::BU)});
     case epiece::ULB:
-        return corner_index({colour(ecorner::LUB), colour(ecorner::ULB), colour(ecorner::BLU)});
+        return corner_index({color(ecorner::LUB), color(ecorner::ULB), color(ecorner::BLU)});
     case epiece::ULF:
-        return corner_index({colour(ecorner::LUF), colour(ecorner::ULF), colour(ecorner::FLU)});
+        return corner_index({color(ecorner::LUF), color(ecorner::ULF), color(ecorner::FLU)});
     case epiece::DLF:
-        return corner_index({colour(ecorner::LDF), colour(ecorner::DLF), colour(ecorner::FLD)});
+        return corner_index({color(ecorner::LDF), color(ecorner::DLF), color(ecorner::FLD)});
     case epiece::DLB:
-        return corner_index({colour(ecorner::LDB), colour(ecorner::DLB), colour(ecorner::BLD)});
+        return corner_index({color(ecorner::LDB), color(ecorner::DLB), color(ecorner::BLD)});
     case epiece::DRB:
-        return corner_index({colour(ecorner::RDB), colour(ecorner::DRB), colour(ecorner::BRD)});
+        return corner_index({color(ecorner::RDB), color(ecorner::DRB), color(ecorner::BRD)});
     case epiece::DRF:
-        return corner_index({colour(ecorner::RDF), colour(ecorner::DRF), colour(ecorner::FRD)});
+        return corner_index({color(ecorner::RDF), color(ecorner::DRF), color(ecorner::FRD)});
     case epiece::URF:
-        return corner_index({colour(ecorner::RUF), colour(ecorner::URF), colour(ecorner::FRU)});
+        return corner_index({color(ecorner::RUF), color(ecorner::URF), color(ecorner::FRU)});
     case epiece::URB:
-        return corner_index({colour(ecorner::RUB), colour(ecorner::URB), colour(ecorner::BRU)});
+        return corner_index({color(ecorner::RUB), color(ecorner::URB), color(ecorner::BRU)});
     default:
         std::string value = std::to_string((int)piece);
         throw std::logic_error("Cube_bg_model::piece_index invalid enum value: " + value);
@@ -651,29 +660,29 @@ Cube_bg_model::edge_t Cube_bg_model::edge(epiece piece) const
 {
     switch (piece) {
     case epiece::UL:
-        return {colour(eedge::LU), colour(eedge::UL)};
+        return {color(eedge::LU), color(eedge::UL)};
     case epiece::DL:
-        return {colour(eedge::LD), colour(eedge::DL)};
+        return {color(eedge::LD), color(eedge::DL)};
     case epiece::DR:
-        return {colour(eedge::RD), colour(eedge::DR)};
+        return {color(eedge::RD), color(eedge::DR)};
     case epiece::UR:
-        return {colour(eedge::RU), colour(eedge::UR)};
+        return {color(eedge::RU), color(eedge::UR)};
     case epiece::LF:
-        return {colour(eedge::LF), colour(eedge::FL)};
+        return {color(eedge::LF), color(eedge::FL)};
     case epiece::LB:
-        return {colour(eedge::LB), colour(eedge::BL)};
+        return {color(eedge::LB), color(eedge::BL)};
     case epiece::RF:
-        return {colour(eedge::RF), colour(eedge::FR)};
+        return {color(eedge::RF), color(eedge::FR)};
     case epiece::RB:
-        return {colour(eedge::RB), colour(eedge::BR)};
+        return {color(eedge::RB), color(eedge::BR)};
     case epiece::UF:
-        return {colour(eedge::UF), colour(eedge::FU)};
+        return {color(eedge::UF), color(eedge::FU)};
     case epiece::DF:
-        return {colour(eedge::DF), colour(eedge::FD)};
+        return {color(eedge::DF), color(eedge::FD)};
     case epiece::DB:
-        return {colour(eedge::DB), colour(eedge::BD)};
+        return {color(eedge::DB), color(eedge::BD)};
     case epiece::UB:
-        return {colour(eedge::UB), colour(eedge::BU)};
+        return {color(eedge::UB), color(eedge::BU)};
     default:
         std::string value = std::to_string((int)piece);
         throw std::logic_error("Cube_bg_model::edge invalid enum value: " + value);
@@ -685,30 +694,30 @@ Cube_bg_model::corner_t Cube_bg_model::corner(epiece piece) const
     // same as edge(), only requires the position of the edge / corner piece
     switch (piece) {
     case epiece::ULB:
-        return {colour(ecorner::LUB), colour(ecorner::ULB), colour(ecorner::BLU)};
+        return {color(ecorner::LUB), color(ecorner::ULB), color(ecorner::BLU)};
     case epiece::ULF:
-        return {colour(ecorner::LUF), colour(ecorner::ULF), colour(ecorner::FLU)};
+        return {color(ecorner::LUF), color(ecorner::ULF), color(ecorner::FLU)};
     case epiece::DLF:
-        return {colour(ecorner::LDF), colour(ecorner::DLF), colour(ecorner::FLD)};
+        return {color(ecorner::LDF), color(ecorner::DLF), color(ecorner::FLD)};
     case epiece::DLB:
-        return {colour(ecorner::LDB), colour(ecorner::DLB), colour(ecorner::BLD)};
+        return {color(ecorner::LDB), color(ecorner::DLB), color(ecorner::BLD)};
     case epiece::DRB:
-        return {colour(ecorner::RDB), colour(ecorner::DRB), colour(ecorner::BRD)};
+        return {color(ecorner::RDB), color(ecorner::DRB), color(ecorner::BRD)};
     case epiece::DRF:
-        return {colour(ecorner::RDF), colour(ecorner::DRF), colour(ecorner::FRD)};
+        return {color(ecorner::RDF), color(ecorner::DRF), color(ecorner::FRD)};
     case epiece::URF:
-        return {colour(ecorner::RUF), colour(ecorner::URF), colour(ecorner::FRU)};
+        return {color(ecorner::RUF), color(ecorner::URF), color(ecorner::FRU)};
     case epiece::URB:
-        return {colour(ecorner::RUB), colour(ecorner::URB), colour(ecorner::BRU)};
+        return {color(ecorner::RUB), color(ecorner::URB), color(ecorner::BRU)};
     default:
         std::string value = std::to_string((int)piece);
         throw std::logic_error("Cube_bg_model::corner invalid enum value: " + value);
     }
 }
 
-std::string Cube_bg_model::colour_name(ecolor colour) const
+std::string Cube_bg_model::color_name(ecolor color) const
 {
-    switch (colour) {
+    switch (color) {
     case ecolor::U:
         return "W";
     case ecolor::L:
@@ -722,8 +731,8 @@ std::string Cube_bg_model::colour_name(ecolor colour) const
     case ecolor::D:
         return "Y";
     default:
-        std::string value = std::to_string((int)colour);
-        throw std::logic_error("Cube_bg_model::colour_name invalid enum value: " + value);
+        std::string value = std::to_string((int)color);
+        throw std::logic_error("Cube_bg_model::color_name invalid enum value: " + value);
     }
 }
 

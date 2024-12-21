@@ -10,7 +10,7 @@
  * Base class for phase additional info and functions
  */
 struct Phase_info {
-	using ecolour = Cube_bg_model::ecolor;
+	using ecolor = Cube_bg_model::ecolor;
     using emove   = Cube_bg_model::emove;
     using eedge   = Cube_bg_model::eedge;
     using ecorner = Cube_bg_model::ecorner;

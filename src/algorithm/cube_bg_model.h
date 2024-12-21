@@ -61,9 +61,8 @@ enum class rotation_type {
 
 class Cube_bg_model {
 public:
-    // cube colors enum
+    // cube colors enum a.k.a. side enum
     enum class ecolor : uint8_t {U = 0, L = 1, F = 2, R = 3, B = 4, D = 5};
-    // enum class ecolour : uint8_t {W = 0, O = 1, G = 2, R = 3, B = 4, Y = 5};
 
     // all cube cubies enum
     enum class epiece : uint8_t {
@@ -129,7 +128,9 @@ public:
     bool operator==(const Cube_bg_model& lhs);
 
     // get side colors in array view
-    std::array<ecolor, COLORS_PER_SIDE> get_side(rotation_side side);
+    std::array<ecolor, COLORS_PER_SIDE> get_side(ecolor side) const;
+    std::array<ecolor, COLORS_PER_SIDE> get_side(rotation_side side) const;
+    std::array<ecolor, TOTAL_COLOR_CELLS> get_data() const;
 
     // get color directly by the index
     Cube_bg_model::ecolor operator[](unsigned index);
@@ -145,11 +146,11 @@ public:
 
     // get first edge/corner facelet colour by index in cube
     // example: UFL gives U on return
-    ecolor colour(eedge index) const;
-    ecolor colour(ecorner index) const;
+    ecolor color(eedge index) const;
+    ecolor color(ecorner index) const;
 
     // get color name by enum value
-    std::string colour_name(ecolor colour) const;
+    std::string color_name(ecolor colour) const;
 
     // get move name by enum value
     std::string move_name(emove move) const;

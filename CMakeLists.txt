@@ -73,7 +73,8 @@ add_executable(Rubiks_cube
 
 target_link_libraries(Rubiks_cube
     glfw
-    OpenGL::GL 
+    OpenGL::GL
+    ${CMAKE_DL_LIBS} 
 )
 
 enable_testing()

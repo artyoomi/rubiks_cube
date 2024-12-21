@@ -5,7 +5,7 @@
 #include <algorithm>
 #include <queue>
 
-#include "utilities/searchutil.h"
+#include "utilities/search_utilities.h"
 #include "../cube_bg_model.h"
 #include "database/database.h"
 #include "phase_info/phase_info.h"

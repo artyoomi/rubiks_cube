@@ -23,11 +23,9 @@ struct Phase3_database : public Database {
     uint32_t id(const Cube_bg_model& cube) const override;
 
 private:
-    CombIndexer<4> combIndexer4;
-    PermIndexer<3> permIndexer3;
-
-    using emove = Cube_bg_model::emove;
-
+    CombIndexer<4> comb_indexer4;
+    PermIndexer<3> perm_indexer3;
+    
     // moves to solve the even tetrad (ULB, DLF, DRB, URF)
     const std::array<std::vector<emove>, 3> C_evenTetradSolvingMoves = {{
         { emove::U2, emove::L2, emove::B2 },  // ULB

@@ -33,15 +33,15 @@ uint32_t Phase2_database::id(const Cube_bg_model& cube) const
     std::array<uint8_t, 4> edge_pos_comb;
 
     for (uint8_t i = 0, e = 0; i < 12 && e < 4; ++i) {
-        // indices of the M-slice edges are 8, 9, 10, 11
+        // indices of the LR-slice edges are 8, 9, 10, 11
         if (edge_perm[i] == 8  || edge_perm[i] == 9 ||
             edge_perm[i] == 10 || edge_perm[i] == 11)
             edge_pos_comb[e++] = i + 1;
     }
 
     // get edges index according to found edge inarray indexes
-    uint32_t edges_index = combIndexer4.id(edge_pos_comb);   // edge
-    uint32_t corner_index = 0;                              // corner
+    uint32_t edges_index = comb_indexer4.index(edge_pos_comb);   // edge
+    uint32_t corner_index = 0;                                   // corner
 
     // treats corner orientations as ternary numbers and converts it to decimal
     corner_index +=

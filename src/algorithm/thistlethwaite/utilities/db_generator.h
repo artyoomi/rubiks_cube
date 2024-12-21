@@ -8,7 +8,7 @@
 #include "../phase_info/phase_info.h"
 
 #include "../utilities/timer.h"
-#include "../utilities/searchutil.h"
+#include "../utilities/search_utilities.h"
 
 /* 
  * Searches the cube (IDDFS) for all possible states and stores the depth of each state in a file

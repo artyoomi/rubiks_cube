@@ -43,12 +43,12 @@ uint32_t Phase4_database::id(const Cube_bg_model& cube) const
     // for every permutation of the first tetrad the second tetrad will start 
     // with either 0/1/2/3 which dictates the "rank" of the permutation
     uint8_t C_tetradRank = cube.piece_index(epiece::ULF);
-    uint8_t E_sliceRankS = permIndexer4p2.id(E_posPermS);
+    uint8_t E_sliceRankS = perm_indexer4p2.index(E_posPermS);
 
     // (0..4! - 1) * 4 + 0..3 = 0..96
-    uint32_t C_ind = permIndexer4.id(C_tetradPosPerm) * 4 + (C_tetradRank >> 1);
+    uint32_t C_ind = perm_indexer4.index(C_tetradPosPerm) * 4 + (C_tetradRank >> 1);
     // (0..4! - 1) * (4!^2 / 2) + (0..4! - 1) * (4! / 2) + (0..4! / 2) = 0..6911
-    uint32_t E_ind = permIndexer4.id(E_posPermM) * 288 + permIndexer4.id(E_posPermE) * 12 + E_sliceRankS;
+    uint32_t E_ind = perm_indexer4.index(E_posPermM) * 288 + perm_indexer4.index(E_posPermE) * 12 + E_sliceRankS;
     // 0..9611 * 96 + 0..95 = 0..663551
     return E_ind * 96 + C_ind;
 }

@@ -102,12 +102,22 @@ public:
         D, Dr, D2,
     };
 
-    // determine edge as two colors array
-    // first index is the facelet on the R/L face, or U/D for the M slice
+    /* determine edge as two colors array (except LR-slice):
+     * (P.S. LR-slice is cubies between L and R facelets)
+     * 0) facelet on the R/L face
+     * 1) facelet on the U/D face
+     * 
+     * determine edge as two colors array (LR-slice case):
+     * 0) facelet on the U/D face
+     * 1) facelet on the F/D face
+     */
     using edge_t   = std::array<ecolor, 2>;
 
-    // determine corner as three colors array
-    // first index is the facelet on the R/L face, second
+    /* determine corner as three colors array (the following is ordered by indexes):
+     * 0) facelet on the R/L face
+     * 1) facelet on the U/D face
+     * 2) facelet on the F/B face
+     */
     using corner_t = std::array<ecolor, 3>;
 
     // constructor

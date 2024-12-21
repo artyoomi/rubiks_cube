@@ -521,30 +521,39 @@ uint8_t Cube_bg_model::edge_index(const edge_t& edge) const
     // unique index based on colour combinations
     uint8_t index = ((1 << (uint8_t)edge[0]) + (1 << (uint8_t)edge[1]));
 
+    /* The dependence of the obtained value at (1 << color[i]) on the base side of the color
+     * U = 0 => 1
+     * L = 1 => 2
+     * F = 2 => 4
+     * R = 3 => 8
+     * B = 4 => 16
+     * D = 5 => 32
+     */
+
     switch (index) {
-    case 3:
+    case  3: // LU
         return 0;
-    case 34:
+    case 34: // LD
         return 1;
-    case 40:
+    case 40: // RD
         return 2;
-    case 9:
+    case  9: // RU
         return 3;
-    case 6:
+    case  6: // LF
         return 4;
-    case 18:
+    case 18: // LB
         return 5;
-    case 12:
+    case 12: // FR
         return 6;
-    case 24:
+    case 24: // RB
         return 7;
-    case 5:
+    case  5: // UF
         return 8;
-    case 36:
+    case 36: // DF
         return 9;
-    case 48:
+    case 48: // DB
         return 10;
-    case 17:
+    case 17: // UB
         return 11;
     default:
         std::string colors = colour_name(edge[0]) + colour_name(edge[1]);
@@ -557,34 +566,31 @@ uint8_t Cube_bg_model::corner_index(const corner_t& corner) const
     // unique index based on colour combinations
     uint8_t index = ((1 << (uint8_t)corner[0]) + (1 << (uint8_t)corner[1]) + (1 << (uint8_t)corner[2]));
 
-    // W = 0 = 1
-    // O = 1 = 2
-    // G = 2 = 4
-    // R = 3 = 8
-    // B = 4 = 16
-    // Y = 5 = 32
-
-    // ULB = WOB = 19 = 0
-    // ULF = WOG = 7  = 1
-    // DLF = YOG = 38 = 2
-    // DLB =
+    /* The dependence of the obtained value at (1 << color[i]) on the base side of the color
+     * U = 0 => 1
+     * L = 1 => 2
+     * F = 2 => 4
+     * R = 3 => 8
+     * B = 4 => 16
+     * D = 5 => 32
+     */
 
     switch (index) {
-    case 19:
+    case 19: // LUB
         return 0;
-    case 7:
+    case  7: // LUF
         return 1;
-    case 38:
+    case 38: // LDF
         return 2;
-    case 50:
+    case 50: // LDB
         return 3;
-    case 56:
+    case 56: // RDB
         return 4;
-    case 44:
+    case 44: // RDF
         return 5;
-    case 13:
+    case 13: // RUF
         return 6;
-    case 25:
+    case 25: // RUB
         return 7;
     default:
         std::string colours = colour_name(corner[0]) + colour_name(corner[1]) + colour_name(corner[2]);
@@ -706,13 +712,13 @@ std::string Cube_bg_model::colour_name(ecolor colour) const
     case ecolor::U:
         return "W";
     case ecolor::L:
-        return "O";
-    case ecolor::F:
         return "G";
-    case ecolor::R:
+    case ecolor::F:
         return "R";
-    case ecolor::B:
+    case ecolor::R:
         return "B";
+    case ecolor::B:
+        return "O";
     case ecolor::D:
         return "Y";
     default:

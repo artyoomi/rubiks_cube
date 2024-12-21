@@ -32,7 +32,7 @@ void Database::save() const
     std::ofstream ofs(_cache_dir_path + _fname);
 
     // check if file is open
-    if (ofs.is_open())
+    if (!ofs.is_open())
         throw std::runtime_error("Database::save: Can't open file for write!");
 
     // write database data to file

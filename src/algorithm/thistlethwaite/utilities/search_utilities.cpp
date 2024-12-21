@@ -1,15 +1,16 @@
-#include "searchutil.h"
+#include "search_utilities.h"
 
 bool utilities::redundant(emove curr, emove last)
 {
-    // moves on the same face are redundant since:
-    // L->L     is the same as L2
-    // L->L'    cancels each other out
-    // L->L2    is the same as L'
-
-    // moves on opposite faces are redundant since:
-    // R->L is the same as L->R
-    // but since it's impossible to prune both of these, only check for one of the two combinations
+    /* Moves on the same face are redundant since:
+     * L->L     is the same as L2
+     * L->L'    cancels each other out
+     * L->L2    is the same as L'
+     *
+     * Moves on opposite faces are redundant since:
+     * R->L is the same as L->R
+     * but since it's impossible to prune both of these, only check for one of the two combinations
+     */
 
     if ((curr == emove::U || curr == emove::Ur || curr == emove::U2) &&
        ((last == emove::U || last == emove::Ur || last == emove::U2) ||

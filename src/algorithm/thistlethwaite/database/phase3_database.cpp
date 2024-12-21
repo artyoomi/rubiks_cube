@@ -95,11 +95,13 @@ uint32_t Phase3_database::id(const Cube_bg_model& cube) const
     };
 
     // 0..8C4 - 1
-    uint32_t E_ind = combIndexer4.id(E_posComb);
+    uint32_t E_ind = comb_indexer4.index(E_posComb);
+
     // 0..8C4 - 1
-    uint32_t C_ind = combIndexer4.id(C_posComb);
+    uint32_t C_ind = comb_indexer4.index(C_posComb);
+
     // 0...3! - 1
-    uint32_t F_ind = permIndexer3.id(C_tetradTwist);
+    uint32_t F_ind = perm_indexer3.index(C_tetradTwist);
 
     // (0..8C4 - 1 * 8C4 + 0..8C4 - 1) * 6 + ..5 = 0..29399
     return (C_ind * 70 + E_ind) * 6 + F_ind;
@@ -108,33 +110,31 @@ uint32_t Phase3_database::id(const Cube_bg_model& cube) const
 void Phase3_database::imitate_move(emove move, std::array<uint8_t, 8>& tetradsPerm) const
 {
     std::array<uint8_t, 4> indices, positions;
-    switch (move)
-    {
+    switch (move) {
     case emove::U2:
-        indices = { 0,6,1,7 };
+        indices = {0, 6, 1, 7};
         break;
     case emove::D2:
-        indices = { 2,4,3,5 };
+        indices = {2, 4, 3, 5};
         break;
     case emove::L2:
-        indices = { 0,2,1,3 };
+        indices = {0, 2, 1, 3};
         break;
     case emove::R2:
-        indices = { 4,6,5,7 };
+        indices = {4, 6, 5, 7};
         break;
     case emove::F2:
-        indices = { 2,6,1,5 };
+        indices = {2, 6, 1, 5};
         break;
     case emove::B2:
-        indices = { 0,4,3,7 };
+        indices = {0, 4, 3, 7};
         break;
     default:
         std::string moveValue = std::to_string((int)move);
         throw std::logic_error("G2_G3_database::imitate_move invalid enum value " + moveValue);
     }
 
-    for (uint8_t i = 0; i < 8; ++i)
-    {
+    for (uint8_t i = 0; i < 8; ++i) {
         if (tetradsPerm[i] == indices[0]) positions[0] = i;
         if (tetradsPerm[i] == indices[1]) positions[1] = i;
         if (tetradsPerm[i] == indices[2]) positions[2] = i;

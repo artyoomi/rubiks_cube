@@ -23,6 +23,6 @@ struct Phase4_database : public Database {
         uint32_t id(const Cube_bg_model& cube) const override;
 
 private:
-    PermIndexer<4> permIndexer4;
-    PermIndexerPartial<4, 2> permIndexer4p2;
+    PermIndexer<4>           perm_indexer4;
+    PermIndexerPartial<4, 2> perm_indexer4p2;
 };

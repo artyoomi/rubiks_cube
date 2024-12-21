@@ -13,6 +13,8 @@ void DB_generator::generate(const Phase_info& phase_info, Database& database) co
         std::vector<bool> visited(database.capacity(), false);
 
         std::cout << "Depth: " << (int)depth << ". ";
+
+        // this condition will be true only when database will become full
         if (_db_searcher(cube, Cube_bg_model::emove::NO_MOVE, phase_info, database, 0, depth, visited))
             break;
 
@@ -28,7 +30,8 @@ void DB_generator::generate(const Phase_info& phase_info, Database& database) co
 
 bool DB_generator::_db_searcher(Cube_bg_model cube, Cube_bg_model::emove last_move,
                                 const Phase_info& phase_info, Database& database,
-                                uint8_t depth, uint8_t max_depth, std::vector<bool>& visited) const
+                                uint8_t depth, uint8_t max_depth,
+                                std::vector<bool>& visited) const
 {
     // id of the current state of cube
     uint32_t index = database.id(cube);

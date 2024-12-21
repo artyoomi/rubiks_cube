@@ -7,6 +7,8 @@ Two algorithms have been implemented to assemble the Rubik's cube: the human alg
 
 ![image](https://github.com/user-attachments/assets/3f909191-2017-4089-bc69-6f10d6054cf5)
 
+When using Thistlethwaite's algorithm for the first time (before the databases were generated and stored on the computer), the databases will be generated, it will take some time. After generation, the build will work instantly.
+
 Available commands:
 - "U" - make up turn (+ shift to U');
 - "L" - make left turn (+ shift to L');
@@ -17,3 +19,5 @@ Available commands:
 - "s" - scramble cube;
 - "=" - solve cube using human-like algorithm;
 - "\-" - solve cube using Thistlethwaite algorithm
+
+**Compatibility:** at the moment, the program has been run and tested only on Linux systems, so problems may occur on other operating systems.

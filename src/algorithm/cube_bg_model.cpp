@@ -504,10 +504,26 @@ uint8_t Cube_bg_model::edge_orientation(const edge_t& edge) const
 {
     // checks if a facelet has one of the colors from the F/B axis, if not, checks if it's from the U/D axis and
     // that the adjacent edge facelet has a color from the R/L axis
-    return
-         (( edge[0] == ecolor::F || edge[0] == ecolor::B) ||
-          ((edge[0] == ecolor::U || edge[0] == ecolor::D) &&
-           (edge[1] == ecolor::R || edge[1] == ecolor::L)));
+    // source of info: https://www.jaapsch.net/puzzles/thistle.htm#p2
+
+    /*
+     * Conditions:
+     * 
+     * Before ||: for all edges except LR-slice edges
+     * Here first color is color on L/R side, so if we have
+     * F or B side color on this side, than we need odd quarter turns
+     * to take it back => it is BAD orientation
+     * 
+     * After  ||: for LR-slice edges
+     * Here first color is color on U/D side, so if we have U or D color on
+     * this sides and have R/L color on second color, then we need odd quarter
+     * turns to take it back => it is BAD orientation
+     * 
+     * Otherwise (if result is false), orientation is GOOD
+     */
+    return (( edge[0] == ecolor::F || edge[0] == ecolor::B) ||
+            ((edge[0] == ecolor::U || edge[0] == ecolor::D) &&
+             (edge[1] == ecolor::R || edge[1] == ecolor::L)));
 }
 
 uint8_t Cube_bg_model::corner_orientation(const corner_t& corner) const

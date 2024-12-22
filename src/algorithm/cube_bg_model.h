@@ -110,7 +110,7 @@ public:
      * 0) facelet on the U/D face
      * 1) facelet on the F/D face
      */
-    using edge_t   = std::array<ecolor, 2>;
+    using edge_t = std::array<ecolor, 2>;
 
     /* determine corner as three colors array (the following is ordered by indexes):
      * 0) facelet on the R/L face

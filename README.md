@@ -1,13 +1,14 @@
 ## Rubik's Cube solver
 
-This project is an alternative exam in the discipline of DM&TI at the University of LETI 2nd year. This program shows the assembled Rubik's cube,
-then shows the animation of random turns, then “forgets” the turns made, finds the (preferably optimal) sequence of turns to assemble the cube and shows the assembly animation.
+This project is an alternative exam in the discipline of DM&TI at the SPBSETU 2nd year. This program shows the assembled Rubik's cube at start,
+then you can scramble the cube by yourself or use the random generator to scramble it automatically. The porgram doesn't save the turns made in any ways.
+After the scrambling, you can choose one of two algorithms to solve the cube. This program has a complete 3D model of the cube and shows an animated movement at scrabmling/solving.
 
 Two algorithms have been implemented to assemble the Rubik's cube: the human algorithm and the Thistlethwaite algorithm. OpenGL is used for visualization.
 
 ![image](https://github.com/user-attachments/assets/3f909191-2017-4089-bc69-6f10d6054cf5)
 
-When using Thistlethwaite's algorithm for the first time (before the databases were generated and stored on the computer), the databases will be generated, it will take some time. After generation, the build will work instantly.
+When using Thistlethwaite's algorithm for the first time (before the databases were generated and stored on the computer), the databases must be generated so it will take some time. After generation the solving algorithm will work almost instantly.
 
 Available commands:
 - "U" - make up turn (+ shift to U');

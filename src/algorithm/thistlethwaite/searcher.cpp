@@ -53,8 +53,9 @@ std::vector<Cube_bg_model::emove> Searcher::search(const Cube_bg_model& cube, co
             copy.rotate(move);
 
             // get id of cube copy and get depth from database
-            uint32_t new_id = database.id(copy);
-            uint8_t  new_score = database[new_id];
+            // uint32_t new_id = database.id(copy);
+            // uint8_t  new_score = database[new_id];
+            uint8_t  new_score = database[copy];
 
             // don't consider nodes that move away from a solution to more efficient graph traversal
             if (new_score < curr_node->score) {

@@ -509,15 +509,16 @@ uint8_t Cube_bg_model::edge_orientation(const edge_t& edge) const
     /*
      * Conditions:
      * 
-     * Before ||: for all edges except LR-slice edges
-     * Here first color is color on L/R side, so if we have
-     * F or B side color on this side, than we need odd quarter turns
-     * to take it back => it is BAD orientation
-     * 
-     * After  ||: for LR-slice edges
-     * Here first color is color on U/D side, so if we have U or D color on
-     * this sides and have R/L color on second color, then we need odd quarter
+     * Before ||: for LR-slice edges
+     * Here first color is color on U/D side, so if we don't have matching
+     * to U/D color on this sides, then we need odd quarter
      * turns to take it back => it is BAD orientation
+     * 
+     * After ||: for all edges except LR-slice edges
+     * Here first color is color on L/R side, so if we have
+     * U or D side color on this side, than we need odd quarter turns
+     * to take it back to U/D => it is BAD orientation
+     * 
      * 
      * Otherwise (if result is false), orientation is GOOD
      */

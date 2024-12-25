@@ -22,7 +22,7 @@ struct Phase3_info : public Phase_info
 
     // this implementation splits the corners into 4 pairs instead of forming 2 tetrads
 	bool solved(const Cube_bg_model& cube) const override;
-    
+
 private:
     using emove = Cube_bg_model::emove;
 
@@ -32,6 +32,7 @@ private:
         { emove::D2, emove::F2 },             // DLF
         { emove::R2 },                        // DRB
     }};
+
     // moves to solve ULF (first corner of the odd tetrad)
     const std::array<std::array<emove, 4>, 3> C_oddTetradSolvingMoves = {{
         // these move sequences perform a double swap on the four pieces of  

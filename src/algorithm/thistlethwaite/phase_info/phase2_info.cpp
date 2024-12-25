@@ -39,7 +39,11 @@ bool Phase2_info::solved(const Cube_bg_model& cube) const
      * Here we return true only when all corners are oriented
      * (corner is oriented if his L/R colours match with L/R center)
      */
-    return cube.corner_orientation(cube.corner(epiece::ULB)) == 0 &&
+    return cube.edge_orientation(cube.edge(epiece::UF)) == 0 &&
+           cube.edge_orientation(cube.edge(epiece::UB)) == 0 &&
+           cube.edge_orientation(cube.edge(epiece::DF)) == 0 &&
+           cube.edge_orientation(cube.edge(epiece::DB)) == 0 &&
+           cube.corner_orientation(cube.corner(epiece::ULB)) == 0 &&
            cube.corner_orientation(cube.corner(epiece::ULF)) == 0 &&
            cube.corner_orientation(cube.corner(epiece::DLF)) == 0 &&
            cube.corner_orientation(cube.corner(epiece::DLB)) == 0 &&

@@ -19,6 +19,12 @@ std::vector<Cube_bg_model::emove> Searcher::search(const Cube_bg_model& cube, co
     Graph_node_ptr solved_node = nullptr;
 
     /*
+     * node to store full search tree
+     * this node is just duplicate of root_node
+     */
+    // Viz_node_ptr visualize_node = std::make_shared<Viz_node>(Viz_node{database.id(cube), emove::NO_MOVE, nullptr, nullptr});
+
+    /*
      * here we just want to build min heap to get node
      * with minimal score in fastest possible time
      */
@@ -53,8 +59,6 @@ std::vector<Cube_bg_model::emove> Searcher::search(const Cube_bg_model& cube, co
             copy.rotate(move);
 
             // get id of cube copy and get depth from database
-            // uint32_t new_id = database.id(copy);
-            // uint8_t  new_score = database[new_id];
             uint8_t  new_score = database[copy];
 
             // don't consider nodes that move away from a solution to more efficient graph traversal

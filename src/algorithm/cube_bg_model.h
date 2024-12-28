@@ -127,6 +127,12 @@ public:
 
     bool operator==(const Cube_bg_model& lhs);
 
+    // get color name by enum value
+    static std::string color_name(ecolor colour);
+
+    // get move name by enum value
+    static std::string move_name(emove move);
+
     // get side colors in array view
     std::array<ecolor, COLORS_PER_SIDE> get_side(ecolor side) const;
     std::array<ecolor, COLORS_PER_SIDE> get_side(rotation_side side) const;
@@ -148,12 +154,6 @@ public:
     // example: UFL gives U on return
     ecolor color(eedge index) const;
     ecolor color(ecorner index) const;
-
-    // get color name by enum value
-    std::string color_name(ecolor colour) const;
-
-    // get move name by enum value
-    std::string move_name(emove move) const;
 
     // get edge orinetation
     uint8_t edge_orientation(const edge_t& edge) const;

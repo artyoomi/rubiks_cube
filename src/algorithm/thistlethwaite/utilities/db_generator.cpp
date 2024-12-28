@@ -36,8 +36,10 @@ bool DB_generator::_db_searcher(Cube_bg_model cube, Cube_bg_model::emove last_mo
     // id of the current state of cube
     uint32_t index = database.id(cube);
 
-    // prunes the branch if the current cube state was already visited in an earlier 
-    // iteration, or in the same iteration by a different branch
+    /*
+     * Prunes the branch if the current cube state was already visited in an earlier 
+     * iteration, or in the same iteration by a different branch
+     */
     if (visited[index] || depth > database[index])
         return false;
     

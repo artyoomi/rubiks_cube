@@ -5,7 +5,7 @@
 
 /*
  * In G3->G4, finally the cube is solved. In this state the cube is seperated to 3 edge slices
- * and 2 corner tetrads (each containing 4 pieces). Because only 180-degre moves are allowed the
+ * and 2 corner tetrads (each containing 4 pieces). Because only 180-degree moves are allowed the
  * pieces will never leave these orbits. Each slice/tetrad can be permuted in 4! ways which
  * gives 4!^5, but there are some restrictions:
  *

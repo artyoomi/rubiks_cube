@@ -49,6 +49,7 @@ struct CombIndexer {
 
         for (uint8_t n = K, k = K; k > 0; --n, --k)
             index += nCk(comb[n - 1] - 1, k);
+            // index += (comb[n] - nCk(k, 1));
 
         return index;
     }

@@ -75,6 +75,7 @@ target_link_libraries(Rubiks_cube
     glfw
     OpenGL::GL
     ${CMAKE_DL_LIBS} 
+    pthread
 )
 
 enable_testing()

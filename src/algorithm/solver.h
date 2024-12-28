@@ -10,5 +10,6 @@
  */
 class Solver {
 public:
+    // virtual std::vector<std::vector<std::pair<rotation_side, rotation_type>>> solve(const Cube_bg_model& cube) const = 0;
     virtual std::vector<std::pair<rotation_side, rotation_type>> solve(const Cube_bg_model& cube) const = 0;
 };

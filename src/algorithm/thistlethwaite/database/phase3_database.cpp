@@ -51,6 +51,7 @@ uint32_t Phase3_database::id(const Cube_bg_model& cube) const
             edges_perm[i] == 6 || edges_perm[i] == 7) {
             edges_position_comb[e++] = i + 1;
         }
+
         // even tetrad (even indices)
         if (corners_perm[corners_map[i]] % 2 == 0)
             corners_position_comb[c++] = i + 1;
@@ -63,7 +64,7 @@ uint32_t Phase3_database::id(const Cube_bg_model& cube) const
     }
 
     // forms the new permutation with the corners in their tetrads in relative order
-    for (unsigned i = 0; i < 8; ++i)
+    for (std::size_t i = 0; i < 8; ++i)
         corners_tetrads_perm[i] = (i & 1) ? corner_odd_tetrad[i >> 1] : corner_even_tetrad[i >> 1];
 
     // solves the even tetrad (ULB = 0, DLF = 2, DRB = 4, URF = 6)
@@ -74,10 +75,11 @@ uint32_t Phase3_database::id(const Cube_bg_model& cube) const
         for (auto move : C_evenTetradSolvingMoves[i / 2]) {
             imitate_move(move, corners_tetrads_perm);
             if (corners_tetrads_perm[i] == i)
-                break;    
+                break;
             imitate_move(move, corners_tetrads_perm);
         }
     }
+
     // solves one corner in the odd tetrad (ULF = 1)
     uint8_t move_sequence = 0;
     while (corners_tetrads_perm[1] != 1) {
@@ -94,7 +96,7 @@ uint32_t Phase3_database::id(const Cube_bg_model& cube) const
     }
 
     // stores the permutation of the remaining 3 corners in the odd tetrad (3,5,7) as (0,1,2)
-    std::array<uint8_t, 3> C_tetradTwist = {
+    std::array<uint8_t, 3> odd_tetrad_perm = {
         (uint8_t)((corners_tetrads_perm[3] >> 1) - 1),
         (uint8_t)((corners_tetrads_perm[5] >> 1) - 1),
         (uint8_t)((corners_tetrads_perm[7] >> 1) - 1),
@@ -107,13 +109,13 @@ uint32_t Phase3_database::id(const Cube_bg_model& cube) const
     uint32_t corners_index = comb_indexer4.index(corners_position_comb);
 
     // 0...3! - 1
-    uint32_t F_ind = perm_indexer3.index(C_tetradTwist);
+    uint32_t odd_tetrad_index = perm_indexer3.index(odd_tetrad_perm);
 
     // (0..8C4 - 1 * 8C4 + 0..8C4 - 1) * 6 + ..5 = 0..29399
-    return (corners_index * 70 + edges_index) * 6 + F_ind;
+    return (corners_index * 70 + edges_index) * 6 + odd_tetrad_index;
 }
 
-void Phase3_database::imitate_move(emove move, std::array<uint8_t, 8>& tetradsPerm) const
+void Phase3_database::imitate_move(emove move, std::array<uint8_t, 8>& tetrads_perm) const
 {
     std::array<uint8_t, 4> indices, positions;
     switch (move) {
@@ -136,17 +138,17 @@ void Phase3_database::imitate_move(emove move, std::array<uint8_t, 8>& tetradsPe
         indices = {0, 4, 3, 7};
         break;
     default:
-        std::string moveValue = std::to_string((int)move);
-        throw std::logic_error("G2_G3_database::imitate_move invalid enum value " + moveValue);
+        std::string move_value = std::to_string((int)move);
+        throw std::logic_error("G2_G3_database::imitate_move invalid enum value " + move_value);
     }
 
     for (uint8_t i = 0; i < 8; ++i) {
-        if (tetradsPerm[i] == indices[0]) positions[0] = i;
-        if (tetradsPerm[i] == indices[1]) positions[1] = i;
-        if (tetradsPerm[i] == indices[2]) positions[2] = i;
-        if (tetradsPerm[i] == indices[3]) positions[3] = i;
+        if (tetrads_perm[i] == indices[0]) positions[0] = i;
+        if (tetrads_perm[i] == indices[1]) positions[1] = i;
+        if (tetrads_perm[i] == indices[2]) positions[2] = i;
+        if (tetrads_perm[i] == indices[3]) positions[3] = i;
     }
 
-    std::swap(tetradsPerm[positions[0]], tetradsPerm[positions[1]]);
-    std::swap(tetradsPerm[positions[2]], tetradsPerm[positions[3]]);
+    std::swap(tetrads_perm[positions[0]], tetrads_perm[positions[1]]);
+    std::swap(tetrads_perm[positions[2]], tetrads_perm[positions[3]]);
 }

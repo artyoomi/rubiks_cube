@@ -732,7 +732,7 @@ Cube_bg_model::corner_t Cube_bg_model::corner(epiece piece) const
     }
 }
 
-std::string Cube_bg_model::color_name(ecolor color) const
+std::string Cube_bg_model::color_name(ecolor color)
 {
     switch (color) {
     case ecolor::U:
@@ -753,7 +753,7 @@ std::string Cube_bg_model::color_name(ecolor color) const
     }
 }
 
-std::string Cube_bg_model::move_name(emove move) const
+std::string Cube_bg_model::move_name(emove move)
 {
     switch (move) {
     case emove::U:

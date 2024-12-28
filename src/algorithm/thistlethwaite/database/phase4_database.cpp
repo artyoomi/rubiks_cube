@@ -4,23 +4,25 @@ uint32_t Phase4_database::id(const Cube_bg_model& cube) const
 {
     // stores which edge is currently occupying each position in it's slice
     
-    // E-slice
+    // UD-slice
     std::array<uint8_t, 4> E_posPermE = {
         cube.piece_index(epiece::LF),
         cube.piece_index(epiece::LB),
         cube.piece_index(epiece::RF),
         cube.piece_index(epiece::RB),
     };
-    // M-slice
+    // LR-slice
     std::array<uint8_t, 4> E_posPermM = {
         cube.piece_index(epiece::UF),
         cube.piece_index(epiece::DF),
         cube.piece_index(epiece::DB),
         cube.piece_index(epiece::UB),
     };
-    // S-slice
-    // only half the pieces in the S-slice are stored, the positions of the first 10
-    // edges dictate the positions of the last 2 (they have to have even parity)
+    /*
+     * FB-slice
+     * only half the pieces in the FB-slice are stored, the positions of the first 10
+     * edges dictate the positions of the last 2 (they have to have even parity)
+     */
     std::array<uint8_t, 2> E_posPermS = {
         cube.piece_index(epiece::UL),
         cube.piece_index(epiece::DL),
@@ -38,10 +40,12 @@ uint32_t Phase4_database::id(const Cube_bg_model& cube) const
     for (auto& c : C_tetradPosPerm) c >>= 1;
     for (auto& e : E_posPermE) e &= 3;
     for (auto& e : E_posPermM) e &= 3;
-    // indices of the S-slice edges are 0..3 by default
+    // indices of the FB-slice edges are 0..3 by default
 
-    // for every permutation of the first tetrad the second tetrad will start 
-    // with either 0/1/2/3 which dictates the "rank" of the permutation
+    /*
+     * for every permutation of the first tetrad the second tetrad will start 
+     * with either 0/1/2/3 which dictates the "rank" of the permutation
+     */
     uint8_t C_tetradRank = cube.piece_index(epiece::ULF);
     uint8_t E_sliceRankS = perm_indexer4p2.index(E_posPermS);
 

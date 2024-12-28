@@ -10,7 +10,8 @@ Thistlethwaite::Thistlethwaite()
 
     // combine phases in one vector
     _phases = {&_phase1, &_phase2, &_phase3, &_phase4};
-    
+    //_phases = {&_phase1};
+
     // load database for each phase before start solving
     for (auto& phase : _phases)
         phase->load_db();
@@ -21,8 +22,7 @@ std::vector<std::pair<rotation_side, rotation_type>> Thistlethwaite::emove_to_ro
     std::vector<std::pair<rotation_side, rotation_type>> result;
 
     for (const emove& move : moves) {
-        switch (move)
-        {
+        switch (move) {
         case emove::U:
             result.push_back(std::make_pair(rotation_side::SIDE_U, rotation_type::ROTATION_R));
             break;
@@ -94,9 +94,11 @@ std::vector<std::pair<rotation_side, rotation_type>> Thistlethwaite::emove_to_ro
     return result;
 }
 
+//std::vector<std::vector<std::pair<rotation_side, rotation_type>>> Thistlethwaite::solve(const Cube_bg_model &const_cube) const
 std::vector<std::pair<rotation_side, rotation_type>> Thistlethwaite::solve(const Cube_bg_model &const_cube) const
 {
     // vector with all moves to solve cube
+    // std::vector<std::vector<emove>> result;
     std::vector<emove> result;
 
     // get copy of given cube
@@ -111,16 +113,17 @@ std::vector<std::pair<rotation_side, rotation_type>> Thistlethwaite::solve(const
 
     std::cout << "Thistlethwaite's algorithm:" << std::endl;
 
-    for (const auto& phase : _phases) {
+    for (std::size_t n_phase = 1; n_phase <= 4; ++n_phase) {
         // start timer
         timer.set();
 
-        std::cout << phase->name << ": ";
+        std::cout << _phases[n_phase - 1]->name << ": ";
 
         // get partial group solution
-        std::vector<emove> phase_result = searcher.search(cube, *phase->phase_info, *phase->database);
+        std::vector<emove> phase_result = searcher.search(cube, *_phases[n_phase - 1]->phase_info, *_phases[n_phase - 1]->database);
 
         // add partial solution to the end result
+        //result[n_phase - 1].emplace_back(phase_result);
         result.insert(result.end(), phase_result.begin(), phase_result.end());
 
         // perform the partial group solution to pass the new state to the next group

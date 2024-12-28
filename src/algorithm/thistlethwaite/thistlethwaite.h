@@ -18,6 +18,7 @@ public:
 	std::vector<std::pair<rotation_side, rotation_type>> emove_to_rot(std::vector<emove> moves) const;
 
 	// solve given cube
+	// std::vector<std::vector<std::pair<rotation_side, rotation_type>>> solve(const Cube_bg_model &const_cube) const override;
 	std::vector<std::pair<rotation_side, rotation_type>> solve(const Cube_bg_model &const_cube) const override;
 
 private:

@@ -72,7 +72,7 @@ uint32_t Phase3_database::id(const Cube_bg_model& cube) const
         if (corners_tetrads_perm[i] == i)
             continue;
 
-        for (auto move : C_evenTetradSolvingMoves[i / 2]) {
+        for (auto move : corners_even_tetrad_solving_moves[i / 2]) {
             imitate_move(move, corners_tetrads_perm);
             if (corners_tetrads_perm[i] == i)
                 break;
@@ -84,15 +84,15 @@ uint32_t Phase3_database::id(const Cube_bg_model& cube) const
     uint8_t move_sequence = 0;
     while (corners_tetrads_perm[1] != 1) {
         for (int j = 0; j < 4; ++j)
-            imitate_move(C_oddTetradSolvingMoves[move_sequence][j], corners_tetrads_perm);
+            imitate_move(corners_odd_tetrad_solving_moves[move_sequence][j], corners_tetrads_perm);
 
         if (corners_tetrads_perm[1] == 1)
             break;
 
         for (int j = 3; j >= 0; --j)
-            imitate_move(C_oddTetradSolvingMoves[move_sequence][j], corners_tetrads_perm);
+            imitate_move(corners_odd_tetrad_solving_moves[move_sequence][j], corners_tetrads_perm);
         
-        move_sequence++;
+        ++move_sequence;
     }
 
     // stores the permutation of the remaining 3 corners in the odd tetrad (3,5,7) as (0,1,2)

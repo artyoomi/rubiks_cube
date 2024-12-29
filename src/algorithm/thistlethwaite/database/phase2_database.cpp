@@ -54,6 +54,5 @@ uint32_t Phase2_database::id(const Cube_bg_model& cube) const
         corner_orientation_perm[6] * 729;
 
     // (0..3^7 - 1) * 12C4 + (0..12C4 - 1) = 0..1082564
-    // return corner_index * 495 + edges_index;
     return corner_index * 495 + edges_index;
 }

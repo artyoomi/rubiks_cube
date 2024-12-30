@@ -58,29 +58,23 @@ struct CombIndexer {
 // ranks permutations from 0 to N! - 1
 template<uint8_t N>
 struct PermIndexer {
-    uint32_t index(const std::array<uint8_t, N> perm) const
+    uint32_t index(const std::array<uint8_t, N>& perm) const
     {
         // calculates lehmer code
         std::array<uint8_t, N> lehmer = perm;
-
-        for (uint8_t i = 1; i < N; ++i)
-        {
+        for (uint8_t i = 1; i < N; ++i) {
             int j = i;
-            while (j--)
-            {
+            while (j--) {
                 if (perm[j] < perm[i])
-                {
                     --lehmer[i];
-                }
             }
         }
 
         uint32_t index = 0;
 
+        // get index by lehmer code
         for (uint8_t i = 0, j = N - 1; i < N && j >= 0; ++i, --j)
-        {
             index += lehmer[i] * factorial[j];
-        }
 
         return index;
     }

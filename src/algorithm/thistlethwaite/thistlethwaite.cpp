@@ -10,7 +10,6 @@ Thistlethwaite::Thistlethwaite()
 
     // combine phases in one vector
     _phases = {&_phase1, &_phase2, &_phase3, &_phase4};
-    //_phases = {&_phase1};
 
     // load database for each phase before start solving
     for (auto& phase : _phases)
@@ -113,7 +112,7 @@ std::vector<std::pair<rotation_side, rotation_type>> Thistlethwaite::solve(const
 
     std::cout << "Thistlethwaite's algorithm:" << std::endl;
 
-    for (std::size_t n_phase = 1; n_phase <= 4; ++n_phase) {
+    for (std::size_t n_phase = 1; n_phase <= _phases.size(); ++n_phase) {
         // start timer
         timer.set();
 

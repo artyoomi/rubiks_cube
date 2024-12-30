@@ -1,7 +1,17 @@
 #include "searcher.h"
 
+#include "database/phase1_database.h"
+#include "database/phase2_database.h"
+#include "database/phase3_database.h"
+#include "database/phase4_database.h"
+
 std::vector<Cube_bg_model::emove> Searcher::search(const Cube_bg_model& cube, const Phase_info& phase_info, const Database& database) const
 {
+    Phase1_database dbp1;
+    Phase2_database dbp2;
+    Phase3_database dbp3;
+    Phase4_database dbp4;
+
     // compares node scores for logarithmic insertions
     auto cmp_nodes = [](Graph_node_ptr left, Graph_node_ptr right) -> bool
     {
@@ -9,7 +19,7 @@ std::vector<Cube_bg_model::emove> Searcher::search(const Cube_bg_model& cube, co
     };
 
     // set to true if cube in solved state for current phase
-     bool solved = false;
+    bool solved = false;
 
     // initialize root node
     uint8_t        root_score = database[cube];
@@ -65,6 +75,7 @@ std::vector<Cube_bg_model::emove> Searcher::search(const Cube_bg_model& cube, co
             if (new_score < curr_node->score) {
                 Graph_node_ptr new_node = std::make_shared<Graph_node>(Graph_node{copy, curr_node, move, new_score});
                 pr_q.push(new_node);
+                break;
             }
         }
     }

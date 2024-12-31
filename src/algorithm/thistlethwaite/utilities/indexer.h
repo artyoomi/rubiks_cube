@@ -71,7 +71,6 @@ struct PermIndexer {
         }
 
         uint32_t index = 0;
-
         // get index by lehmer code
         for (uint8_t i = 0, j = N - 1; i < N && j >= 0; ++i, --j)
             index += lehmer[i] * factorial[j];

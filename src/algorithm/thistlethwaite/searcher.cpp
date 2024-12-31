@@ -7,11 +7,6 @@
 
 std::vector<Cube_bg_model::emove> Searcher::search(const Cube_bg_model& cube, const Phase_info& phase_info, const Database& database) const
 {
-    Phase1_database dbp1;
-    Phase2_database dbp2;
-    Phase3_database dbp3;
-    Phase4_database dbp4;
-
     // compares node scores for logarithmic insertions
     auto cmp_nodes = [](Graph_node_ptr left, Graph_node_ptr right) -> bool
     {

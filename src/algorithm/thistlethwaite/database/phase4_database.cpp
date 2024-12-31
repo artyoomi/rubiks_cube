@@ -30,9 +30,7 @@ uint32_t Phase4_database::id(const Cube_bg_model& cube) const
         cube.piece_index(epiece::DL),
     };
 
-    /* 
-     * stores which corner from even tetrad is currently occupying which position
-     */
+    // stores which corner from even tetrad is currently occupying which position
     std::array<uint8_t, 4> corner_even_tetrad_position_perm = {
         cube.piece_index(epiece::ULB),
         cube.piece_index(epiece::DLF),
@@ -41,22 +39,39 @@ uint32_t Phase4_database::id(const Cube_bg_model& cube) const
     };
 
     // sets the indices of all edge and corner pieces to a value between 0 and 3
-    for (auto& c : corner_even_tetrad_position_perm) c >>= 1;
-    for (auto& e : edges_positions_perm_UDslice)     e &= 3;
-    for (auto& e : edges_positions_perm_LRslice)     e &= 3;
-    // indices of the FB-slice edges are 0..3 by default
 
     /*
-     * for every permutation of the first tetrad the second tetrad will start 
-     * with either 0/1/2/3 which dictates the "rank" of the permutation
+     * Here even tetrad corners can have only indexes 0, 2, 4, 6 and we need to 
+     * interpret this numbers as 4 numbers. which we can permute in 4! ways to encode it. So
+     * we transform this numbers in numbers 0, 1, 2, 3.
      */
-    uint8_t corners_odd_tetrad_rank = cube.piece_index(epiece::ULF);
+    for (auto& c : corner_even_tetrad_position_perm) c >>= 1;
+    
+    /*
+     * In next two permutations situation is same. We don't need global index of edge, we just need
+     * number of edge in UD-slice edges, so we transform it to number [0; 3]
+     */
+    for (auto& e : edges_positions_perm_UDslice) e &= 3;
+    for (auto& e : edges_positions_perm_LRslice) e &= 3;
+    // indices of the FB-slice edges are 0..3 by default
+
+    // same logic as earlier, we need index of corner only in it's tetrad
+    uint8_t corners_odd_tetrad_rank = (cube.piece_index(epiece::ULF) >> 1);
     uint8_t edges_FBslice_rank = perm_indexer4p2.index(edges_positions_perm_FBslice);
 
-    // (0..4! - 1) * 4 + 0..3 = 0..96
-    uint32_t corners_index = perm_indexer4.index(corner_even_tetrad_position_perm) * 4 + (corners_odd_tetrad_rank >> 1);
-    // (0..4! - 1) * (4!^2 / 2) + (0..4! - 1) * (4! / 2) + (0..4! / 2) = 0..6911
+
+    /*
+     * index for edges in each slice
+     * (0..4! - 1) * (4!^2 / 2) + (0..4! - 1) * (4! / 2) + (0..4! / 2) = 0..6911
+     */
     uint32_t edges_index = perm_indexer4.index(edges_positions_perm_LRslice) * 288 + perm_indexer4.index(edges_positions_perm_UDslice) * 12 + edges_FBslice_rank;
+
+    /*
+     * index for corners in each tetrad
+     * (0..4! - 1) * 4 + 0..3 = 0..95
+     */
+    uint32_t corners_index = perm_indexer4.index(corner_even_tetrad_position_perm) * 4 + corners_odd_tetrad_rank;
+
     // 0..9611 * 96 + 0..95 = 0..663551
     return edges_index * 96 + corners_index;
 }

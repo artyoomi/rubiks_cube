@@ -4,6 +4,17 @@ This project is an alternative exam in the discipline of DM&TI at the SPBSETU 2n
 then you can scramble the cube by yourself or use the random generator to scramble it automatically. The porgram doesn't save the turns made in any ways.
 After the scrambling, you can choose one of two algorithms to solve the cube. This program has a complete 3D model of the cube and shows an animated movement at scrabmling/solving.
 
+### Build
+To build program you need to write the following in terminal\
+*(instructions for Linux, the build may vary on Windows / MAC OS)*
+```
+cmake -B build/
+cd build
+cmake --build .
+./Rubiks_cube
+```
+
+### Working with program
 Two algorithms have been implemented to assemble the Rubik's cube: the human algorithm and the Thistlethwaite algorithm. OpenGL is used for visualization.
 
 ![image](https://github.com/user-attachments/assets/3f909191-2017-4089-bc69-6f10d6054cf5)

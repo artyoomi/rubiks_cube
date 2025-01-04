@@ -1,7 +1,7 @@
 #pragma once
 
 #include "database.h"
-#include "../utilities/indexer.h"
+#include "../phase_info/phase2_info.h"
 
 /*
  * In G2, all the LR-slice edges are brought back to their home slice and the orientation of all the corners
@@ -13,10 +13,8 @@
  * Therefore, there are 12C4 * 3^8 / 3 = 12C4 * 3^7 = 1082565 states to store in a database.
 */
 struct Phase2_database : public Database {
-	Phase2_database() : Database(1082565, "G1") {}
-
-        uint32_t id(const Cube_bg_model& cube) const override;
-
-private:
-    CombIndexer<4> comb_indexer4;
+	Phase2_database() : Database(1082565, "G1")
+    {
+        phase_info = std::make_shared<Phase2_info>();
+    }
 };

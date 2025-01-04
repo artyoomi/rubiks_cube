@@ -16,6 +16,8 @@ struct Phase1_info : public Phase_info {
         };
     }
 
+    uint32_t id(const Cube_bg_model& cube) const override;
+
 	// G1 is contented when all the edges are oriented correctly
 	bool solved(const Cube_bg_model& cube) const override;
 };

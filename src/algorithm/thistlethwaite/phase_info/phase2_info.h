@@ -1,6 +1,7 @@
 #pragma once
 
 #include "phase_info.h"
+#include "../utilities/indexer.h"
 
 struct Phase2_info : public Phase_info
 {
@@ -17,7 +18,12 @@ struct Phase2_info : public Phase_info
         };
     }
 
+    uint32_t id(const Cube_bg_model& cube) const override;
+
 	// G2 is contented when all the corners are oriented correctly and the M-slice
 	// edges are brought back intro their slice
 	bool solved(const Cube_bg_model& cube) const override;
+
+private:
+    CombIndexer<4> _comb_indexer4;
 };

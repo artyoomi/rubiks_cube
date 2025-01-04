@@ -1,7 +1,7 @@
 #pragma once
 
 #include "database.h"
-#include "../utilities/indexer.h"
+#include "../phase_info/phase4_info.h"
 
 /*
  * In G3->G4, finally the cube is solved. In this state the cube is seperated to 3 edge slices
@@ -18,11 +18,8 @@
  * disallowed lone 3-cycles explained here: puzzling.stackexchange.com/questions/5402/what-is-the-meaning-of-a-tetrad-twist-in-thistlethwaites-algorithm
 */
 struct Phase4_database : public Database {
-	Phase4_database() : Database(663552, "G3") {}
-
-        uint32_t id(const Cube_bg_model& cube) const override;
-
-private:
-    PermIndexer<4>           perm_indexer4;
-    PermIndexerPartial<4, 2> perm_indexer4p2;
+	Phase4_database() : Database(663552, "G3")
+    {
+        phase_info = std::make_shared<Phase4_info>();
+    }
 };

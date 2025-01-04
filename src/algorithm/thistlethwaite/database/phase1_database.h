@@ -2,6 +2,8 @@
 
 #include "database.h"
 
+#include "../phase_info/phase1_info.h"
+
 /*
  * In G1, the orientation of all 12 edges is solved (good orientation means an edge can be solved
  * without using a 90-degree U or D move) G0->G1 only looks at edge orientations (0 for good, 1 for bad),
@@ -11,7 +13,8 @@
  * Therefore, there are 2^12 / 2 = 2^11 = 2048 states to store in a database.
 */
 struct Phase1_database : public Database {
-	Phase1_database() : Database(2048, "G0") {}
-
-	uint32_t id(const Cube_bg_model& cube) const override;
+	Phase1_database() : Database(2048, "G0")
+	{
+		phase_info = std::make_shared<Phase1_info>();
+	}
 };

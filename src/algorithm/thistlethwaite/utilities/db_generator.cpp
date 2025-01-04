@@ -34,7 +34,7 @@ bool DB_generator::_db_searcher(Cube_bg_model cube, Cube_bg_model::emove last_mo
                                 std::vector<bool>& visited) const
 {
     // id of the current state of cube
-    uint32_t index = database.id(cube);
+    uint32_t index = phase_info.id(cube);
 
     /*
      * Meaning of conditions:

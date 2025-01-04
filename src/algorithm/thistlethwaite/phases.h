@@ -42,7 +42,7 @@ protected:
 };
 
 /*
- * We use this class to correctly create each phase object
+ * Class to correctly create each phase object
  */
 template<typename DatabaseType, typename PhaseType>
 struct TypedPhase : public Phase {

@@ -1,54 +1,63 @@
 #include "phase2_info.h"
 
+uint32_t Phase2_info::id(const Cube_bg_model& cube) const
+{
+    // stores the orientation of all corners (by position, regardless of which corner is where)
+    std::array<uint8_t, 7> corner_orientation_perm = {
+        cube.corner_orientation(cube.corner(epiece::ULB)),
+        cube.corner_orientation(cube.corner(epiece::ULF)),
+        cube.corner_orientation(cube.corner(epiece::DLF)),
+        cube.corner_orientation(cube.corner(epiece::DLB)),
+        cube.corner_orientation(cube.corner(epiece::URF)),
+        cube.corner_orientation(cube.corner(epiece::URB)),
+        cube.corner_orientation(cube.corner(epiece::DRB))
+    };
+
+    // stores the edges that are currently occupying each position
+    std::array<uint8_t, 12> edge_perm = {
+        cube.piece_index(epiece::UB),
+        cube.piece_index(epiece::UF),
+        cube.piece_index(epiece::DB),
+        cube.piece_index(epiece::DF),
+        cube.piece_index(epiece::UR),
+        cube.piece_index(epiece::UL),
+        cube.piece_index(epiece::DR),
+        cube.piece_index(epiece::DL),
+        cube.piece_index(epiece::RF),
+        cube.piece_index(epiece::LF),
+        cube.piece_index(epiece::RB),
+        cube.piece_index(epiece::LB)
+    };
+
+    // stores the positions of the 4 edges that need to be brought back to the LR-slice
+    std::array<uint8_t, 4> edge_pos_comb;
+
+    for (uint8_t i = 0, e = 0; i < 12 && e < 4; ++i) {
+        // indices of the LR-slice edges are 8, 9, 10, 11
+        if (edge_perm[i] == 8  || edge_perm[i] == 9 ||
+            edge_perm[i] == 10 || edge_perm[i] == 11)
+            edge_pos_comb[e++] = i + 1;
+    }
+
+    // get edges index according to found edge inarray indexes
+    uint32_t edges_index = _comb_indexer4.index(edge_pos_comb);   // edge
+    uint32_t corner_index = 0;                                   // corner
+
+    // treats corner orientations as ternary numbers and converts it to decimal
+    corner_index +=
+        corner_orientation_perm[0] +
+        corner_orientation_perm[1] * 3 +
+        corner_orientation_perm[2] * 9 +
+        corner_orientation_perm[3] * 27 +
+        corner_orientation_perm[4] * 81 +
+        corner_orientation_perm[5] * 243 +
+        corner_orientation_perm[6] * 729;
+
+    // (0..3^7 - 1) * 12C4 + (0..12C4 - 1) = 0..1082564
+    return corner_index * 495 + edges_index;
+}
+
 bool Phase2_info::solved(const Cube_bg_model& cube) const
 {
-    // // LR-slice edges
-    // ecolor E_FU = cube.color(eedge::FU);
-    // ecolor E_FD = cube.color(eedge::FD);
-    // ecolor E_BU = cube.color(eedge::BU);
-    // ecolor E_BD = cube.color(eedge::BD);
-
-    // ecolor E_UF = cube.color(eedge::UF);
-    // ecolor E_DF = cube.color(eedge::DF);
-    // ecolor E_UB = cube.color(eedge::UB);
-    // ecolor E_DB = cube.color(eedge::DB);
-
-    // // corner facelets from the L/R axis
-    // ecolor C_LFU = cube.color(ecorner::LUF);
-    // ecolor C_LUB = cube.color(ecorner::LUB);
-    // ecolor C_LDF = cube.color(ecorner::LDF);
-    // ecolor C_LBD = cube.color(ecorner::LDB);
-    // ecolor C_RBU = cube.color(ecorner::RUB);
-    // ecolor C_RDB = cube.color(ecorner::RDB);
-    // ecolor C_RFD = cube.color(ecorner::RDF);
-    // ecolor C_RUF = cube.color(ecorner::RUF);
-
-    // return
-    //     // checks that the LR-slice edges are in the LR-slice
-    //     (E_FU == ecolor::F || E_FU == ecolor::B) && (E_UF == ecolor::U || E_UF == ecolor::D) &&
-    //     (E_FD == ecolor::F || E_FD == ecolor::B) && (E_DF == ecolor::U || E_DF == ecolor::D) &&
-    //     (E_BU == ecolor::F || E_BU == ecolor::B) && (E_UB == ecolor::U || E_UB == ecolor::D) &&
-    //     (E_BD == ecolor::F || E_BD == ecolor::B) && (E_DB == ecolor::U || E_DB == ecolor::D) &&
-    //     // checks that the corners are oriented (their L/R facelet is in the L/R face)
-    //     (C_LFU == ecolor::L || C_LFU == ecolor::R) && (C_LUB == ecolor::L || C_LUB == ecolor::R) &&
-    //     (C_LDF == ecolor::L || C_LDF == ecolor::R) && (C_LBD == ecolor::L || C_LBD == ecolor::R) &&
-    //     (C_RBU == ecolor::L || C_RBU == ecolor::R) && (C_RDB == ecolor::L || C_RDB == ecolor::R) &&
-    //     (C_RFD == ecolor::L || C_RFD == ecolor::R) && (C_RUF == ecolor::L || C_RUF == ecolor::R);
-
-    /*
-     * Here we return true only when all corners are oriented
-     * (corner is oriented if his L/R colours match with L/R center)
-     */
-    return cube.edge_orientation(cube.edge(epiece::UF)) == 0 &&
-           cube.edge_orientation(cube.edge(epiece::UB)) == 0 &&
-           cube.edge_orientation(cube.edge(epiece::DF)) == 0 &&
-           cube.edge_orientation(cube.edge(epiece::DB)) == 0 &&
-           cube.corner_orientation(cube.corner(epiece::ULB)) == 0 &&
-           cube.corner_orientation(cube.corner(epiece::ULF)) == 0 &&
-           cube.corner_orientation(cube.corner(epiece::DLF)) == 0 &&
-           cube.corner_orientation(cube.corner(epiece::DLB)) == 0 &&
-           cube.corner_orientation(cube.corner(epiece::DRB)) == 0 &&
-           cube.corner_orientation(cube.corner(epiece::DRF)) == 0 &&
-           cube.corner_orientation(cube.corner(epiece::URF)) == 0 &&
-           cube.corner_orientation(cube.corner(epiece::URB)) == 0;
+    return this->id(cube) == 0;
 }

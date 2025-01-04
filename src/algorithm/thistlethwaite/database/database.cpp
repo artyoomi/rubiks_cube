@@ -57,7 +57,7 @@ bool Database::set(uint32_t index, uint8_t value)
 
 bool Database::set(const Cube_bg_model& cube, uint8_t value)
 {
-    return set(id(cube), value);
+    return set(phase_info->id(cube), value);
 }
 
 bool Database::is_set(uint32_t index) const
@@ -67,7 +67,7 @@ bool Database::is_set(uint32_t index) const
 
 bool Database::is_set(const Cube_bg_model& cube) const
 {
-    return is_set(id(cube));
+    return is_set(phase_info->id(cube));
 }
 
 bool Database::full() const
@@ -99,5 +99,5 @@ uint8_t Database::operator [](uint32_t index) const
 
 uint8_t Database::operator [](const Cube_bg_model& cube) const
 {
-    return _data[id(cube)];
+    return _data[phase_info->id(cube)];
 }

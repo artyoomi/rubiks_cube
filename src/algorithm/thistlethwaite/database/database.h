@@ -1,5 +1,4 @@
-#ifndef DATABASE_H
-#define DATABASE_H
+#pragma once
 
 #include <iostream>
 #include <istream>
@@ -7,8 +6,10 @@
 #include <iterator>
 #include <string>
 #include <vector>
+#include <memory>
 
 #include "../../cube_bg_model.h"
+#include "../phase_info/phase_info.h"
 
 /*
  * Base class for each database
@@ -27,9 +28,6 @@ public:
         _data.resize(capacity);
         reset();
     }
-
-    // get id of cube on current phase
-    virtual uint32_t id(const Cube_bg_model& cube) const = 0;
 
     // load db from file
     bool load();
@@ -63,6 +61,13 @@ public:
     // return capacity or max_size of db
     size_t capacity() const;
     
+    /*
+     * Pointer to struct which contains:
+     * - function to find id on current phase
+     * - current phase allowed moves
+     * - is solved function (just curr_phase_id == 0)
+     */
+    std::shared_ptr<Phase_info> phase_info;
 private:
     std::vector<uint8_t> _data;         // vector with db data
     std::size_t          _size;         // current size of db
@@ -71,5 +76,3 @@ private:
     const std::string _fname;           // name of db file
     const std::string _cache_dir_path;  // name of cache dir
 };
-
-#endif // DATABASE_H

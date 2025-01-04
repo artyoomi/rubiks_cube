@@ -1,5 +1,4 @@
-#ifndef INDEXER_H
-#define INDEXER_H
+#pragma once
 
 #include <cstdint>
 #include <array>
@@ -117,5 +116,3 @@ struct PermIndexerPartial {
         return index;
     }
 };
-
-#endif // INDEXER_H

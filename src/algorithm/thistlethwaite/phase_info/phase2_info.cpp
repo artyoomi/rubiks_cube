@@ -2,7 +2,7 @@
 
 bool Phase2_info::solved(const Cube_bg_model& cube) const
 {
-    // // M-slice edges
+    // // LR-slice edges
     // ecolor E_FU = cube.color(eedge::FU);
     // ecolor E_FD = cube.color(eedge::FD);
     // ecolor E_BU = cube.color(eedge::BU);
@@ -24,7 +24,7 @@ bool Phase2_info::solved(const Cube_bg_model& cube) const
     // ecolor C_RUF = cube.color(ecorner::RUF);
 
     // return
-    //     // checks that the M-slice edges are in the M-slice
+    //     // checks that the LR-slice edges are in the LR-slice
     //     (E_FU == ecolor::F || E_FU == ecolor::B) && (E_UF == ecolor::U || E_UF == ecolor::D) &&
     //     (E_FD == ecolor::F || E_FD == ecolor::B) && (E_DF == ecolor::U || E_DF == ecolor::D) &&
     //     (E_BU == ecolor::F || E_BU == ecolor::B) && (E_UB == ecolor::U || E_UB == ecolor::D) &&

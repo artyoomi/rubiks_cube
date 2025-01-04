@@ -24,7 +24,7 @@ bool Phase3_info::solved(const Cube_bg_model& cube) const
     {
         if (C_perm[i] == i) continue;
 
-        for (auto move : C_evenTetradSolvingMoves[i / 2])
+        for (auto move : corners_even_tetrad_solving_moves[i / 2])
         {
             imitate_move(move, C_perm);
             if (C_perm[i] == i) break;    
@@ -37,12 +37,12 @@ bool Phase3_info::solved(const Cube_bg_model& cube) const
     {
         for (int j = 0; j < 4; ++j)
         {
-            imitate_move(C_oddTetradSolvingMoves[move_sequence][j], C_perm);
+            imitate_move(corners_odd_tetrad_solving_moves[move_sequence][j], C_perm);
         }
         if (C_perm[1] == 1) break;
         for (int j = 3; j >= 0; --j)
         {
-            imitate_move(C_oddTetradSolvingMoves[move_sequence][j], C_perm);
+            imitate_move(corners_odd_tetrad_solving_moves[move_sequence][j], C_perm);
         }
         move_sequence++;
     }

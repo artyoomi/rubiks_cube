@@ -5,8 +5,8 @@
 
 /*
  * In G3, a cube is solvable using 180-degree moves only. This means that all edges are in their
- * home slice and all corners are in their natural orbits. The LR-slice is already solved in G1.
- * One solved slice / tetrad means that the second slice / tetrad is also solved, so the positions
+ * home slice and all corners are in their natural orbits. The LR-slice is already placed in G1.
+ * So one solved slice / tetrad means that the second slice / tetrad is also solved, and the positions
  * of 4 edges and 4 corners are tracked (8C4 possible combinations for both)
  * 
  * Because of 90-degree L/R face turns, there are states in G2 that have odd parity which adds an

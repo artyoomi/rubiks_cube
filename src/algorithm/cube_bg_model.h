@@ -101,12 +101,13 @@ public:
         D, Dr, D2,
     };
 
-    /* determine edge as two colors array (except LR-slice):
+    /* Determine edge as two colors array:
+     * For UD- and FB-slice:
      * (P.S. LR-slice is cubies between L and R facelets)
      * 0) facelet on the R/L face
      * 1) facelet on the U/D face or F/B face
      * 
-     * determine edge as two colors array (LR-slice case):
+     * For LR-slice:
      * 0) facelet on the U/D face
      * 1) facelet on the F/B face
      */

@@ -1,5 +1,7 @@
 #include "phase1_info.h"
 
+#include "../database/phase1_database.h"
+
 bool Phase1_info::solved(const Cube_bg_model& cube) const
 {
     return cube.edge_orientation(cube.edge(epiece::UL)) == 0 &&

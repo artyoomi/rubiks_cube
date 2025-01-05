@@ -53,7 +53,11 @@ uint32_t Phase2_info::id(const Cube_bg_model& cube) const
         corner_orientation_perm[5] * 243 +
         corner_orientation_perm[6] * 729;
 
-    // (0..3^7 - 1) * 12C4 + (0..12C4 - 1) = 0..1082564
+    /*
+     * Corners and edges index decreases when corners become closer to solved state
+     * and for solved state they both equal to 0
+     * (0..3^7 - 1) * 12C4 + (0..12C4 - 1) = 0..1082564
+     */
     return corner_index * 495 + edges_index;
 }
 

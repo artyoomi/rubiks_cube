@@ -102,10 +102,14 @@ public:
     };
 
     /* Determine edge as two colors array:
-     * For UD- and FB-slice:
-     * (P.S. LR-slice is cubies between L and R facelets)
+     * (P.S. Example: LR-slice is cubies between L and R facelets)
+     * For FB-slice:
      * 0) facelet on the R/L face
-     * 1) facelet on the U/D face or F/B face
+     * 1) facelet on the U/D face
+     * 
+     * For UD-slice:
+     * 0) facelet on the R/L face
+     * 1) facelet on the F/B face
      * 
      * For LR-slice:
      * 0) facelet on the U/D face
@@ -113,7 +117,7 @@ public:
      */
     using edge_t = std::array<ecolor, 2>;
 
-    /* determine corner as three colors array (the following is ordered by indexes):
+    /* Determine corner as three colors array (the following is ordered by indexes):
      * 0) facelet on the R/L face
      * 1) facelet on the U/D face
      * 2) facelet on the F/B face

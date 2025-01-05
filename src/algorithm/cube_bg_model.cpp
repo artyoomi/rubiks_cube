@@ -500,26 +500,29 @@ Cube_bg_model::ecolor Cube_bg_model::color(eedge index) const
     return _cube_data[(uint8_t)index];
 }
 
+/*
+ * Checks if a facelet has one of the colors from the F/B axis, if 
+ * not, checks if it's from the U/D axis and that the adjacent edge facelet
+ * has a color from the R/L axis
+ * source of info: https://www.jaapsch.net/puzzles/thistle.htm#p2
+ */
 uint8_t Cube_bg_model::edge_orientation(const edge_t& edge) const
 {
-    // checks if a facelet has one of the colors from the F/B axis, if not, checks if it's from the U/D axis and
-    // that the adjacent edge facelet has a color from the R/L axis
-    // source of info: https://www.jaapsch.net/puzzles/thistle.htm#p2
-
     /*
-     * Conditions:
+     * Conditions ("BAD" orinetation):
      * 
-     * Before ||: for LR-slice edges
-     * Here first color is color on U/D side, so if we don't have matching
-     * to U/D color on this sides, then we need odd quarter
-     * turns to take it back => it is BAD orientation
-     *  
-     * After ||: for all edges except LR-slice edges
-     * Here first color is color on L/R side, so if we have
-     * U or D side color on this side, than we need odd quarter turns
-     * to take it back to U/D => it is BAD orientation
+     * 1. Before ||: on first index in edge_t stored color from L/R or U/D side, so if
+     * we have F/B color on this sides it have "BAD" orinetation
      * 
-     * Otherwise (if result is false), orientation is GOOD
+     * 2. After ||: if we have U/D color on L/R side or U/D side we have this cases:
+     * 
+     * Case 1: F/B color on R/L face and R/L color on U/D face => "BAD"
+     * 
+     * Case 2: F/B color on R/L face and R/L color on F/B face => "BAD"
+     * 
+     * Case 3: F/B color on U/D face and R/L color on F/B face => "BAD"
+     * 
+     * Otherwise (if result is false), orientation is "GOOD"
      */
     return (( edge[0] == ecolor::F || edge[0] == ecolor::B) ||
             ((edge[0] == ecolor::U || edge[0] == ecolor::D) &&

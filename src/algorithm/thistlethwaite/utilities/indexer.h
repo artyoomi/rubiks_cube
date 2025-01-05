@@ -89,29 +89,24 @@ struct PermIndexerPartial {
         return factorial[n] / factorial[n - k];
     }
 
-    uint32_t index(const std::array<uint8_t, K> perm) const
+    uint32_t index(const std::array<uint8_t, K>& perm) const
     {
         // calculates lehmer code
         std::array<uint8_t, K> lehmer = perm;
 
-        for (uint8_t i = 1; i < K; ++i)
-        {
+        for (uint8_t i = 1; i < K; ++i) {
             int j = i;
             while (j--)
             {
                 if (perm[j] < perm[i])
-                {
                     --lehmer[i];
-                }
             }
         }
 
         uint32_t index = 0;
 
         for (uint8_t i = 0; i < K; ++i)
-        {
             index += lehmer[i] * nPk(N - 1 - i, K - 1 - i);
-        }
 
         return index;
     }

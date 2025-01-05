@@ -1,7 +1,6 @@
 #pragma once
 
 #include "database.h"
-
 #include "../phase_info/phase1_info.h"
 
 /*

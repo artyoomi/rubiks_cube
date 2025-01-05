@@ -9,7 +9,8 @@ Thistlethwaite::Thistlethwaite()
     _phase4.name = "Phase 4. G3->G4";
 
     // combine phases in one vector
-    _phases = {&_phase1, &_phase2, &_phase3, &_phase4};
+    //_phases = {&_phase1, &_phase2, &_phase3, &_phase4};
+    _phases = {&_phase1};
 
     // load database for each phase before start solving
     for (auto& phase : _phases)

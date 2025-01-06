@@ -6,7 +6,7 @@
 
 // all indexers require a permutation to be from 0 to N
 
-// 0!.....12! (longest possible combination has 12 values: 12 edges > 8 corners)
+// 0!.....12! (largest needed factorial is 12!)
 static const std::array<uint32_t, 13> factorial = {
             1, // 0!
             1, // 1!
@@ -38,17 +38,14 @@ struct CombIndexer {
     // combinations are always assumed to be in a descending order
     uint32_t index(const std::array<uint8_t, K>& comb) const
     {
-        /* www.jaapsch.net/puzzles/compindx.htm
-         * an edge combination is ranked based on the amount of possible smaller edge combinations
-         * because there is no repetition or regard to order, nCk is used assuming the positions
-         * permutations are always in a decending order (p = positions: p[0] > p[1] > p[2] > p[3])
-         * index = p[0]-1C4 + p[1]-1C3 + p[2]-1C2 + p[3]-1C1
+        /* 
+         * Calculate rank of combination using binomial number system.
+         * We can use this number system since comb[0] < comb[1] < comb[2] < comb[3].
          */
         uint32_t index = 0;
 
-        for (uint8_t n = K, k = K; k > 0; --n, --k)
-            index += nCk(comb[n - 1] - 1, k);
-            // index += (comb[n] - nCk(k, 1));
+        for (uint8_t k = 1; k <= K; ++k)
+            index += nCk(comb[k - 1], k);
 
         return index;
     }

@@ -49,12 +49,12 @@ uint32_t Phase3_info::id(const Cube_bg_model& cube) const
         // indices of the UD-slice edges are 4, 5, 6, 7
         if (edges_perm[i] == 4 || edges_perm[i] == 5 ||
             edges_perm[i] == 6 || edges_perm[i] == 7) {
-            edges_position_comb[e++] = i + 1;
+            edges_position_comb[e++] = i;
         }
 
         // even tetrad (even indices)
         if (corners_perm[corners_map[i]] % 2 == 0)
-            corners_position_comb[c++] = i + 1;
+            corners_position_comb[c++] = i;
 
         // splits the corners while keeping the relative order
         if (corners_perm[i] % 2 == 0)

@@ -36,12 +36,12 @@ uint32_t Phase2_info::id(const Cube_bg_model& cube) const
         // indices of the LR-slice edges are 8, 9, 10, 11
         if (edge_perm[i] == 8  || edge_perm[i] == 9 ||
             edge_perm[i] == 10 || edge_perm[i] == 11)
-            edge_pos_comb[e++] = i + 1;
+            edge_pos_comb[e++] = i;
     }
 
     // get edges index according to found edge inarray indexes
     uint32_t edges_index = _comb_indexer4.index(edge_pos_comb);   // edge
-    uint32_t corner_index = 0;                                   // corner
+    uint32_t corner_index = 0;                                    // corner
 
     // treats corner orientations as ternary numbers and converts it to decimal
     corner_index +=

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "phase_info.h"
-#include "../utilities/indexer.h"
+#include "../utilities/rankers.h"
 
 struct Phase3_info : public Phase_info
 {
@@ -46,6 +46,6 @@ private:
     // imitates a move on an array
     void _imitate_move(emove move, std::array<uint8_t, 8>& tetrads_perm) const;
 
-    CombIndexer<4> _comb_indexer4;
-    PermIndexer<3> _perm_indexer3;
+    CombRanker<4> _comb_ranker4;
+    PermRanker<3> _perm_ranker3;
 };

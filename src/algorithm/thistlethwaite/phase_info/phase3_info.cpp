@@ -103,13 +103,13 @@ uint32_t Phase3_info::id(const Cube_bg_model& cube) const
     };
 
     // 0..8C4 - 1
-    uint32_t edges_index = _comb_indexer4.index(edges_position_comb);
+    uint32_t edges_index = _comb_ranker4.rank(edges_position_comb);
 
     // 0..8C4 - 1
-    uint32_t corners_index = _comb_indexer4.index(corners_position_comb);
+    uint32_t corners_index = _comb_ranker4.rank(corners_position_comb);
 
     // 0...3! - 1
-    uint32_t odd_tetrad_index = _perm_indexer3.index(odd_tetrad_perm);
+    uint32_t odd_tetrad_index = _perm_ranker3.rank(odd_tetrad_perm);
 
     // (0..8C4 - 1 * 8C4 + 0..8C4 - 1) * 6 + ..5 = 0..29399
     return (corners_index * 70 + edges_index) * 6 + odd_tetrad_index;

@@ -40,8 +40,8 @@ uint32_t Phase2_info::id(const Cube_bg_model& cube) const
     }
 
     // get edges index according to found edge inarray indexes
-    uint32_t edges_index = _comb_indexer4.index(edge_pos_comb);   // edge
-    uint32_t corner_index = 0;                                    // corner
+    uint32_t edges_index = _comb_ranker4.rank(edge_pos_comb);   // edge
+    uint32_t corner_index = 0;                                  // corner
 
     // treats corner orientations as ternary numbers and converts it to decimal
     corner_index +=

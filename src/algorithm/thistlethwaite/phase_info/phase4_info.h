@@ -1,7 +1,7 @@
 #pragma once
 
 #include "phase_info.h"
-#include "../utilities/indexer.h"
+#include "../utilities/rankers.h"
 
 struct Phase4_info : public Phase_info
 {
@@ -24,6 +24,6 @@ struct Phase4_info : public Phase_info
 	bool solved(const Cube_bg_model& cube) const override;
 
 private:
-    PermIndexer<4>           perm_indexer4;
-    PermIndexerPartial<4, 2> perm_indexer4p2;
+    PermRanker<4>           perm_ranker4;
+    PermRankerPartial<4, 2> perm_ranker4p2;
 };

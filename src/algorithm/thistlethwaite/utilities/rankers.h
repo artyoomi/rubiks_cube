@@ -4,7 +4,7 @@
 #include <array>
 #include <bitset>
 
-// all indexers require a permutation to be from 0 to N
+// all rankers require a permutation to be from 0 to N
 
 // 0!.....12! (largest needed factorial is 12!)
 static const std::array<uint32_t, 13> factorial = {
@@ -26,7 +26,7 @@ static const std::array<uint32_t, 13> factorial = {
 
 // ranks combinations from 0 to nCk - 1
 template<uint8_t K>
-struct CombIndexer {
+struct CombRanker {
     // calculate nCk = n! / (k!(n - k)!)
     uint32_t nCk(uint8_t n, uint8_t k) const
     {
@@ -36,25 +36,25 @@ struct CombIndexer {
     }
 
     // combinations are always assumed to be in a descending order
-    uint32_t index(const std::array<uint8_t, K>& comb) const
+    uint32_t rank(const std::array<uint8_t, K>& comb) const
     {
         /* 
          * Calculate rank of combination using binomial number system.
-         * We can use this number system since comb[0] < comb[1] < comb[2] < comb[3].
+         * We can use this number system since: 0 <= comb[0] < comb[1] < comb[2] < ... < comb[K - 1]
          */
-        uint32_t index = 0;
+        uint32_t rank = 0;
 
-        for (uint8_t k = 1; k <= K; ++k)
-            index += nCk(comb[k - 1], k);
+        for (uint8_t k = K; k >= 1; --k)
+            rank += nCk(comb[k - 1], k);
 
-        return index;
+        return rank;
     }
 };
 
 // ranks permutations from 0 to N! - 1
 template<uint8_t N>
-struct PermIndexer {
-    uint32_t index(const std::array<uint8_t, N>& perm) const
+struct PermRanker {
+    uint32_t rank(const std::array<uint8_t, N>& perm) const
     {
         // calculates lehmer code
         std::array<uint8_t, N> lehmer = perm;
@@ -66,18 +66,18 @@ struct PermIndexer {
             }
         }
 
-        uint32_t index = 0;
-        // get index by lehmer code
+        uint32_t rank = 0;
+        // get rank by lehmer code
         for (uint8_t i = 0, j = N - 1; i < N && j >= 0; ++i, --j)
-            index += lehmer[i] * factorial[j];
+            rank += lehmer[i] * factorial[j];
 
-        return index;
+        return rank;
     }
 };
 
 // ranks partial permutations from 0 to nPk - 1
 template<uint8_t N, uint8_t K>
-struct PermIndexerPartial {
+struct PermRankerPartial {
     // calculate nPk = n! / (n - k)!
     uint32_t nPk(uint8_t n, uint8_t k) const
     {
@@ -86,7 +86,7 @@ struct PermIndexerPartial {
         return factorial[n] / factorial[n - k];
     }
 
-    uint32_t index(const std::array<uint8_t, K>& perm) const
+    uint32_t rank(const std::array<uint8_t, K>& perm) const
     {
         // calculates lehmer code
         std::array<uint8_t, K> lehmer = perm;
@@ -100,11 +100,11 @@ struct PermIndexerPartial {
             }
         }
 
-        uint32_t index = 0;
+        uint32_t rank = 0;
 
         for (uint8_t i = 0; i < K; ++i)
-            index += lehmer[i] * nPk(N - 1 - i, K - 1 - i);
+            rank += lehmer[i] * nPk(N - 1 - i, K - 1 - i);
 
-        return index;
+        return rank;
     }
 };

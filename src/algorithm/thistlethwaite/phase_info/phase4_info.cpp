@@ -57,20 +57,20 @@ uint32_t Phase4_info::id(const Cube_bg_model& cube) const
 
     // same logic as earlier, we need index of corner only in it's tetrad
     uint8_t corners_odd_tetrad_rank = (cube.piece_index(epiece::ULF) >> 1);
-    uint8_t edges_FBslice_rank = perm_indexer4p2.index(edges_positions_perm_FBslice);
+    uint8_t edges_FBslice_rank = perm_ranker4p2.rank(edges_positions_perm_FBslice);
 
 
     /*
      * index for edges in each slice
      * (0..4! - 1) * (4!^2 / 2) + (0..4! - 1) * (4! / 2) + (0..4! / 2) = 0..6911
      */
-    uint32_t edges_index = perm_indexer4.index(edges_positions_perm_LRslice) * 288 + perm_indexer4.index(edges_positions_perm_UDslice) * 12 + edges_FBslice_rank;
+    uint32_t edges_index = perm_ranker4.rank(edges_positions_perm_LRslice) * 288 + perm_ranker4.rank(edges_positions_perm_UDslice) * 12 + edges_FBslice_rank;
 
     /*
      * index for corners in each tetrad
      * (0..4! - 1) * 4 + 0..3 = 0..95
      */
-    uint32_t corners_index = perm_indexer4.index(corner_even_tetrad_position_perm) * 4 + corners_odd_tetrad_rank;
+    uint32_t corners_index = perm_ranker4.rank(corner_even_tetrad_position_perm) * 4 + corners_odd_tetrad_rank;
 
     // 0..9611 * 96 + 0..95 = 0..663551
     return edges_index * 96 + corners_index;

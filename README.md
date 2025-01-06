@@ -7,6 +7,7 @@ After the scrambling, you can choose one of two algorithms to solve the cube. Th
 ### Dependencies
 (the list may be incomplete)
 ```
+sudo apt-get install freeglut3-dev
 sudo apt install libglfw3-dev
 ```
 

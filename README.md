@@ -4,6 +4,12 @@ This project is an alternative exam in the discipline of DM&TI at the SPBSETU 2n
 then you can scramble the cube by yourself or use the random generator to scramble it automatically. The porgram doesn't save the turns made in any ways.
 After the scrambling, you can choose one of two algorithms to solve the cube. This program has a complete 3D model of the cube and shows an animated movement at scrabmling/solving.
 
+### Dependencies
+(the list may be incomplete)
+```
+sudo apt install libglfw3-dev
+```
+
 ### Build
 To build program you need to write the following in terminal\
 *(instructions for Linux, the build may vary on Windows / MAC OS)*

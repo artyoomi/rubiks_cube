@@ -24,7 +24,6 @@ struct Phase3_info : public Phase_info
      * G3 is solved when it's possible to solve the cube without 90 degree twists
      * to ensure that, all edges and corners are in their orbits and the parity is even
      */
-
 	bool solved(const Cube_bg_model& cube) const override;
 
 private:

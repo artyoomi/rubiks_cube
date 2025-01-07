@@ -36,7 +36,7 @@ uint32_t Phase3_info::id(const Cube_bg_model& cube) const
      * Stores the positions of the 4 corners that need to be brought back to the even tetrad
      * NOTE: even tetrad consists of LUB, LDF, RDB, RUF, odd tetrad consists of remaining corners
      */
-    std::array<uint8_t, 4> corners_position_comb;
+    std::array<uint8_t, 4> corners_even_tetrad_position_comb;
     
     // extracts the corners into their tetrads while keeping the same relative order from the initial perm
     std::array<uint8_t, 4> corner_even_tetrad, corner_odd_tetrad;
@@ -46,15 +46,19 @@ uint32_t Phase3_info::id(const Cube_bg_model& cube) const
     const std::array<uint8_t, 8> corners_map = {0, 2, 4, 6, 1, 3, 5, 7};
 
     for (uint8_t i = 0, e = 0, c = 0, c_even = 0, c_odd = 0; i < 8; ++i) {
-        // indices of the UD-slice edges are 4, 5, 6, 7
-        if (edges_perm[i] == 4 || edges_perm[i] == 5 ||
-            edges_perm[i] == 6 || edges_perm[i] == 7) {
+        /*
+         * Get positions of UD-slice edges
+         * (indices of the UD-slice edges are 4, 5, 6, 7)
+         */
+        if (edges_perm[i] == 4 || edges_perm[i] == 5 || edges_perm[i] == 6 || edges_perm[i] == 7)
             edges_position_comb[e++] = i;
-        }
 
-        // even tetrad (even indices)
+        /*
+         * Get positions of even tetrad corners
+         * (corners from even tetrad has even indices)
+         */
         if (corners_perm[corners_map[i]] % 2 == 0)
-            corners_position_comb[c++] = i;
+            corners_even_tetrad_position_comb[c++] = i;
 
         // splits the corners while keeping the relative order
         if (corners_perm[i] % 2 == 0)
@@ -106,7 +110,7 @@ uint32_t Phase3_info::id(const Cube_bg_model& cube) const
     uint32_t edges_index = _comb_ranker4.rank(edges_position_comb);
 
     // 0..8C4 - 1
-    uint32_t corners_index = _comb_ranker4.rank(corners_position_comb);
+    uint32_t corners_index = _comb_ranker4.rank(corners_even_tetrad_position_comb);
 
     // 0...3! - 1
     uint32_t odd_tetrad_index = _perm_ranker3.rank(odd_tetrad_perm);

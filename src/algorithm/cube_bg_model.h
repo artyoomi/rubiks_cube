@@ -8,7 +8,7 @@
 #include <iostream>
 #include <vector>
 #include <array>
-
+#include <string>
 
 #define TOTAL_COLOR_CELLS 54
 #define COLORS_PER_SIDE   9

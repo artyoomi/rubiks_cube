@@ -144,7 +144,7 @@ void Phase3_info::_imitate_move(emove move, std::array<uint8_t, 8>& tetrads_perm
         break;
     default:
         std::string move_value = std::to_string((int)move);
-        throw std::logic_error("G2_G3_database::imitate_move invalid enum value " + move_value);
+        throw std::logic_error("Phase3_info::imitate_move invalid enum value " + move_value);
     }
 
     for (uint8_t i = 0; i < 8; ++i) {

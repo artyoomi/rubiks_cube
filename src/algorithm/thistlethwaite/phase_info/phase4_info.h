@@ -20,7 +20,7 @@ struct Phase4_info : public Phase_info
 
     uint32_t id(const Cube_bg_model& cube) const override;
 
-	// G4 is contented when the cube is solved
+	// G3 -> G4 is solved only when the cube is solved
 	bool solved(const Cube_bg_model& cube) const override;
 
 private:

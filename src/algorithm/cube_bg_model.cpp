@@ -531,10 +531,6 @@ uint8_t Cube_bg_model::edge_orientation(const edge_t& edge) const
 
 uint8_t Cube_bg_model::corner_orientation(const corner_t& corner) const
 {
-    // www.ryanheise.com/cube/cube_laws.html
-    // orientation is determined by the twist of the corner, but this follows
-    // a differnet logic to avoid unnecessary extra code
-
     // retrun 0 / 1 / 2 based on which axis the L/R color is on
     for (uint8_t i = 0; i < 3; ++i) {
         if (corner[i] == ecolor::R || corner[i] == ecolor::L)

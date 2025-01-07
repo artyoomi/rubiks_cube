@@ -18,12 +18,13 @@ struct Phase3_info : public Phase_info
         };
     }
 
-    uint32_t id(const Cube_bg_model& cube) const;
+    uint32_t id(const Cube_bg_model& cube) const override;
 
-    // G3 is contented when it's possible to solve the cube without 90 degree twists
-    // to ensure that, all edges and corners are in their orbits and the parity is even
+    /*
+     * G3 is solved when it's possible to solve the cube without 90 degree twists
+     * to ensure that, all edges and corners are in their orbits and the parity is even
+     */
 
-    // this implementation splits the corners into 4 pairs instead of forming 2 tetrads
 	bool solved(const Cube_bg_model& cube) const override;
 
 private:

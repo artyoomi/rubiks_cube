@@ -38,12 +38,12 @@ uint32_t Phase4_info::id(const Cube_bg_model& cube) const
         cube.piece_index(epiece::URF),
     };
 
-    // sets the indices of all edge and corner pieces to a value between 0 and 3
+    // below we sets the indices of all edge and corner pieces to a value between 0 and 3
 
     /*
      * Here even tetrad corners can have only indexes 0, 2, 4, 6 and we need to 
      * interpret this numbers as 4 numbers. which we can permute in 4! ways to encode it. So
-     * we transform this numbers in numbers 0, 1, 2, 3.
+     * we transform this indicies in numbers [0; 3].
      */
     for (auto& c : corner_even_tetrad_position_perm) c >>= 1;
     
@@ -53,7 +53,7 @@ uint32_t Phase4_info::id(const Cube_bg_model& cube) const
      */
     for (auto& e : edges_positions_perm_UDslice) e &= 3;
     for (auto& e : edges_positions_perm_LRslice) e &= 3;
-    // indices of the FB-slice edges are 0..3 by default
+    // indices of the FB-slice edges are already 0..3
 
     // same logic as earlier, we need index of corner only in it's tetrad
     uint8_t corners_odd_tetrad_rank = (cube.piece_index(epiece::ULF) >> 1);
@@ -61,16 +61,19 @@ uint32_t Phase4_info::id(const Cube_bg_model& cube) const
 
 
     /*
-     * index for edges in each slice
+     * Index for edges in each slice
      * (0..4! - 1) * (4!^2 / 2) + (0..4! - 1) * (4! / 2) + (0..4! / 2) = 0..6911
      */
-    uint32_t edges_index = perm_ranker4.rank(edges_positions_perm_LRslice) * 288 + perm_ranker4.rank(edges_positions_perm_UDslice) * 12 + edges_FBslice_rank;
+    uint32_t edges_index = perm_ranker4.rank(edges_positions_perm_LRslice) * 288 + 
+                           perm_ranker4.rank(edges_positions_perm_UDslice) * 12  + 
+                           edges_FBslice_rank;
 
     /*
-     * index for corners in each tetrad
+     * Index for corners in each tetrad
      * (0..4! - 1) * 4 + 0..3 = 0..95
      */
-    uint32_t corners_index = perm_ranker4.rank(corner_even_tetrad_position_perm) * 4 + corners_odd_tetrad_rank;
+    uint32_t corners_index = perm_ranker4.rank(corner_even_tetrad_position_perm) * 4 + 
+                             corners_odd_tetrad_rank;
 
     // 0..9611 * 96 + 0..95 = 0..663551
     return edges_index * 96 + corners_index;

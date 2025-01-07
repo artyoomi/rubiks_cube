@@ -2,6 +2,7 @@
 
 #include "phase_info.h"
 
+// G0 -> G1
 struct Phase1_info : public Phase_info {
     Phase1_info()
     {
@@ -18,6 +19,6 @@ struct Phase1_info : public Phase_info {
 
     uint32_t id(const Cube_bg_model& cube) const override;
 
-	// G1 is contented when all the edges are oriented correctly
+	// Phase 1 (G0->G1) is solved when all the edges oriented correctly
 	bool solved(const Cube_bg_model& cube) const override;
 };

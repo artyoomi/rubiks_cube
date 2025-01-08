@@ -27,14 +27,14 @@ Two algorithms have been implemented to assemble the Rubik's cube: the human alg
 When using Thistlethwaite's algorithm for the first time (before the databases were generated and stored on the computer), the databases must be generated so it will take some time. After generation the solving algorithm will work almost instantly.
 
 Available commands:
-- "U" - make up turn (+ shift to U');
-- "L" - make left turn (+ shift to L');
-- "F" - make front turn (+ shift to F');
-- "R" - make right turn (+ shift to R');
-- "B" - make back turn (+ shift to B');
-- "D" - make down turn (+ shift to D');
-- "s" - scramble cube;
-- "=" - solve cube using human-like algorithm;
-- "-" - solve cube using Thistlethwaite algorithm
+- "U": make up turn (+ shift to U');
+- "L": make left turn (+ shift to L');
+- "F": make front turn (+ shift to F');
+- "R": make right turn (+ shift to R');
+- "B": make back turn (+ shift to B');
+- "D": make down turn (+ shift to D');
+- "s": scramble cube;
+- "=": solve cube using human-like algorithm;
+- "-": solve cube using Thistlethwaite algorithm
 
 **Compatibility:** at the moment, the program has been run and tested only on Linux systems, so problems may occur on other operating systems.

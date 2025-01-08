@@ -543,7 +543,8 @@ uint8_t Cube_bg_model::corner_orientation(const corner_t& corner) const
 uint8_t Cube_bg_model::edge_index(const edge_t& edge) const
 { 
     // unique index based on color combinations
-    uint8_t index = ((1 << (uint8_t)edge[0]) + (1 << (uint8_t)edge[1]));
+    uint8_t index = ((1 << (uint8_t)edge[0]) +
+                     (1 << (uint8_t)edge[1]));
 
     /* The dependence of the obtained value at (1 << color[i]) on the base side of the color
      * U = 0 => 1
@@ -588,7 +589,9 @@ uint8_t Cube_bg_model::edge_index(const edge_t& edge) const
 uint8_t Cube_bg_model::corner_index(const corner_t& corner) const
 {
     // unique index based on color combinations
-    uint8_t index = ((1 << (uint8_t)corner[0]) + (1 << (uint8_t)corner[1]) + (1 << (uint8_t)corner[2]));
+    uint8_t index = ((1 << (uint8_t)corner[0]) + 
+                     (1 << (uint8_t)corner[1]) + 
+                     (1 << (uint8_t)corner[2]));
 
     /* The dependence of the obtained value at (1 << color[i]) on the base side of the color
      * U = 0 => 1

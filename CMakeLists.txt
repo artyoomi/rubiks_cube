@@ -81,7 +81,7 @@ target_link_libraries(Rubiks_cube
 enable_testing()
 
 add_executable(Cube_bg_model_test src/tests/cube_bg_model_tests.cpp src/algorithm/cube_bg_model.cpp)
-target_link_libraries(Cube_bg_model_test gtest_main gtest)
+target_link_libraries(Cube_bg_model_test gtest_main gtest pthread)
 
 include(GoogleTest)
 gtest_discover_tests(Cube_bg_model_test)

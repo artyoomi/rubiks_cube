@@ -35,6 +35,6 @@ Available commands:
 - "D" - make down turn (+ shift to D');
 - "s" - scramble cube;
 - "=" - solve cube using human-like algorithm;
-- "\-" - solve cube using Thistlethwaite algorithm
+- "-" - solve cube using Thistlethwaite algorithm
 
 **Compatibility:** at the moment, the program has been run and tested only on Linux systems, so problems may occur on other operating systems.

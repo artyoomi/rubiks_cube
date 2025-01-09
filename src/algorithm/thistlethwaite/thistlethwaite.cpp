@@ -93,7 +93,6 @@ std::vector<std::pair<rotation_side, rotation_type>> Thistlethwaite::emove_to_ro
     return result;
 }
 
-//std::vector<std::vector<std::pair<rotation_side, rotation_type>>> Thistlethwaite::solve(const Cube_bg_model &const_cube) const
 std::vector<std::pair<rotation_side, rotation_type>> Thistlethwaite::solve(const Cube_bg_model &const_cube) const
 {
     // vector with all moves to solve cube

@@ -4,8 +4,10 @@
 
 uint32_t Phase1_info::id(const Cube_bg_model& cube) const
 {
-    // stores the orientation of all edges (by position, regardless of which edge is where)
-    // the orientation of 11 edges dictates the orientation of the 12th edge (even orientation values)
+    /*
+     * Stores the orientation of all edges (by position, regardless of which edge is where)
+     * the orientation of 11 edges dictates the orientation of the 12th edge (even orientation values)
+     */
     std::array<uint8_t, 11> edge_orientation_perm = {
         cube.edge_orientation(cube.edge(epiece::RB)),
         cube.edge_orientation(cube.edge(epiece::RF)),

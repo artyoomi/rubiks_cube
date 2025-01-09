@@ -15,6 +15,7 @@
  * Base class for each database
  */
 class Database {
+// PUBLIC FUNCTIONS
 public:
     using epiece = Cube_bg_model::epiece;
     using emove  = Cube_bg_model::emove;
@@ -60,7 +61,9 @@ public:
     
     // return capacity or max_size of db
     size_t capacity() const;
-    
+
+// PUBLIC VARIABLES
+public:    
     /*
      * Pointer to struct which contains:
      * - function to find id on current phase
@@ -68,6 +71,8 @@ public:
      * - is solved function (just curr_phase_id == 0)
      */
     std::shared_ptr<Phase_info> phase_info;
+
+// PRIVATE FUNCTIONS
 private:
     std::vector<uint8_t> _data;         // vector with db data
     std::size_t          _size;         // current size of db

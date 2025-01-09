@@ -16,9 +16,7 @@
  * puzzling.stackexchange.com/questions/5402/what-is-the-meaning-of-a-tetrad-twist-in-thistlethwaites-algorithm
  *
  * Therefore, there are 8C4^2 * 2 * 3 = 29400 states to store in the database.
- * 
- * NOTE: E-slice is UD-slice, S-slice is FB-slice
-*/
+ */
 struct Phase3_database : public Database {
 	Phase3_database() : Database(29400, "G2")
     {

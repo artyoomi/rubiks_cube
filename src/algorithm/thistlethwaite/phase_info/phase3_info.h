@@ -36,8 +36,10 @@ private:
 
     // moves to solve ULF (first corner of the odd tetrad)
     const std::array<std::array<emove, 4>, 3> _corners_odd_tetrad_solving_moves = {{
-        // these move sequences perform a double swap on the four pieces of  
-        // the odd tetrad without affecting the corners in the even tetrad
+        /* 
+         * these move sequences perform a double swap on the four pieces of  
+         * the odd tetrad without affecting the corners in the even tetrad
+         */
         {emove::F2, emove::L2, emove::F2, emove::U2},
         {emove::U2, emove::F2, emove::U2, emove::L2},
         {emove::L2, emove::U2, emove::L2, emove::F2},

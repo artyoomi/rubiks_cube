@@ -4,7 +4,6 @@
 #include <cstring>
 #include <ctime>
 
-#include <bit>
 #include <iostream>
 #include <vector>
 #include <array>

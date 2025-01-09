@@ -51,19 +51,19 @@ bool DB_generator::_db_searcher(Cube_bg_model cube, Cube_bg_model::emove last_mo
     if (depth == max_depth) {
         database.set(index, depth);
         return database.full();
-    } else {
-        // generate child nodes
-        for (const auto move : phase_info.allowed_moves) {
-            if (utilities::redundant(move, last_move))
-                continue;
+    }
 
-            cube.rotate(move);
+    // generate child nodes
+    for (const auto move : phase_info.allowed_moves) {
+        if (utilities::redundant(move, last_move))
+            continue;
 
-            if (_db_searcher(cube, move, phase_info, database, depth + 1, max_depth, visited))
-                return true;
+        cube.rotate(move);
 
-            cube.revert_rotate(move);
-        }
+        if (_db_searcher(cube, move, phase_info, database, depth + 1, max_depth, visited))
+            return true;
+
+        cube.revert_rotate(move);
     }
 
     // branch led to a dead end

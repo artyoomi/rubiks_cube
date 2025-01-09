@@ -1,8 +1,8 @@
 #pragma once
 
 #include <cstdint>
+
 #include <array>
-#include <bitset>
 
 // all rankers require a permutation to be from 0 to N
 

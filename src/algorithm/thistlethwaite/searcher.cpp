@@ -7,12 +7,6 @@
 
 std::vector<Cube_bg_model::emove> Searcher::search(const Cube_bg_model& cube, const Phase_info& phase_info, const Database& database) const
 {
-    // compares node scores for logarithmic insertions
-    auto cmp_nodes = [](Graph_node_ptr left, Graph_node_ptr right) -> bool
-    {
-        return left->score > right->score;
-    };
-
     // set to true if cube in solved state for current phase
     bool solved = false;
 
@@ -24,9 +18,11 @@ std::vector<Cube_bg_model::emove> Searcher::search(const Cube_bg_model& cube, co
     Graph_node_ptr solved_node = nullptr;
 
     /*
-     * here we just want to build min heap to get node
+     * Here we just want to build min heap to get node
      * with minimal score in fastest possible time
      */
+    auto cmp_nodes = [](Graph_node_ptr left, Graph_node_ptr right) -> bool
+        { return left->score > right->score; };
     std::priority_queue<Graph_node_ptr, std::vector<Graph_node_ptr>, decltype(cmp_nodes)> pr_q;
 
     // firstly, add root_node to queue

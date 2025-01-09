@@ -115,7 +115,7 @@ uint32_t Phase3_info::id(const Cube_bg_model& cube) const
     // 0...3! - 1
     uint32_t odd_tetrad_index = _perm_ranker3.rank(odd_tetrad_perm);
 
-    // (0..8C4 - 1 * 8C4 + 0..8C4 - 1) * 6 + ..5 = 0..29399
+    // (0..8C4 - 1 * 8C4 + 0..8C4 - 1) * 6 + 0..5 = 0..29399
     return (corners_index * 70 + edges_index) * 6 + odd_tetrad_index;
 }
 

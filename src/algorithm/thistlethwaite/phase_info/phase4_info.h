@@ -7,7 +7,7 @@ struct Phase4_info : public Phase_info
 {
 	Phase4_info()
     {
-        // forbid all quarter turns
+        // G3: forbid all 90-degree turns
         allowed_moves = {
             emove::U2,
             emove::L2,

@@ -3,10 +3,10 @@
 Thistlethwaite::Thistlethwaite()
 {
     // give name to each phase
-    _phase1.name = "Phase 1. G0->G1";
-    _phase2.name = "Phase 2. G1->G2";
-    _phase3.name = "Phase 3. G2->G3";
-    _phase4.name = "Phase 4. G3->G4";
+    _phase1.name = "Phase 1 (G0->G1)";
+    _phase2.name = "Phase 2 (G1->G2)";
+    _phase3.name = "Phase 3 (G2->G3)";
+    _phase4.name = "Phase 4 (G3->G4)";
 
     // combine phases in one vector
     _phases = {&_phase1, &_phase2, &_phase3, &_phase4};
@@ -120,7 +120,6 @@ std::vector<std::pair<rotation_side, rotation_type>> Thistlethwaite::solve(const
         std::vector<emove> phase_result = searcher.search(cube, *_phases[n_phase - 1]->phase_info, *_phases[n_phase - 1]->database);
 
         // add partial solution to the end result
-        //result[n_phase - 1].emplace_back(phase_result);
         result.insert(result.end(), phase_result.begin(), phase_result.end());
 
         // perform the partial group solution to pass the new state to the next group
@@ -130,7 +129,7 @@ std::vector<std::pair<rotation_side, rotation_type>> Thistlethwaite::solve(const
         // group solve statistics
         double phase_solve_time = timer.get();
 
-        std::cout << "Elapsed time: " << phase_solve_time << "ms, ";
+        std::cout << "Time spent: " << phase_solve_time << "ms, ";
         std::cout << "Moves: " << phase_result.size() << std::endl;
         full_solve_time += phase_solve_time;
     }
@@ -138,6 +137,7 @@ std::vector<std::pair<rotation_side, rotation_type>> Thistlethwaite::solve(const
     // overall solve statistics
     std::cout << std::endl;
     std::cout << "Solved in: " << (int)full_solve_time / 1000 << " seconds " << "(" << full_solve_time << "ms)." << std::endl;
+    
     std::cout << "Moves(" << result.size() << "): ";
     for (const auto& move : result)
         std::cout << cube.move_name(move);

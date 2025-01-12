@@ -22,11 +22,11 @@ struct Phase {
     // loads the database or generates it if a file is not provided
     void load_db()
     {
-        std::cout << "Loading database for " << name << "..." << std::endl;
+        std::cout << "Loading database: " << name << "..." << std::endl;
         if (database->load())
-            std::cout << "Loaded database for " << name << " successfully." << std::endl;
+            std::cout << "Database for " << name << " was successfully loaded!" << std::endl;
         else {
-            std::cout << "Failed to load database for " << name << ". generating:" << std::endl;
+            std::cout << "Failed to load database: " << name << ". Generating..." << std::endl;
             __db_generator.generate(*phase_info, *database);
         }
     }

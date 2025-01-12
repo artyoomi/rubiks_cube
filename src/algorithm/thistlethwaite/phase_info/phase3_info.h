@@ -7,7 +7,7 @@ struct Phase3_info : public Phase_info
 {
 	Phase3_info()
     {
-        // forbid U, F, B and D quarter turns
+        // G2: forbid U, F, B and D 90-degree turns
         allowed_moves = {
             emove::U2,
             emove::L, emove::Lr, emove::L2,
@@ -45,7 +45,10 @@ private:
         {emove::L2, emove::U2, emove::L2, emove::F2},
     }};
 
-    // imitates a move on an array
+    /*
+     * Just imitate moves on tetrad permutations array in order not to work 
+     * directly with the array of cube values.
+     */
     void _imitate_move(emove move, std::array<uint8_t, 8>& tetrads_perm) const;
 
     CombRanker<4> _comb_ranker4;

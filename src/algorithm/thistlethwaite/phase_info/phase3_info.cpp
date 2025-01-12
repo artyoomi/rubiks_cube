@@ -112,7 +112,11 @@ uint32_t Phase3_info::id(const Cube_bg_model& cube) const
     // 0..8C4 - 1
     uint32_t corners_index = _comb_ranker4.rank(corners_even_tetrad_position_comb);
 
-    // 0...3! - 1
+    /*
+     * This index we get by placing all corners (except corners with indexes 3, 5 and 7)
+     * and counting permutation rank of corners with indexes 3, 5, 7
+     * 0...3! - 1
+     */
     uint32_t odd_tetrad_index = _perm_ranker3.rank(odd_tetrad_perm);
 
     // (0..8C4 - 1 * 8C4 + 0..8C4 - 1) * 6 + 0..5 = 0..29399

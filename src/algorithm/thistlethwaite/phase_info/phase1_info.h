@@ -6,7 +6,7 @@
 struct Phase1_info : public Phase_info {
     Phase1_info()
     {
-        // all moves are allowed
+        // G0: all moves are allowed
         allowed_moves = {
             emove::U, emove::Ur, emove::U2,
             emove::L, emove::Lr, emove::L2,

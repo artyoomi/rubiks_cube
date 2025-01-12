@@ -8,7 +8,7 @@ struct Phase2_info : public Phase_info
 {
 	Phase2_info()
     {
-        // forbid U and D quarter turns
+        // G1: forbid U and D 90-degree turns
         allowed_moves = {
             emove::U2,
             emove::L, emove::Lr, emove::L2,

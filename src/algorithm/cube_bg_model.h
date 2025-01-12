@@ -163,7 +163,7 @@ public:
     uint8_t edge_orientation(const edge_t& edge) const;
 
     // output: first index is the facelet on the R/L face
-    uint8_t corner_orientation(const corner_t& corner) const;
+    uint8_t corner_orientation(const corner_t& corner, epiece corner_piece) const;
 
     // unique index of edge by edge facelets colors
     uint8_t edge_index(const edge_t& edge) const;

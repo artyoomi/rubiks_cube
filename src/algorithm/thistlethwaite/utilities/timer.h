@@ -1,8 +1,8 @@
 #pragma once
 
+#include <iostream>
 #include <chrono>
 #include <string>
-#include <iostream>
 
 class Timer {
 public:
@@ -12,7 +12,7 @@ public:
 		_start = std::chrono::high_resolution_clock::now();
 	}
 
-	// get elapsed time
+	// get time
 	double get()
 	{
 		auto end_point = std::chrono::high_resolution_clock::now();
@@ -26,7 +26,7 @@ public:
 		return ms;
 	}
 
-    // get elapsed time and print the result with a message
+    // get time and print the result with a message
 	double get(const std::string& message)
 	{
 		double ms = this->get();

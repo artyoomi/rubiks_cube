@@ -15,10 +15,11 @@
  *
  * Therefore, there are 4!^5 / 12 = 96 * 4!^3 / 2 = 663552 states to store in the database.
  *
- * disallowed lone 3-cycles explained here: puzzling.stackexchange.com/questions/5402/what-is-the-meaning-of-a-tetrad-twist-in-thistlethwaites-algorithm
+ * Disallowed lone 3-cycles explained below: 
+ * puzzling.stackexchange.com/questions/5402/what-is-the-meaning-of-a-tetrad-twist-in-thistlethwaites-algorithm
 */
 struct Phase4_database : public Database {
-	Phase4_database() : Database(663552, "G3")
+	Phase4_database() : Database(663552, "phase4")
     {
         phase_info = std::make_shared<Phase4_info>();
     }

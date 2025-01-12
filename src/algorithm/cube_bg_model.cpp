@@ -504,7 +504,7 @@ Cube_bg_model::ecolor Cube_bg_model::color(eedge index) const
  * Checks if a facelet has one of the colors from the F/B axis, if 
  * not, checks if it's from the U/D axis and that the adjacent edge facelet
  * has a color from the R/L axis
- * source of info: https://www.jaapsch.net/puzzles/thistle.htm#p2
+ * Source: https://www.jaapsch.net/puzzles/thistle.htm#p2
  */
 uint8_t Cube_bg_model::edge_orientation(const edge_t& edge) const
 {
@@ -529,12 +529,34 @@ uint8_t Cube_bg_model::edge_orientation(const edge_t& edge) const
              (edge[1] == ecolor::R || edge[1] == ecolor::L)));
 }
 
-uint8_t Cube_bg_model::corner_orientation(const corner_t& corner) const
+/*
+ * Counts, how manu times we need to rotate corner piece clockwise, 
+ * to match L/R piece facelet with L/R piece color
+ * Source: https://www.ryanheise.com/cube/cube_laws.html
+ */
+uint8_t Cube_bg_model::corner_orientation(const corner_t& corner, epiece corner_piece) const
 {
-    // retrun 0 / 1 / 2 based on which axis the L/R color is on
-    for (uint8_t i = 0; i < 3; ++i) {
-        if (corner[i] == ecolor::R || corner[i] == ecolor::L)
-            return i;
+    bool is_even = false;
+
+    if (corner_piece == epiece::ULB || corner_piece == epiece::DLF ||
+        corner_piece == epiece::DRB || corner_piece == epiece::URF) {
+        is_even = true;
+    }
+
+    if (!is_even) {
+        if (corner[0] == ecolor::R || corner[0] == ecolor::L)
+            return 0;
+        if (corner[1] == ecolor::R || corner[1] == ecolor::L)
+            return 1;
+        if (corner[2] == ecolor::R || corner[2] == ecolor::L)
+            return 2;
+    } else {
+        if (corner[0] == ecolor::R || corner[0] == ecolor::L)
+            return 0;
+        if (corner[1] == ecolor::R || corner[1] == ecolor::L)
+            return 2;
+        if (corner[2] == ecolor::R || corner[2] == ecolor::L)
+            return 1;
     }
 
     throw std::logic_error("Cube_bg_model::corner_orientation unable to get orientation, corner must have a R / O facelet");
@@ -709,7 +731,12 @@ Cube_bg_model::edge_t Cube_bg_model::edge(epiece piece) const
 
 Cube_bg_model::corner_t Cube_bg_model::corner(epiece piece) const
 {
-    // same as edge(), only requires the position of the edge / corner piece
+    /*
+     * Facelets in returning array:
+     * 1. L/R
+     * 2. U/D
+     * 3. F/B
+     */
     switch (piece) {
     case epiece::ULB:
         return {color(ecorner::LUB), color(ecorner::ULB), color(ecorner::BLU)};
@@ -728,8 +755,7 @@ Cube_bg_model::corner_t Cube_bg_model::corner(epiece piece) const
     case epiece::URB:
         return {color(ecorner::RUB), color(ecorner::URB), color(ecorner::BRU)};
     default:
-        std::string value = std::to_string((int)piece);
-        throw std::logic_error("Cube_bg_model::corner invalid enum value: " + value);
+        throw std::logic_error("Cube_bg_model::corner invalid enum value: " + std::to_string((int)piece));
     }
 }
 
@@ -749,8 +775,7 @@ std::string Cube_bg_model::color_name(ecolor color)
     case ecolor::D:
         return "Y";
     default:
-        std::string value = std::to_string((int)color);
-        throw std::logic_error("Cube_bg_model::color_name invalid enum value: " + value);
+        throw std::logic_error("Cube_bg_model::color_name invalid enum value: " + std::to_string((int)color));
     }
 }
 
@@ -796,7 +821,6 @@ std::string Cube_bg_model::move_name(emove move)
     case emove::NO_MOVE:
         return "";
     default:
-        std::string value = std::to_string((int)move);
-        throw std::logic_error("Cube_bg_model::move_name invalid enum value: " + value);
+        throw std::logic_error("Cube_bg_model::move_name invalid enum value: " + std::to_string((int)move));
     }
 }

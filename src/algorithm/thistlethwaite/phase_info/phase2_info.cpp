@@ -2,15 +2,14 @@
 
 uint32_t Phase2_info::id(const Cube_bg_model& cube) const
 {
-    // stores the orientation of all corners (by position, regardless of which corner is where)
     std::array<uint8_t, 7> corner_orientation_perm = {
-        cube.corner_orientation(cube.corner(epiece::ULB)),
-        cube.corner_orientation(cube.corner(epiece::ULF)),
-        cube.corner_orientation(cube.corner(epiece::DLF)),
-        cube.corner_orientation(cube.corner(epiece::DLB)),
-        cube.corner_orientation(cube.corner(epiece::URF)),
-        cube.corner_orientation(cube.corner(epiece::URB)),
-        cube.corner_orientation(cube.corner(epiece::DRB))
+        cube.corner_orientation(cube.corner(epiece::ULB), epiece::ULB),
+        cube.corner_orientation(cube.corner(epiece::ULF), epiece::ULF),
+        cube.corner_orientation(cube.corner(epiece::DLF), epiece::DLF),
+        cube.corner_orientation(cube.corner(epiece::DLB), epiece::DLB),
+        cube.corner_orientation(cube.corner(epiece::URF), epiece::URF),
+        cube.corner_orientation(cube.corner(epiece::URB), epiece::URB),
+        cube.corner_orientation(cube.corner(epiece::DRB), epiece::DRB)
     };
 
     // stores the edges that are currently occupying each position

@@ -5,7 +5,7 @@
 #include <atomic>
 #include <mutex>
 
-#include "../../dependencies/GLFW/glfw3.h"
+#include <GLFW/glfw3.h>
 #include "../model/scene.h"
 #include "../view/renderer.h"
 

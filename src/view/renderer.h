@@ -1,5 +1,7 @@
 #pragma once
-#include "../../dependencies/GLFW/glfw3.h"
+
+#include <GLFW/glfw3.h>
+
 #include "../model/scene.h"
 #include "cube_mesh.h"
 

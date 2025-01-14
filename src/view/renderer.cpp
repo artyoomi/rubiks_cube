@@ -1,7 +1,9 @@
 #include "../../dependencies/glad/glad.h"
+
 #include "../../dependencies/glm/glm.hpp"
 #include "../../dependencies/glm/ext/matrix_clip_space.hpp"
 #include "../../dependencies/glm/gtc/type_ptr.hpp"
+
 #include "renderer.h"
 #include "resource_load.h"
 

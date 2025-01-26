@@ -23,7 +23,7 @@ bool Database::load()
     }
 
     ifs.close();
-    return full();
+    return this->full();
 }
 
 void Database::save() const

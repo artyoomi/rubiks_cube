@@ -24,9 +24,9 @@ struct Phase {
     {
         std::cout << "Loading database: " << name << "..." << std::endl;
         if (database->load())
-            std::cout << "Database for " << name << " was successfully loaded!" << std::endl;
+            std::cout << "Database for " << name << " was successfully loaded!\n";
         else {
-            std::cout << "Failed to load database: " << name << ". Generating..." << std::endl;
+            std::cout << "Failed to load database: " << name << ". Generating...\n";
             __db_generator.generate(*phase_info, *database);
         }
     }

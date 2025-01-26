@@ -536,14 +536,15 @@ uint8_t Cube_bg_model::edge_orientation(const edge_t& edge) const
  */
 uint8_t Cube_bg_model::corner_orientation(const corner_t& corner, epiece corner_piece) const
 {
-    bool is_even = false;
+    // If corner from even tetrad, rotate logic must be different
+    bool is_even_tetrad = false;
 
     if (corner_piece == epiece::ULB || corner_piece == epiece::DLF ||
         corner_piece == epiece::DRB || corner_piece == epiece::URF) {
-        is_even = true;
+        is_even_tetrad = true;
     }
 
-    if (!is_even) {
+    if (!is_even_tetrad) {
         if (corner[0] == ecolor::R || corner[0] == ecolor::L)
             return 0;
         if (corner[1] == ecolor::R || corner[1] == ecolor::L)

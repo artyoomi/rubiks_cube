@@ -141,7 +141,7 @@ std::vector<std::pair<rotation_side, rotation_type>> Thistlethwaite::solve(const
     std::cout << "Moves(" << result.size() << "): ";
     for (const auto& move : result)
         std::cout << cube.move_name(move);
-    std::cout << std::endl;
+    std::cout << "\n\n";
 
     // convert emove to rot notation
     auto new_result = emove_to_rot(result);

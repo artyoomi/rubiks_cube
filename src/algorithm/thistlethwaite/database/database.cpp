@@ -28,8 +28,16 @@ bool Database::load()
 
 void Database::save() const
 {
+    // Check the existence of the directory and create it if necessary
+    if (!std::filesystem::exists(std::filesystem::path(this->_cache_dir_path)))
+        std::filesystem::create_directory(std::filesystem::path(this->_cache_dir_path));
+
+    // File with same name as _cache_dir_path was already exists and it it not a directory
+    if (!std::filesystem::is_directory(this->_cache_dir_path))
+        throw std::runtime_error("Error: Cannot use non-directory file to store phases cache!");
+    
     // open file
-    std::ofstream ofs(_cache_dir_path + _fname);
+    std::ofstream ofs(std::filesystem::path(_cache_dir_path) / std::filesystem::path(_fname));
 
     // check if file is open
     if (!ofs.is_open())

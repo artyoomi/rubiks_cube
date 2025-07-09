@@ -7,6 +7,7 @@
 #include <string>
 #include <vector>
 #include <memory>
+#include <filesystem>
 
 #include "../../cube_bg_model.h"
 #include "../phase_info/phase_info.h"
@@ -24,7 +25,7 @@ public:
         : _size{0},
           _capacity{capacity},
           _fname{fname},
-          _cache_dir_path{"./"}
+          _cache_dir_path{"./cache"}
     {
         _data.resize(capacity);
         reset();

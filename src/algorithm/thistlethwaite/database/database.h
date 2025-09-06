@@ -21,11 +21,12 @@ public:
     using epiece = Cube_bg_model::epiece;
     using emove  = Cube_bg_model::emove;
 
-    Database(std::size_t capacity, const std::string& fname)
+    Database(std::size_t capacity, const std::string& fname,
+             const std::string& cache_dir = "cache")
         : _size{0},
           _capacity{capacity},
           _fname{fname},
-          _cache_dir_path{"./cache"}
+          _cache_dir_path{cache_dir}
     {
         _data.resize(capacity);
         reset();

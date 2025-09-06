@@ -2,7 +2,11 @@
 
 bool Database::load()
 {
-    std::ifstream ifs(_cache_dir_path + _fname);
+    // Add '/' between cache folder and phase_db name if not added
+    std::ifstream ifs(
+        (_cache_dir_path.back() == '/') ? (_cache_dir_path + _fname)
+                                        : (_cache_dir_path + '/' + _fname)
+    );
 
     if (ifs) {
         std::size_t tmp;

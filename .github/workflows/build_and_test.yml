@@ -1,5 +1,3 @@
-# Author: Ivanov Artyom 3381
-
 name: CMake build & test
 
 on:
@@ -18,12 +16,21 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+
+    - name: Update apt cache
+      run: sudo apt-get update
     
     - name: Install gtest manually
-      run: sudo apt-get install libgtest-dev && cd /usr/src/gtest && sudo cmake CMakeLists.txt && sudo make && sudo cp lib/*.a /usr/lib && sudo ln -s /usr/lib/libgtest.a /usr/local/lib/libgtest.a && sudo ln -s /usr/lib/libgtest_main.a /usr/local/lib/libgtest_main.a
+      run: sudo apt-get install -y libgtest-dev cmake &&
+           cd /usr/src/gtest &&
+           sudo cmake CMakeLists.txt &&
+           sudo make &&
+           sudo cp lib/*.a /usr/lib &&
+           sudo ln -s /usr/lib/libgtest.a /usr/local/lib/libgtest.a &&
+           sudo ln -s /usr/lib/libgtest_main.a /usr/local/lib/libgtest_main.a
 
     - name: Install GLFW manually
-      run: sudo apt-get install freeglut3-dev && sudo apt-get install libglfw3-dev
+      run: sudo apt-get install -y freeglut3-dev libglfw3-dev
     
     - name: Configure CMake
       # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
